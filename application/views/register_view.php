@@ -88,29 +88,42 @@
                     </div>
                     
                     <div class="form2-section">
-                        <div class="form2-section-heading">Professional information</div>
+                        <div class="form2-section-heading">Member Status</div>
                         <div class="form2-section-body">
                             
                             <div class="form-group">
-                                <label for="designation">Designation</label>
-                                <input class="form-control" type="text" name="designation" id="designation" required />
+                                <label for="status">Best description of your work with unmanned systems (e.g. drones)</label>
+                                <select class="form-control" name="status" id="status" required>
+                                    <option value="">-- Select an option --</option>
+                                    <option value="Regulator">Regulator</option>
+                                    <option value="Operator">Operator</option>
+                                    <option value="Researcher">Researcher</option>
+                                    <option value="Recreational">Recreational</option>
+                                    <option value="Manufacturer">Manufacturer</option>
+                                    <option value="Marketer">Marketer</option>
+                                    <option value="Others">Others</option>
+                                </select>
                             </div>
 
                         </div>
                     </div>
-
-                    <div class="text-center">
-                        <input class="custom-outline-button" type="submit" name="submit" value="Submit" />
+                    
+                    <div class="form2-progress">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="stage">Page 1 of 2</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-right">
+                                    <input class="custom-outline-button" type="submit" name="submit" value="Next" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 <?php form_close(); ?>
                 
             </div>
-          </div>
-          <div class="alt-form-pages">
-              <div class="form-option">
-                <a href="<?php echo base_url().'dashboard/login'; ?>">Click here to login</a>
-              </div>
           </div>
       </div>
     </div>
