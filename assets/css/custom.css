@@ -1,0 +1,176 @@
+body, a.nav-link{
+    font-family: 'Montserrat', sans-serif;
+    color: #000000;
+    margin-left: 15px;
+}
+.nav-item{
+    margin: 0 5px;
+}
+.nav-item a.nav-link{
+    font-size: 15px;
+    color: #000000 !important;
+    letter-spacing: 1.1px;
+}
+.page{
+    min-height: 580px;
+    padding: 50px 10px;
+}
+.main-content{
+    padding: 30px 0;
+}
+.page-breadcrumb .breadcrumb-item{
+    font-size: 0.8em;
+    font-weight: 600;
+}
+.sidebar{
+    padding: 30px 10px;
+}
+.sidebar a{
+    padding-left: 15px;
+    color: #000000;
+    font-weight: 700;
+}
+.sidebar a:hover{
+    text-decoration: none;
+    font-style: italic;
+}
+.developer-badge{
+    padding: 30px 10px;
+}
+.developer-badge a{
+    color: #000000;
+}
+.dashboard-section{
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    background-color: #ffffff;
+    -webkit-box-shadow: 3px 3px 5px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 2px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+.section-heading{
+    border-radius: 5px 5px 0 0 ;
+    background-color: #666666;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 8px 15px;
+}
+.section-body{
+    padding: 8px 15px;
+}
+.section-item{
+    padding: 8px 0 12px 0;
+}
+.section-item .badge{
+    padding: 5px 12px 7px 12px;
+}
+.related-action{
+    margin-top: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    padding: 15px;
+}
+.action-title{
+    border-bottom: 1px dotted #ccc;
+    padding: 7px 0;
+}
+.action-body{
+    padding: 15px 0 7px 0;
+}
+.user-image-navbar{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+a.btn:hover{
+    font-style: italic;
+}
+.notice-icon{
+    width: 25px;
+    margin-top: -5px;
+    margin-right: 8px;
+}
+.info-icon{
+    width: 20px;
+    margin-top: -2px;
+    margin-right: 8px;
+}
+.alert-info a:link{
+    color: #0C5460;
+    text-decoration: underline;
+}
+.form{
+    background-color: #ffffff;
+    padding: 20px;
+    -webkit-box-shadow: 3px 3px 5px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 2px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+.form-heading{
+    font-size: 1.4em;
+    border-bottom: 1px dotted #ccc;
+}
+.form-body{
+    padding: 20px 0;
+}
+.form2{
+
+}
+.form2-title{
+    font-size: 1.4em;
+    font-weight: 700;
+    border-bottom: 1px dotted #ccc;
+}
+.form2-body{
+
+}
+.form2-section{
+    padding: 20px 0;
+}
+.form2-section-heading{
+    font-size: 1.1em;
+    font-weight: 700;
+    border-bottom: 1px dotted #ccc;
+    padding: 10px 0;
+}
+.form2-section-body{
+    background-color: #ffffff;
+    padding: 20px;
+    -webkit-box-shadow: 3px 3px 5px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 2px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+.custom-button{
+    border: 2px solid #000000;
+    border-radius: 35px;
+    background-color: #000000;
+    padding: 10px 40px;
+    color: #ffffff;
+}
+.custom-outline-button{
+    border: 2px solid #000000;
+    border-radius: 35px;
+    background-color: #ffffff;
+    padding: 10px 40px;
+    color: #000000;
+}
+.custom-outline-button:hover{
+    border: 2px solid #000000;
+    border-radius: 35px;
+    background-color: #000000;
+    padding: 10px 40px;
+    color: #ffffff;
+}
+.alt-form-pages{
+    padding: 30px 0;
+    font-size: 0.9em;
+}
+.alt-form-pages a{
+    color: #000000;
+    font-weight: 700;
+}
+.alt-form-pages .form-option{
+    padding: 5px 0;
+}
