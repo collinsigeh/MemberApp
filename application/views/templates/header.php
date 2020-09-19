@@ -67,16 +67,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <?php
-              if($page_title == 'Reset password')
+              if($page_title == 'Reset password' OR $page_title == 'New registration')
               {
               ?>
-                <a class="nav-link" href="<?php echo base_url().'dashboard/login/'; ?>"><< BACK TO LOGIN</a>
+                <li class="nav-item"><a class="nav-link" href="https://nusa.ng"><< BACK TO MAIN WEBSITE</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo base_url().'dashboard/login/'; ?>">LOGIN</a>
               <?php
               }
               else
               {
               ?>
-                <a class="nav-link" href="https://nusa.ng"><< BACK TO MAIN WEBSITE</a>
+                <li class="nav-item"><a class="nav-link" href="https://nusa.ng"><< BACK TO MAIN WEBSITE</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo base_url().'dashboard/register/'; ?>">JOIN NUSA</a>
               <?php
               }
             ?>
