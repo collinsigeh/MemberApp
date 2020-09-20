@@ -27,7 +27,13 @@ class Dashboard extends CI_Controller {
 
 	public function registering_user()
 	{
-		echo 'i got here processing register';
+		$data = array(
+			'page_title' => 'New registration - Page 2'
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('register_page2_view');
+		$this->load->view('templates/footer');
 	}
 
 	public function login()

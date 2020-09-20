@@ -29,7 +29,7 @@
           </div>
           <div class="alt-form-pages">
               <div class="form-option">
-                <a href="<?php echo base_url().'dashboard/login'; ?>">Click here to login</a>
+                <a href="<?php echo base_url().'dashboard/login'; ?>"><< Back to login</a>
               </div>
           </div>
       </div>

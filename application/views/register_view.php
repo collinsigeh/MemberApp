@@ -49,14 +49,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="firstname">Firstname</label>
+                                        <label for="firstname">First Name</label>
                                         <input class="form-control" type="text" name="firstname" id="firstname" required />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="surname">Surname</label>
-                                        <input class="form-control" type="text" name="surname" id="surname" required />
+                                        <label for="surname">Last Name</label>
+                                        <input class="form-control" type="text" name="lastname" id="lastname" required />
                                     </div>
                                 </div>
                             </div>
@@ -107,6 +107,8 @@
 
                         </div>
                     </div>
+
+                    <input type="hidden" name="page" value="page1">
                     
                     <div class="form2-progress">
                         <div class="row">

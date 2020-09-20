@@ -34,6 +34,12 @@
                   <div class="col-md-8"><span class="badge badge-pill badge-success">Active</span></div>
                 </div>
               </div>
+              <div class="section-item">
+                <div class="row">
+                  <div class="col-md-4">Account Status</div>
+                  <div class="col-md-8"><span class="badge badge-pill badge-success">Active</span></div>
+                </div>
+              </div>
             </div>
           </div>
           

@@ -1,6 +1,6 @@
 <a href="#">My Profile</a>
 <hr>
-<a href="#">Member Privileges</a>
+<a href="#">My Subscription</a>
 <hr>
 <a href="#">Resource Centre</a>
 <hr>

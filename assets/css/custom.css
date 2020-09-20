@@ -110,6 +110,7 @@ a.btn:hover{
 }
 .form-heading{
     font-size: 1.4em;
+    font-weight: 700;
     border-bottom: 1px dotted #ccc;
 }
 .form-body{
@@ -143,10 +144,11 @@ a.btn:hover{
     box-shadow:         3px 3px 5px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 .form2-progress{
-    padding: 40px 20px 20px 20px;
+    padding: 40px 20px 20px 10px;
 }
 .form2-progress .stage{
-    padding: 15px 0;
+    padding: 10px 0;
+    font-size: 0.8em;
 }
 .custom-button{
     border: 2px solid #000000;
@@ -179,4 +181,16 @@ a.btn:hover{
 }
 .alt-form-pages .form-option{
     padding: 5px 0;
+}
+.form-group .checkbox, .form-group .radio{
+    padding-left: 20px;
+}
+.form-group .checkbox input, .form-group .radio input{
+    margin-right: 15px;
+}
+.form-group .checkbox label, .form-group .radio label{
+    font-size: 0.9em;
+}
+.form-group label.consent_detail{
+    font-size: 0.8em;
 }
