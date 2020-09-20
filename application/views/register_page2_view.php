@@ -102,6 +102,7 @@
 
                             <div class="form-group">
                                 <label class="consent_detail" for="NUSA_code_of_conduct">
+                                    <div class="alert alert-outline-light">
                                     I hereby acknowledge that I have read and understand the Nigeria Unmanned Systems & Robotics 
                                     Association's (NUSA) Code of Conduct and will be responsible for obtaining all future amendments 
                                     and modifications thereto. I further acknowledge that I have read and understand all of my 
@@ -109,7 +110,7 @@
                                     Conduct and constitution and will read and understand all of my obligations, duties and 
                                     responsibilities under all future amendments and modifications thereto. I understand that violations 
                                     of the Code of Conduct or NUSA policies may result in disciplinary action including suspension and/or 
-                                    withdrawal of my membership. I certify that this is a true and correct statement by me.
+                                    withdrawal of my membership. I certify that this is a true and correct statement by me.</div>
                                 </label>
                                 <div class="checkbox">
                                     <input type="checkbox" name="code_of_conduct" id="code_of_conduct" value="1"> <label for="code_of_conduct">I agree.</label>
@@ -125,9 +126,10 @@
 
                             <div class="form-group">
                                 <label class="consent_detail" for="NUSA_terms_and_conditions">
+                                    <div class="alert alert-outline-light">
                                     I affirm that all information provided are correct. I understand that my completion of this form 
                                     authorizes the association to make use of the information for the business of the association, and as 
-                                    may be required by the relevant authorities under the Nigerian Law, if the need arises.
+                                    may be required by the relevant authorities under the Nigerian Law, if the need arises.</div>
                                 </label>
                                 <div class="checkbox">
                                     <input type="checkbox" name="terms_and_conditions" id="terms_and_conditions" value="1"> <label for="terms_and_conditions">I agree.</label>
