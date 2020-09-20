@@ -2,7 +2,7 @@
 <div class="container">
   <div class="page">
     <div class="row">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-md-10 offset-md-1">
         <div class="main-content">
           <!-- Main content -->
           <?php 
