@@ -52,10 +52,13 @@ class Dashboard extends CI_Controller {
 
 	public function login()
 	{	
+		// redirects to dashboard if user is logged-in
+
 		if($this->session->userlogged_in == '*#loggedin@Yes')
 		{
-			redirect(base_url().'dashboard/logout/');
+			redirect(base_url().'dashboard/');
 		}
+
 		$data = array(
 			'page_title' => 'Login'
 		);
@@ -138,7 +141,7 @@ class Dashboard extends CI_Controller {
 
 		// redirect to login page
 
-		redirect(base_url().'dashboard/');
+		redirect(base_url().'dashboard/login/');
 	}
 
 	public function reset_password()
