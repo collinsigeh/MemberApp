@@ -6,4 +6,4 @@
 <hr>
 <a href="#">Order History</a>
 <hr>
-<a href="#">Logout</a>
+<a href="<?php echo base_url().'dashboard/logout/'; ?>">Logout</a>

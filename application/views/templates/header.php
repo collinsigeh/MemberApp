@@ -35,10 +35,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">DASHBOARD</a>
+            <a class="nav-link" href="<?php echo base_url().'dashboard/'; ?>">DASHBOARD</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" target="_blank">MAIN WEBSITE</a>
+            <a class="nav-link" href="https://nusa.ng" target="_blank">MAIN WEBSITE</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">JOHN OKORO <img src="<?php echo base_url(); ?>assets/img/profile_images/profile_default.png" class="user-image-navbar" /></a>
