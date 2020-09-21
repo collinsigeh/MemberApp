@@ -7,7 +7,9 @@ class Dashboard extends CI_Controller {
 	{
 		parent::__construct();
 		
-		
+		$this->load->model('user_model');
+
+		$this->load->library('form_validation');
 	}
 
 	public function index()
@@ -49,7 +51,11 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function login()
-	{
+	{	
+		if($this->session->userlogged_in == '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/logout/');
+		}
 		$data = array(
 			'page_title' => 'Login'
 		);
@@ -61,7 +67,78 @@ class Dashboard extends CI_Controller {
 
 	public function loging_in()
 	{
-		echo 'i got here processing login';
+		// validate form inputs
+
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->action_error_message = validation_errors();
+			redirect(base_url().'dashboard/login/');
+		}
+
+		$this->session->email = strtolower(trim($this->input->post('email')));
+		$password = trim($this->input->post('password'));
+
+		$db_check = array(
+			'email' => $this->session->email
+		);
+		$result = $this->user_model->get($db_check);
+		if(empty($result))
+		{
+			$this->session->action_error_message = 'Invalid login details.';
+			redirect(base_url().'dashboard/login/');
+		}
+		if (!password_verify($password, $result[0]['password'])) {
+			$this->session->action_error_message = 'Invalid login details.';
+			redirect(base_url().'dashboard/login/');
+		}
+
+		$user = $result[0];
+
+		// set generic session verialbes for logged in users
+
+		$this->session->user_id = $user['id'];
+		$this->session->user_type = $user['user_type'];
+		$this->session->membership = $user['membership'];
+		$this->session->email = $user['email'];
+		$this->session->status = $user['status'];
+		$this->session->title = $user['title'];
+		$this->session->firstname = $user['firstname'];
+		$this->session->lastname = $user['lastname'];
+		$this->session->phone = $user['phone'];
+		$this->session->gender = $user['gender'];
+		$this->session->use_status = $user['use_status'];
+
+		$this->session->userlogged_in = '*#loggedin@Yes';
+
+		// redirect to appropriate dashboard
+
+		redirect(base_url().'dashboard/');
+	}
+
+	public function logout()
+	{
+		// reset all generic session variables to log out user_error
+
+		$this->session->user_id = 0;
+		$this->session->user_type = '';
+		$this->session->membership = '';
+		$this->session->email = '';
+		$this->session->status = '';
+		$this->session->title = '';
+		$this->session->firstname = '';
+		$this->session->lastname = '';
+		$this->session->phone = '';
+		$this->session->gender = '';
+		$this->session->use_status = '';
+
+		$this->session->userlogged_in = '';
+
+		// redirect to login page
+
+		redirect(base_url().'dashboard/');
 	}
 
 	public function reset_password()

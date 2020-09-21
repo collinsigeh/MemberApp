@@ -16,7 +16,7 @@
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input class="form-control" type="email" name="email" id="email" required />
+                        <input class="form-control" type="email" name="email" id="email" value="<?php echo $this->session->email; ?>" required />
                     </div>
 
                     <div class="form-group">

@@ -4,7 +4,7 @@
       {
         ?>
         <div class="alert alert-danger">
-          <img src="<?php echo base_url(); ?>assets/img/icon_images/error_info.png" class="info-icon" > <b>Error:</b> Invalid password.
+          <img src="<?php echo base_url(); ?>assets/img/icon_images/error_info.png" class="info-icon" > <b>Error:</b> <?php echo $this->session->action_error_message; ?>
         </div>
         <?php
         $this->session->action_error_message = '';
