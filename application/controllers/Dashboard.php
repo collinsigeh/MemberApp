@@ -5,18 +5,18 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		if($this->session->userlogged_in == '*#loggedin@Yes')
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
 		{
-			$data = array(
-				'page_title' => 'Dashboard'
-			);
-	
-			$this->load->view('templates/header', $data);
-			$this->load->view('dashboard_view');
-			$this->load->view('templates/footer');
+			redirect(base_url().'dashboard/login/');
 		}
 
-		redirect(base_url().'dashboard/login/');
+		$data = array(
+			'page_title' => 'Dashboard'
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('dashboard_view');
+		$this->load->view('templates/footer');
 	}
 
 	public function register()
