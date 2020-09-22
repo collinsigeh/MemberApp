@@ -52,15 +52,15 @@ class Dashboard extends CI_Controller {
 
 	public function registering_user()
 	{
+		if($this->session->userlogged_in == '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/');
+		}
+
 		if(time() >= $this->session->reg_expire_at)
 		{// when form 1 hour session expires
 			$this->session->action_error_message = 'Your registration session of 60 minutes has expired. Please start again';
 			redirect(base_url().'dashboard/register/');
-		}
-
-		if($this->session->userlogged_in == '*#loggedin@Yes')
-		{
-			redirect(base_url().'dashboard/');
 		}
 
 		if($this->input->post('form_page') == 'reg_page1')
@@ -107,6 +107,17 @@ class Dashboard extends CI_Controller {
 		elseif($this->input->post('form_page') == 'reg_page2.2')
 		{// submission from 2nd reg. page
 
+			// create necessary session variables, validate and clean entries entries (as is applicable)
+
+			// - if registrant is a student
+
+			// - or if registrant is a professional
+
+			// - if registrant has authorization details
+
+			// register details as is applicable
+
+			// auto login user with a welcome message (e.g. to purchase a subscription package)
 		}
 		else
 		{// fall back page (redirection)
