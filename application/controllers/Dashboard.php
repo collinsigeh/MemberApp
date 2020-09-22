@@ -53,6 +53,16 @@ class Dashboard extends CI_Controller {
 
 		if($this->input->post('form_page') == 'reg_page1')
 		{// submission from 1st reg. page
+
+			// create necessary session variables for form interaction
+			$this->session->membership	= $this->input->post('membership');
+			$this->session->title		= $this->input->post('title');
+			$this->session->firstname	= $this->input->post('firstname');
+			$this->session->lastname	= $this->input->post('lastname');
+			$this->session->email		= $this->input->post('email');
+			$this->session->phone		= $this->input->post('phone');
+			$this->session->gender		= $this->input->post('gender');
+			$this->session->use_status	= $this->input->post('use_status');
 			
 			//validate form enteries
 
@@ -60,14 +70,10 @@ class Dashboard extends CI_Controller {
 			$this->form_validation->set_rules('title', 'Title', 'trim|required');
 			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
 			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
-			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]', array('is_unique[users.email]', 'The email provided is already in use.'));
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
 			$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
 			$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
-			$this->form_validation->set_rules('use_status', 'Member Status (Best description of your work with unmanned systems)', 'trim|required');
-
-			// create necessary session variables
-
-			
+			$this->form_validation->set_rules('use_status', 'Member Status (Best description of your work with unmanned systems)', 'trim|required');			
 
 			if($this->form_validation->run() == FALSE)
 			{

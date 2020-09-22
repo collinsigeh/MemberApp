@@ -144,7 +144,7 @@
                     <div class="form2-progress">
                         <div class="row">
                             <div class="col-7">
-                                <div class="stage">Page 2 of 2 <a href="#" class="btn btn-sm btn-outline-secondary">Back to page 1</a></div>
+                                <div class="stage">Page 2 of 2 <a href="<?php echo base_url().'dashboard/register/'; ?>" class="btn btn-sm btn-outline-secondary">Back to page 1</a></div>
                             </div>
                             <div class="col-5">
                                 <div class="text-right">
