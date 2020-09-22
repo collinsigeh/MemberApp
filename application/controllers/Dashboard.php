@@ -36,7 +36,7 @@ class Dashboard extends CI_Controller {
 			redirect(base_url().'dashboard/');
 		}
 		
-		// set when registration process will expire
+		// set when registration process will expire after 60 minutes
 		$this->session->reg_expire_at	= time() + 3600;
 
 
@@ -52,6 +52,12 @@ class Dashboard extends CI_Controller {
 
 	public function registering_user()
 	{
+		if(time() >= $this->session->reg_expire_at)
+		{// when form 1 hour session expires
+			$this->session->action_error_message = 'Your registration session of 60 minutes has expired. Please start again';
+			redirect(base_url().'dashboard/register/');
+		}
+
 		if($this->session->userlogged_in == '*#loggedin@Yes')
 		{
 			redirect(base_url().'dashboard/');
