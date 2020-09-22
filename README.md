@@ -1,6 +1,7 @@
 # MemberApp
 MemberApp is an application for organisations to manage their membership, subscription, product offering and more. Its features include:
 - Artificial Intelligence (AI) based Smart Member registration
+- Automatic password generator
 - User account management
 - Admin control
 - Unlimited subscription packages
