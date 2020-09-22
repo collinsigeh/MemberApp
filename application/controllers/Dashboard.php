@@ -68,14 +68,14 @@ class Dashboard extends CI_Controller {
 
 			// create necessary session variables for form interaction
 			
-			$this->session->membership	= $this->input->post('membership');
-			$this->session->title		= $this->input->post('title');
-			$this->session->firstname	= $this->input->post('firstname');
-			$this->session->lastname	= $this->input->post('lastname');
-			$this->session->email		= $this->input->post('email');
-			$this->session->phone		= $this->input->post('phone');
-			$this->session->gender		= $this->input->post('gender');
-			$this->session->use_status	= $this->input->post('use_status');
+			$this->session->membership	= trim($this->input->post('membership'));
+			$this->session->title		= trim($this->input->post('title'));
+			$this->session->firstname	= ucfirst(trim($this->input->post('firstname')));
+			$this->session->lastname	= ucfirst(trim($this->input->post('lastname')));
+			$this->session->email		= strtolower(trim($this->input->post('email')));
+			$this->session->phone		= trim($this->input->post('phone'));
+			$this->session->gender		= trim($this->input->post('gender'));
+			$this->session->use_status	= trim($this->input->post('use_status'));
 			
 			//validate form enteries
 
@@ -109,13 +109,89 @@ class Dashboard extends CI_Controller {
 
 			// create necessary session variables, validate and clean entries entries (as is applicable)
 
-			// - if registrant is a student
+			if($this->session->membership == 'Student')
+			{// - if registrant is a student
+				
+				$this->session->institution		= strtoupper(trim($this->input->post('institution')));
+				$this->session->course_of_study	= strtoupper(trim($this->input->post('course_of_study')));
+				$this->session->degree			= trim($this->input->post('degree'));
+				$this->session->graduation_year	= trim($this->input->post('graduation_year'));
 
-			// - or if registrant is a professional
+				$this->form_validation->set_rules('institution', 'Name of Institution', 'trim|required');
+				$this->form_validation->set_rules('course_of_study', 'Course of Study', 'trim|required');
+				$this->form_validation->set_rules('degree', 'Degree', 'trim|required');
+				$this->form_validation->set_rules('graduation_year', 'Possible Year of Graduation', 'trim|required');
+			}
+			else
+			{// - registrant is a professional
+
+				$this->session->organisation				= strtoupper(trim($this->input->post('organisation')));
+				$this->session->industry					= trim($this->input->post('industry'));
+				$this->session->organisation_description	= trim($this->input->post('organisation_description'));
+				$this->session->office_address				= strtoupper(trim($this->input->post('office_address')));
+				$this->session->designation					= strtoupper(trim($this->input->post('designation')));
+
+				$this->form_validation->set_rules('organisation', 'Name of Organisation', 'trim|required');
+				$this->form_validation->set_rules('industry', 'Industry', 'trim|required');
+				$this->form_validation->set_rules('organisation_description', 'Describe your Organisation', 'trim|required');
+				$this->form_validation->set_rules('office_address', 'Office Address', 'trim|required');
+				$this->form_validation->set_rules('designation', 'Designation', 'trim|required');
+			}			
 
 			// - if registrant has authorization details
+			if($this->session->use_status == 'Operator')
+			{
+				$this->session->ncaa_roc_number 	= strtoupper(trim($this->input->post('ncaa_roc_number')));
+				$this->session->vlos				= $this->input->post('vlos');
+				$this->session->bvlos				= $this->input->post('bvlos');
+				$this->session->approved_operations	= $this->input->post('approved_operations');
 
-			// register details as is applicable
+				$this->form_validation->set_rules('ncaa_roc_number', 'NCAA ROC Number', 'trim|required');
+				$this->form_validation->set_rules('approved_operations', 'Approved Operations', 'trim|required');
+			}
+			elseif($this->session->use_status == 'Research' OR $this->session->use_status == 'Recreational')
+			{
+				$this->session->ncaa_roc_number = strtoupper(trim($this->input->post('ncaa_roc_number')));
+
+				$this->form_validation->set_rules('ncaa_roc_number', 'NCAA ROC Number', 'trim|required');
+			}
+			
+			// agreement confirmation
+			$this->form_validation->set_rules('code_of_conduct', 'NUSA Code of Conduct Agreement', 'required');
+			$this->form_validation->set_rules('terms_and_conditions', 'Terms and Conditions Agreement', 'required');
+
+			if($this->form_validation->run() == FALSE)
+			{
+				$this->session->action_error_message = validation_errors();
+				redirect(base_url().'dashboard/register/');
+			}
+
+			// register details (as is applicable)
+
+			// - register user account and get user_id
+			$password = $this->user_model->generate_new_password();
+			
+			$db_data = array(
+				'membership'	=> $this->session->membership,
+				'email' 		=> $this->session->email,
+				'password' 		=> password_hash($password, PASSWORD_DEFAULT),
+				'membership' 	=> $this->session->membership,
+				'membership' => $this->session->membership,
+				'membership' => $this->session->membership,
+				'membership' => $this->session->membership,
+				'membership' => $this->session->membership,
+				'membership' => $this->session->membership,
+				'membership' => $this->session->membership,
+				'membership' => $this->session->membership,
+			);
+
+			// - if student, then register student info
+
+			// - or register professional info
+
+			// - if operator, then register appropriate authorization details
+
+			// - if researcher or or recreational, then register appropriate authorization details
 
 			// auto login user with a welcome message (e.g. to purchase a subscription package)
 		}

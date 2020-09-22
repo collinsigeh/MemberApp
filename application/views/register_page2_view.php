@@ -28,13 +28,13 @@
 
                     <!-- Authorization detail for each use_staaus -->
                     <?php
-                        if($this->session->use_status == 'Regulator')
-                        {
-                            include('inc/reg_page2_student_info.php');
-                        }
-                        elseif($this->session->use_status == 'Operator')
+                        if($this->session->use_status == 'Operator')
                         {
                             include('inc/reg_page2_operator_authorization.php');
+                        }
+                        elseif($this->session->use_status == 'Research' OR $this->session->use_status == 'Recreational')
+                        {
+                            include('inc/reg_page2_reseach_and_recreational_authorization.php');
                         }
                     ?>
 

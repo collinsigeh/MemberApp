@@ -1,14 +1,14 @@
 # MemberApp
 MemberApp is an application for organisations to manage their membership, subscription, product offering and more. Its features include:
-- Member registration
+- Artificial Intelligence (AI) based Smart Member registration
 - User account management
 - Admin control
-- Multiple subscription packages
+- Unlimited subscription packages
 - Unlimited paid products creation  and management
 ## Technology Stack
-This is a LAMP Stack project built with CodeIgniter (a PHP Framework) with implementationusing the following:
+This is a LAMP Stack project built with CodeIgniter (a PHP Framework) with implementation using the following:
 - PHP
 - MySQL
 - CodeIgniter
 - Bootstrap
-- HTML, CSS and a little bit of JavaScript
+- HTML, CSS and a little bit of JavaScript (JQuery)
