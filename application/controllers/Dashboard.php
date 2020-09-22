@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller {
 		parent::__construct();
 		
 		$this->load->model('user_model');
+		$this->load->model('setting_model');
 
 		$this->load->library('form_validation');
 	}
@@ -34,7 +35,12 @@ class Dashboard extends CI_Controller {
 		{
 			redirect(base_url().'dashboard/');
 		}
+		
+		// set when registration process will expire
+		$this->session->reg_expire_at	= time() + 3600;
 
+
+		// load registration form
 		$data = array(
 			'page_title' => 'New registration'
 		);
@@ -55,6 +61,7 @@ class Dashboard extends CI_Controller {
 		{// submission from 1st reg. page
 
 			// create necessary session variables for form interaction
+			
 			$this->session->membership	= $this->input->post('membership');
 			$this->session->title		= $this->input->post('title');
 			$this->session->firstname	= $this->input->post('firstname');
