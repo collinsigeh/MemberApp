@@ -17,13 +17,13 @@
                                 <label for="degree">What degree are you studying for?</label>
                                 <select class="form-control" name="degree" id="degree" required>
                                     <option value="">-- Select appropriate degree --</option>
-                                    <option value="B.Sc" <?php if($this->session->industry == 'B.Sc'){ echo 'selected'; } ?>>B.Sc</option>
-                                    <option value="Diploma" <?php if($this->session->industry == 'Diploma'){ echo 'selected'; } ?>>Diploma</option>
-                                    <option value="Masters" <?php if($this->session->industry == 'Masters'){ echo 'selected'; } ?>>Masters</option>
-                                    <option value="PhD" <?php if($this->session->industry == 'PhD'){ echo 'selected'; } ?>>PhD</option>
-                                    <option value="Professional Certification" <?php if($this->session->industry == 'Professional Certification'){ echo 'selected'; } ?>>Professional Certification</option>
-                                    <option value="School Certificate" <?php if($this->session->industry == 'School Certificate'){ echo 'selected'; } ?>>School Certificate</option>
-                                    <option value="Others" <?php if($this->session->industry == 'Others'){ echo 'selected'; } ?>>Others</option>
+                                    <option value="B.Sc" <?php if($this->session->degree == 'B.Sc'){ echo 'selected'; } ?>>B.Sc</option>
+                                    <option value="Diploma" <?php if($this->session->degree == 'Diploma'){ echo 'selected'; } ?>>Diploma</option>
+                                    <option value="Masters" <?php if($this->session->degree == 'Masters'){ echo 'selected'; } ?>>Masters</option>
+                                    <option value="PhD" <?php if($this->session->degree == 'PhD'){ echo 'selected'; } ?>>PhD</option>
+                                    <option value="Professional Certification" <?php if($this->session->degree == 'Professional Certification'){ echo 'selected'; } ?>>Professional Certification</option>
+                                    <option value="School Certificate" <?php if($this->session->degree == 'School Certificate'){ echo 'selected'; } ?>>School Certificate</option>
+                                    <option value="Others" <?php if($this->session->degree == 'Others'){ echo 'selected'; } ?>>Others</option>
                                 </select>
                             </div>
 

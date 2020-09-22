@@ -7,6 +7,11 @@
             return $query->result_array();
         }
 
+        public function save($db_data)
+        {
+            return $this->db->insert('users', $db_data);
+        }
+
         public function generate_new_password()
         {
             $password = '';

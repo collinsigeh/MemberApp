@@ -46,12 +46,21 @@ class Dashboard extends CI_Controller {
 		);
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('register_view');
+		if($this->session->error_stage == 'Page 2.2')
+		{
+			$this->load->view('register_page2_view');
+		}
+		else
+		{
+			$this->load->view('register_view');
+		}
 		$this->load->view('templates/footer');
 	}
 
 	public function registering_user()
 	{
+		$this->session->error_stage == '';
+		
 		if($this->session->userlogged_in == '*#loggedin@Yes')
 		{
 			redirect(base_url().'dashboard/');
@@ -62,7 +71,7 @@ class Dashboard extends CI_Controller {
 			$this->session->action_error_message = 'Your registration session of 60 minutes has expired. Please start again';
 			redirect(base_url().'dashboard/register/');
 		}
-
+		
 		if($this->input->post('form_page') == 'reg_page1')
 		{// submission from 1st reg. page
 
@@ -157,41 +166,62 @@ class Dashboard extends CI_Controller {
 			}
 			
 			// agreement confirmation
-			$this->form_validation->set_rules('code_of_conduct', 'NUSA Code of Conduct Agreement', 'required');
-			$this->form_validation->set_rules('terms_and_conditions', 'Terms and Conditions Agreement', 'required');
+			$this->form_validation->set_rules('code_of_conduct', 'NUSA Code of Conduct', 'required');
+			$this->form_validation->set_rules('terms_and_conditions', 'Terms and Conditions', 'required');
 
 			if($this->form_validation->run() == FALSE)
 			{
 				$this->session->action_error_message = validation_errors();
+				$this->session->error_stage = 'Page 2.2';
 				redirect(base_url().'dashboard/register/');
 			}
 
 			// register details (as is applicable)
 
 			// - register user account and get user_id
-			$password = $this->user_model->generate_new_password();
-			
+			$password 	= $this->user_model->generate_new_password();
+			$status 	= 'Active';
+			if($this->setting_model->require_approval() == 1)
+			{
+				$status = 'Pending Approval';
+			}
+
 			$db_data = array(
 				'membership'	=> $this->session->membership,
 				'email' 		=> $this->session->email,
 				'password' 		=> password_hash($password, PASSWORD_DEFAULT),
-				'membership' 	=> $this->session->membership,
-				'membership' => $this->session->membership,
-				'membership' => $this->session->membership,
-				'membership' => $this->session->membership,
-				'membership' => $this->session->membership,
-				'membership' => $this->session->membership,
-				'membership' => $this->session->membership,
-				'membership' => $this->session->membership,
+				'status' 		=> $status,
+				'title' 		=> $this->session->title,
+				'firstname' 	=> $this->session->firstname,
+				'lastname' 		=> $this->session->lastname,
+				'phone' 		=> $this->session->phone,
+				'gender' 		=> $this->session->gender,
+				'use_status' 	=> $this->session->use_status,
+				'created_at' 	=> time()
 			);
+			
+			$this->user_model->save($db_data);
+			$result = $this->user_model->get($db_data);
+			$user_id = $result[0]['id'];
+
+			echo $user_id;
+			die();
 
 			// - if student, then register student info
+			$user = $this->user_model->get($db_data);
+			$db_data = array(
+
+			);
 
 			// - or register professional info
 
 			// - if operator, then register appropriate authorization details
 
 			// - if researcher or or recreational, then register appropriate authorization details
+
+			// send new account message to user
+
+			// conditionally send notification to admin
 
 			// auto login user with a welcome message (e.g. to purchase a subscription package)
 		}
@@ -235,7 +265,7 @@ class Dashboard extends CI_Controller {
 
 		$this->session->email = strtolower(trim($this->input->post('email')));
 		$password = trim($this->input->post('password'));
-
+		
 		$db_check = array(
 			'email' => $this->session->email
 		);

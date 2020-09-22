@@ -12,7 +12,7 @@
             <div class="form2-title">New Registration (Cont.)</div>
             <div class="forms-body">
 
-                <?php echo form_open(base_url().'dashboard/requesting_password_reset/'); ?>
+                <?php echo form_open(base_url().'dashboard/registering_user/'); ?>
                     
                     <!-- Student or Professional detail -->
                     <?php
