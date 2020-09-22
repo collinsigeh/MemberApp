@@ -175,21 +175,9 @@ class Dashboard extends CI_Controller {
 
 	public function logout()
 	{
-		// reset all generic session variables to log out user_error
+		// destroy all session variables
 
-		$this->session->user_id = 0;
-		$this->session->user_type = '';
-		$this->session->membership = '';
-		$this->session->email = '';
-		$this->session->status = '';
-		$this->session->title = '';
-		$this->session->firstname = '';
-		$this->session->lastname = '';
-		$this->session->phone = '';
-		$this->session->gender = '';
-		$this->session->use_status = '';
-
-		$this->session->userlogged_in = '';
+		session_destroy();
 
 		// redirect to login page
 
