@@ -46,20 +46,35 @@ class Dashboard extends CI_Controller {
 		);
 
 		$this->load->view('templates/header', $data);
-		if($this->session->error_stage == 'Page 2.2')
+		$this->load->view('register_view');
+		$this->load->view('templates/footer');
+	}
+
+	public function register_page2()
+	{
+		if($this->session->userlogged_in == '*#loggedin@Yes')
 		{
-			$this->load->view('register_page2_view');
+			redirect(base_url().'dashboard/');
 		}
-		else
-		{
-			$this->load->view('register_view');
+
+		if(time() >= $this->session->reg_expire_at)
+		{// when form 1 hour session expires
+			$this->session->action_error_message = 'Your registration session of 60 minutes has expired. Please start again';
+			redirect(base_url().'dashboard/register/');
 		}
+
+		// load registration form
+		$data = array(
+			'page_title' => 'New registration - Page 2'
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('register_page2_view');
 		$this->load->view('templates/footer');
 	}
 
 	public function registering_user()
 	{
-		$this->session->error_stage == '';
 		
 		if($this->session->userlogged_in == '*#loggedin@Yes')
 		{
@@ -85,6 +100,7 @@ class Dashboard extends CI_Controller {
 			$this->session->phone		= trim($this->input->post('phone'));
 			$this->session->gender		= trim($this->input->post('gender'));
 			$this->session->use_status	= trim($this->input->post('use_status'));
+			$this->session->form_page	= $this->input->post('form_page');
 			
 			//validate form enteries
 
@@ -104,19 +120,14 @@ class Dashboard extends CI_Controller {
 			}
 
 			// load reg. page 2
-
-			$data = array(
-				'page_title' => 'New registration - Page 2'
-			);
-
-			$this->load->view('templates/header', $data);
-			$this->load->view('register_page2_view');
-			$this->load->view('templates/footer');
+			
+			redirect(base_url().'dashboard/register_page2/');
 		}
 		elseif($this->input->post('form_page') == 'reg_page2.2')
 		{// submission from 2nd reg. page
 
 			// create necessary session variables, validate and clean entries entries (as is applicable)
+			$this->session->form_page = $this->input->post('form_page');
 
 			if($this->session->membership == 'Student')
 			{// - if registrant is a student
@@ -172,8 +183,7 @@ class Dashboard extends CI_Controller {
 			if($this->form_validation->run() == FALSE)
 			{
 				$this->session->action_error_message = validation_errors();
-				$this->session->error_stage = 'Page 2.2';
-				redirect(base_url().'dashboard/register/');
+				redirect(base_url().'dashboard/register_page2/');
 			}
 
 			// register details (as is applicable)
