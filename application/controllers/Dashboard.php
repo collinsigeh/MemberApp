@@ -30,6 +30,11 @@ class Dashboard extends CI_Controller {
 
 	public function register()
 	{
+		if($this->session->userlogged_in == '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/');
+		}
+
 		$data = array(
 			'page_title' => 'New registration'
 		);
@@ -41,13 +46,52 @@ class Dashboard extends CI_Controller {
 
 	public function registering_user()
 	{
-		$data = array(
-			'page_title' => 'New registration - Page 2'
-		);
+		if($this->session->userlogged_in == '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/');
+		}
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('register_page2_view');
-		$this->load->view('templates/footer');
+		if($this->input->post('form_page') == 'reg_page1')
+		{// submission from 1st reg. page
+			
+			//validate form enteries
+
+			$this->form_validation->set_rules('membership', 'Membership type', 'trim|required');
+			$this->form_validation->set_rules('title', 'Title', 'trim|required');
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+			$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
+			$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+			$this->form_validation->set_rules('use_status', 'Member Status (Best description of your work with unmanned systems)', 'trim|required');
+
+			if($this->form_validation->run() == FALSE)
+			{
+				$this->session->action_error_message = validation_errors();
+				redirect(base_url().'dashboard/register/');
+			}
+
+			// create necessary session variables
+
+			// load reg. page 2
+
+			$data = array(
+				'page_title' => 'New registration - Page 2'
+			);
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('register_page2_view');
+			$this->load->view('templates/footer');
+		}
+		elseif($this->input->post('form_page') == 'reg_page2.2')
+		{// submission from 2nd reg. page
+
+		}
+		else
+		{// fall back page (redirection)
+			
+			redirect(base_url().'dashboard/register/');
+		}
 	}
 
 	public function login()

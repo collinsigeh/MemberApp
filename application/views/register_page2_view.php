@@ -139,7 +139,7 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="page" value="page2">
+                    <input type="hidden" name="form_page" value="reg_page2.2">
                     
                     <div class="form2-progress">
                         <div class="row">

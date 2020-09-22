@@ -12,15 +12,15 @@
             <div class="form2-title">New Registration</div>
             <div class="forms-body">
 
-                <?php echo form_open(base_url().'dashboard/requesting_password_reset/'); ?>
+                <?php echo form_open(base_url().'dashboard/registering_user/'); ?>
 
                     <div class="form2-section">
                         <div class="form2-section-heading">Membership preference</div>
                         <div class="form2-section-body">
 
                             <div class="form-group">
-                                <label for="account_type">Choose membership type</label>
-                                <select class="form-control" name="account_type" id="account_type" required>
+                                <label for="membership">Choose membership type</label>
+                                <select class="form-control" name="membership" id="membership" required>
                                     <option value="Individual">Individual</option>
                                     <option value="Corporate">Corporate</option>
                                     <option value="Student">Student</option>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="surname">Last Name</label>
+                                        <label for="lastname">Last Name</label>
                                         <input class="form-control" type="text" name="lastname" id="lastname" required />
                                     </div>
                                 </div>
@@ -92,8 +92,8 @@
                         <div class="form2-section-body">
                             
                             <div class="form-group">
-                                <label for="status">Best description of your work with unmanned systems (e.g. drones)</label>
-                                <select class="form-control" name="status" id="status" required>
+                                <label for="use_status">Best description of your work with unmanned systems (e.g. drones)</label>
+                                <select class="form-control" name="use_status" id="use_status" required>
                                     <option value="">-- Select an option --</option>
                                     <option value="Regulator">Regulator</option>
                                     <option value="Operator">Operator</option>
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="page" value="page1">
+                    <input type="hidden" name="form_page" value="reg_page1">
                     
                     <div class="form2-progress">
                         <div class="row">
