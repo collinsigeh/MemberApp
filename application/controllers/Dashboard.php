@@ -70,7 +70,7 @@ class Dashboard extends CI_Controller {
 			$this->form_validation->set_rules('title', 'Title', 'trim|required');
 			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
 			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
-			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]', array('is_unique' => 'The email provided is already in use.'));
 			$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
 			$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
 			$this->form_validation->set_rules('use_status', 'Member Status (Best description of your work with unmanned systems)', 'trim|required');			
