@@ -59,6 +59,8 @@ class Dashboard extends CI_Controller {
 
 		if(time() >= $this->session->reg_expire_at)
 		{// when form 1 hour session expires
+
+			session_destroy();
 			$this->session->action_error_message = 'Your registration session of 60 minutes has expired. Please start again';
 			redirect(base_url().'dashboard/register/');
 		}
@@ -83,6 +85,8 @@ class Dashboard extends CI_Controller {
 
 		if(time() >= $this->session->reg_expire_at)
 		{// when form 1 hour session expires
+			
+			session_destroy();
 			$this->session->action_error_message = 'Your registration session of 60 minutes has expired. Please start again';
 			redirect(base_url().'dashboard/register/');
 		}
@@ -120,7 +124,7 @@ class Dashboard extends CI_Controller {
 			}
 
 			// load reg. page 2
-			
+
 			redirect(base_url().'dashboard/register_page2/');
 		}
 		elseif($this->input->post('form_page') == 'reg_page2.2')
@@ -190,6 +194,7 @@ class Dashboard extends CI_Controller {
 
 			// - register user account and get user_id
 			$password 	= $this->user_model->generate_new_password();
+			
 			$status 	= 'Active';
 			if($this->setting_model->require_approval() == 1)
 			{
@@ -211,19 +216,29 @@ class Dashboard extends CI_Controller {
 			);
 			
 			$this->user_model->save($db_data);
-			$result = $this->user_model->get($db_data);
+			$result = $this->user_model->get_where($db_data);
 			$user_id = $result[0]['id'];
 
-			echo $user_id;
-			die();
+			
+			if($this->session->membership == 'Student')
+			{// - if student, then register student info
+				
+				$db_data = array(
+					'user_id'	=> $user_id,
+					'institution' 		=> $this->session->institution,
+					'course_of_study'	=> $this->session->course_of_study,
+					'degree'			=> $this->session->degree,
+					'graduation_year'	=> $this->session->graduation_year
+				);
 
-			// - if student, then register student info
-			$user = $this->user_model->get($db_data);
-			$db_data = array(
+				$this->student_info_model->save($db_data);
+			}
+			else
+			{// - or register professional info
 
-			);
+			}
 
-			// - or register professional info
+			
 
 			// - if operator, then register appropriate authorization details
 
@@ -279,7 +294,7 @@ class Dashboard extends CI_Controller {
 		$db_check = array(
 			'email' => $this->session->email
 		);
-		$result = $this->user_model->get($db_check);
+		$result = $this->user_model->get_where($db_check);
 		if(empty($result))
 		{
 			$this->session->action_error_message = 'Invalid login details.';
