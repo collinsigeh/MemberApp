@@ -22,13 +22,13 @@
                             <div class="form-group">
                                 <label for="ncaa_roc_number">Approved Operations</label>
                                 <div class="radio">
-                                    <input type="radio" name="approved_operations" id="commercial" value="Commercial" required /> <label for="commercial">Commercial</label>
+                                    <input type="radio" name="approved_operation" id="commercial" value="Commercial" required /> <label for="commercial">Commercial</label>
                                 </div>
                                 <div class="radio">
-                                    <input type="radio" name="approved_operations" id="government" value="Government" required /> <label for="government">Government</label>
+                                    <input type="radio" name="approved_operation" id="government" value="Government" required /> <label for="government">Government</label>
                                 </div>
                                 <div class="radio">
-                                    <input type="radio" name="approved_operations" id="corporate" value="Corporate" required /> <label for="corporate">Corporate</label>
+                                    <input type="radio" name="approved_operation" id="corporate" value="Corporate" required /> <label for="corporate">Corporate</label>
                                 </div>
                             </div>
 

@@ -59,8 +59,7 @@ class Dashboard extends CI_Controller {
 
 		if(time() >= $this->session->reg_expire_at)
 		{// when form 1 hour session expires
-
-			session_destroy();
+			
 			$this->session->action_error_message = 'Your registration session of 60 minutes has expired. Please start again';
 			redirect(base_url().'dashboard/register/');
 		}
@@ -91,7 +90,6 @@ class Dashboard extends CI_Controller {
 		if(time() >= $this->session->reg_expire_at)
 		{// when form 1 hour session expires
 			
-			session_destroy();
 			$this->session->action_error_message = 'Your registration session of 60 minutes has expired. Please start again';
 			redirect(base_url().'dashboard/register/');
 		}
@@ -174,10 +172,10 @@ class Dashboard extends CI_Controller {
 				$this->session->ncaa_roc_number 	= strtoupper(trim($this->input->post('ncaa_roc_number')));
 				$this->session->vlos				= $this->input->post('vlos');
 				$this->session->bvlos				= $this->input->post('bvlos');
-				$this->session->approved_operations	= $this->input->post('approved_operations');
+				$this->session->approved_operation	= $this->input->post('approved_operation');
 
 				$this->form_validation->set_rules('ncaa_roc_number', 'NCAA ROC Number', 'trim|required');
-				$this->form_validation->set_rules('approved_operations', 'Approved Operations', 'trim|required');
+				$this->form_validation->set_rules('approved_operation', 'Approved Operations', 'trim|required');
 			}
 			elseif($this->session->use_status == 'Research' OR $this->session->use_status == 'Recreational')
 			{
@@ -258,16 +256,25 @@ class Dashboard extends CI_Controller {
 				
 				$db_data = array(
 					'user_id'	=> $user_id,
-					'institution' 		=> $this->session->institution,
-					'course_of_study'	=> $this->session->course_of_study,
-					'degree'			=> $this->session->degree,
-					'graduation_year'	=> $this->session->graduation_year
+					'incaa_roc_number ' 		=> $this->session->institution,
+					'vlos_class_of_operation'	=> $this->session->vlos,
+					'bvlos_class_of_operation'	=> $this->session->bvlos,
+					'approved_operation'		=> $this->session->approved_operation
 				);
 
 				$this->authorization_detail_model->save($db_data);
 			}
+			elseif($this->session->use_status == 'Research' OR $this->session->use_status == 'Recreational')
+			{// - if researcher or or recreational, then register appropriate authorization details
+				
+				$db_data = array(
+					'user_id'	=> $user_id,
+					'incaa_roc_number ' 		=> $this->session->institution,
+					'approved_operation'		=> 'N/A'
+				);
 
-			// - if researcher or or recreational, then register appropriate authorization details
+				$this->authorization_detail_model->save($db_data);
+			}
 
 			// send new account message to user
 
