@@ -65,6 +65,11 @@ class Dashboard extends CI_Controller {
 			redirect(base_url().'dashboard/register/');
 		}
 
+		if($this->session->reg_page1_successful !== '*##Yes!')
+		{// check that page 1 is filled out successfully.
+			redirect(base_url().'dashboard/register');
+		}
+
 		// load registration form
 		$data = array(
 			'page_title' => 'New registration - Page 2'
@@ -120,11 +125,12 @@ class Dashboard extends CI_Controller {
 			if($this->form_validation->run() == FALSE)
 			{
 				$this->session->action_error_message = validation_errors();
+				$this->session->reg_page1_successful = 'No';
 				redirect(base_url().'dashboard/register/');
 			}
 
-			// load reg. page 2
-
+			// hint that page 1 is filled successfully and redirect to reg. page 2
+			$this->session->reg_page1_successful = '*##Yes!';
 			redirect(base_url().'dashboard/register_page2/');
 		}
 		elseif($this->input->post('form_page') == 'reg_page2.2')
@@ -235,12 +241,31 @@ class Dashboard extends CI_Controller {
 			}
 			else
 			{// - or register professional info
+				
+				$db_data = array(
+					'user_id'					=> $user_id,
+					'industry'					=> $this->session->industry,
+					'organisation'				=> $this->session->organisation,
+					'organisation_description'	=> $this->session->organisation_description,
+					'office_address'			=> $this->session->office_address
+				);
 
+				$this->professional_info_model->save($db_data);
 			}
 
-			
+			if($this->session->use_status == 'Operator')
+			{// - if operator, then register appropriate authorization details
+				
+				$db_data = array(
+					'user_id'	=> $user_id,
+					'institution' 		=> $this->session->institution,
+					'course_of_study'	=> $this->session->course_of_study,
+					'degree'			=> $this->session->degree,
+					'graduation_year'	=> $this->session->graduation_year
+				);
 
-			// - if operator, then register appropriate authorization details
+				$this->authorization_detail_model->save($db_data);
+			}
 
 			// - if researcher or or recreational, then register appropriate authorization details
 
