@@ -282,22 +282,18 @@ class Dashboard extends CI_Controller {
 			$db_check = array(
 				'item' => 'New User Account Email'
 			);
-			$result = $this->automated_email_model->get_where($db_check);
-			$email_from = $result[0]['sender_email'];
-			$email_to = $this->session->email;
-			$subject_to_user = $result[0]['user_subject_line'];
-			$message_to_user = $result[0]['message_to_user'];
+			$resul			= $this->automated_email_model->get_where($db_check);
+			$from_email		= $result[0]['sender_email'];
+			$from_name		= $result[0]['sender_name'];
+			$reply_to		= $result[0]['reply_to_email'];
+			$reply_to_name	= $result[0]['sender_name'];
+			$email_to 		= $this->session->email;
+			$subject 		= $result[0]['user_subject_line'];
+			$message 		= $result[0]['message_to_user'];
 
-			$this->email->from('your@example.com', 'Your Name');
-			$this->email->to('someone@example.com');
-			$this->email->cc('another@another-example.com');
-			$this->email->bcc('them@their-example.com');
+			$message = $this->automated_email_model->message_cleanup($message);
 
-			$this->email->subject('Email Test');
-			$this->email->message('Testing the email class.');
-
-			$this->email->send();
-
+			$this->automated_email_model->send($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message);
 
 			// conditionally send notification to admin
 
