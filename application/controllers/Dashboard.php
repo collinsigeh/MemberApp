@@ -282,10 +282,11 @@ class Dashboard extends CI_Controller {
 			$db_check = array(
 				'item' => 'New User Account Email'
 			);
-			$result = $this->automated_email_model->getwhere($db_check);
-
-			echo $result;
-			die();
+			$result = $this->automated_email_model->get_where($db_check);
+			$email_from = $result[0]['sender_email'];
+			$email_to = $this->session->email;
+			$subject_to_user = $result[0]['user_subject_line'];
+			$message_to_user = $result[0]['message_to_user'];
 
 			$this->email->from('your@example.com', 'Your Name');
 			$this->email->to('someone@example.com');
