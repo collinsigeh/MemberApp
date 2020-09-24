@@ -11,6 +11,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('setting_model');
 
 		$this->load->library('form_validation');
+		$this->load->library('email');
 	}
 
 	public function index()
@@ -277,6 +278,25 @@ class Dashboard extends CI_Controller {
 			}
 
 			// send new account message to user
+
+			$db_check = array(
+				'item' => 'New User Account Email'
+			);
+			$result = $this->automated_email_model->getwhere($db_check);
+
+			echo $result;
+			die();
+
+			$this->email->from('your@example.com', 'Your Name');
+			$this->email->to('someone@example.com');
+			$this->email->cc('another@another-example.com');
+			$this->email->bcc('them@their-example.com');
+
+			$this->email->subject('Email Test');
+			$this->email->message('Testing the email class.');
+
+			$this->email->send();
+
 
 			// conditionally send notification to admin
 
