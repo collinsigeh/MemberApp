@@ -12,23 +12,23 @@
                             <div class="form-group">
                                 <label for="ncaa_roc_number">Class of Operations</label>
                                 <div class="checkbox">
-                                    <input type="checkbox" name="vlos" id="vlos" value="1"> <label for="vlos">VLOS (Visual Line of Sight)</label>
+                                    <input type="checkbox" name="vlos" id="vlos" value="1" <?php if($this->session->vlos == 1){ echo 'checked'; } ?>> <label for="vlos">VLOS (Visual Line of Sight)</label>
                                 </div>
                                 <div class="checkbox">
-                                    <input type="checkbox" name="bvlos" id="bvlos" value="1"> <label for="bvlos">BVLOS (Beyond Visual Line of Sight)</label>
+                                    <input type="checkbox" name="bvlos" id="bvlos" value="1" <?php if($this->session->bvlos == 1){ echo 'checked'; } ?>> <label for="bvlos">BVLOS (Beyond Visual Line of Sight)</label>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="ncaa_roc_number">Approved Operations</label>
                                 <div class="radio">
-                                    <input type="radio" name="approved_operation" id="commercial" value="Commercial" required /> <label for="commercial">Commercial</label>
+                                    <input type="radio" name="approved_operation" id="commercial" value="Commercial" <?php if($this->session->approved_operation == 'Commercial'){ echo 'checked'; } ?> required /> <label for="commercial">Commercial</label>
                                 </div>
                                 <div class="radio">
-                                    <input type="radio" name="approved_operation" id="government" value="Government" required /> <label for="government">Government</label>
+                                    <input type="radio" name="approved_operation" id="government" value="Government" <?php if($this->session->approved_operation == 'Government'){ echo 'checked'; } ?> required /> <label for="government">Government</label>
                                 </div>
                                 <div class="radio">
-                                    <input type="radio" name="approved_operation" id="corporate" value="Corporate" required /> <label for="corporate">Corporate</label>
+                                    <input type="radio" name="approved_operation" id="corporate" value="Corporate" <?php if($this->session->approved_operation == 'Corporate'){ echo 'checked'; } ?> required /> <label for="corporate">Corporate</label>
                                 </div>
                             </div>
 
