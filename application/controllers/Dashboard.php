@@ -136,6 +136,8 @@ class Dashboard extends CI_Controller {
 		{// submission from 2nd reg. page
 
 			// create necessary session variables, validate and clean entries entries (as is applicable)
+			$this->session->password = trim($this->input->post('password'));
+			$this->session->confirm_password = trim($this->input->post('confirm_password'));
 			$this->session->form_page = $this->input->post('form_page');
 
 			if($this->session->membership == 'Student')
@@ -185,8 +187,11 @@ class Dashboard extends CI_Controller {
 				$this->form_validation->set_rules('ncaa_roc_number', 'NCAA ROC Number', 'trim|required');
 			}
 			
-			// agreement confirmation
-			$this->form_validation->set_rules('code_of_conduct', 'NUSA Code of Conduct', 'required');
+			// member access and agreement details confirmation
+			
+			$this->form_validation->set_rules('password', 'Password', 'trim|required');
+			$this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
+			$this->form_validation->set_rules('code_of_conduct', 'NUSA Code of Conduct', 'trim|required|matches[password]');
 			$this->form_validation->set_rules('terms_and_conditions', 'Terms and Conditions', 'required');
 
 			if($this->form_validation->run() == FALSE)
@@ -198,8 +203,7 @@ class Dashboard extends CI_Controller {
 			// register details (as is applicable)
 
 			// - register user account and get user_id
-			$password 	= $this->user_model->generate_new_password();
-			
+
 			$status 	= 'Active';
 			if($this->setting_model->require_approval() == 1)
 			{
@@ -209,7 +213,7 @@ class Dashboard extends CI_Controller {
 			$db_data = array(
 				'membership'	=> $this->session->membership,
 				'email' 		=> $this->session->email,
-				'password' 		=> password_hash($password, PASSWORD_DEFAULT),
+				'password' 		=> password_hash($this->session->password, PASSWORD_DEFAULT),
 				'status' 		=> $status,
 				'title' 		=> $this->session->title,
 				'firstname' 	=> $this->session->firstname,
