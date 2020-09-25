@@ -17,7 +17,7 @@
             * - fullname
             * - email
             * - membershp_type
-            * - user_status
+            * - member_status_type
             */
             $query = $this->db->get_where('users', array('id' => $user_id));
             $row = $query->row();
@@ -29,7 +29,8 @@
             $message = str_replace('[fullname]', $row->firstname.' '.$row->lastname, $message);
             $message = str_replace('[email]', $row->email, $message);
             $message = str_replace('[membership_type]', $row->membership, $message);
-            $message = str_replace('[member_status]', $row->use_status, $message);
+            $message = str_replace('[member_status_type]', $row->use_status, $message);
+            $message = str_replace('[account_status]', $row->status, $message);
             
             return $message;
         }

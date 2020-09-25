@@ -16,6 +16,8 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
+		echo $this->gonanny();
+		die();
 		if($this->session->userlogged_in !== '*#loggedin@Yes')
 		{
 			redirect(base_url().'dashboard/login/');
@@ -300,7 +302,7 @@ class Dashboard extends CI_Controller {
 
 			$message = $this->automated_email_model->message_cleanup($message, $user_id);
 
-			$this->automated_email_model->send($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message);
+			$this->send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message);
 
 			// conditionally send notification to admin
 
@@ -409,5 +411,19 @@ class Dashboard extends CI_Controller {
 	public function requesting_password_reset()
 	{
 		echo 'i got here processing password reset';
+	}
+
+	public function send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message)
+	{
+
+		$this->email->from($from_email, $from_name);
+		$this->email->reply_to($reply_to_email, $reply_to_name);
+		$this->email->to($to);
+
+		$this->email->subject($subject);
+		$this->email->message($message);
+
+		$this->email->send();
+
 	}
 }
