@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <?php
-              if($page_title == 'Reset password' OR $page_title == 'New registration' OR $page_title == 'New registration - Page 2')
+              if($page_title == 'Reset password' OR $page_title == 'New registration' OR $page_title == 'New registration - Page 2'  OR $page_title == 'Registration Completed')
               {
               ?>
                 <li class="nav-item"><a class="nav-link" href="https://nusa.ng"><< BACK TO MAIN WEBSITE</a></li>

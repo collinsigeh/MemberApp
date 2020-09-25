@@ -314,6 +314,7 @@ class Dashboard extends CI_Controller {
 			$result  = $this->setting_model->get();
 			$to = $admin_email = $result->main_admin_email;
 			$send_admin_email = $result->send_admin_email_on_new_reg;
+			$manual_approval_required = $result->require_manual_approval_on_new_reg;
 			if(strlen($admin_email) > 5 && $send_admin_email == 1)
 			{
 				if(strlen($message_to_admin) > 1)
@@ -324,13 +325,45 @@ class Dashboard extends CI_Controller {
 				}
 			}
 
-			// auto login user with a welcome message (e.g. to purchase a subscription package)
+			// get appropriate registration staus message and redirect user
+
+			if($manual_approval_required == 1)
+			{
+				$registration_message = 'Your registration has been submitted successfully. Pending review and approval.';
+			}
+			else
+			{
+				$registration_message = 'Your registration was successful.';
+			}
+
+			$this->session->action_success_message = $registration_message;
+			redirect(base_url().'dashboard/registration_completed/');
 		}
 		else
 		{// fall back page (redirection)
 			
 			redirect(base_url().'dashboard/register/');
 		}
+	}
+
+	public function registration_completed()
+	{
+		// redirects to dashboard if user is logged-in
+
+		if($this->session->userlogged_in == '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/');
+		}
+
+		$data = array(
+			'page_title' => 'Registration Completed'
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('registration_completed_view');
+		$this->load->view('templates/footer');
+
+		session_destroy();
 	}
 
 	public function login()
