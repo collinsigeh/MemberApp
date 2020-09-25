@@ -32,9 +32,10 @@
                         {
                             include('inc/reg_page2_operator_authorization.php');
                         }
-                        elseif($this->session->use_status == 'Research' OR $this->session->use_status == 'Recreational')
+                        elseif($this->session->use_status == 'Recreational')
                         {
-                            include('inc/reg_page2_reseach_and_recreational_authorization.php');
+                            // suspended for now
+                            include('inc/reg_page2_recreational_authorization.php');
                         }
                     ?>
                     

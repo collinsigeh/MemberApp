@@ -180,11 +180,13 @@ class Dashboard extends CI_Controller {
 				$this->form_validation->set_rules('ncaa_roc_number', 'NCAA ROC Number', 'trim|required');
 				$this->form_validation->set_rules('approved_operation', 'Approved Operations', 'trim|required');
 			}
-			elseif($this->session->use_status == 'Research' OR $this->session->use_status == 'Recreational')
+			elseif($this->session->use_status == 'Recreational')
 			{
-				$this->session->ncaa_roc_number = strtoupper(trim($this->input->post('ncaa_roc_number')));
+				$this->session->home_address	= strtoupper(trim($this->input->post('home_address')));
+				//$this->session->ncaa_roc_number	= strtoupper(trim($this->input->post('ncaa_roc_number')));
 
-				$this->form_validation->set_rules('ncaa_roc_number', 'NCAA ROC Number', 'trim|required');
+				$this->form_validation->set_rules('home_address', 'Home Address', 'trim|required');
+				//$this->form_validation->set_rules('ncaa_roc_number', 'NCAA Registration Number', 'trim|required');
 			}
 			
 			// member access and agreement details confirmation
@@ -260,8 +262,8 @@ class Dashboard extends CI_Controller {
 			{// - if operator, then register appropriate authorization details
 				
 				$db_data = array(
-					'user_id'	=> $user_id,
-					'incaa_roc_number ' 		=> $this->session->institution,
+					'user_id'					=> $user_id,
+					'ncaa_roc_number ' 			=> $this->session->ncaa_roc_number,
 					'vlos_class_of_operation'	=> $this->session->vlos,
 					'bvlos_class_of_operation'	=> $this->session->bvlos,
 					'approved_operation'		=> $this->session->approved_operation
@@ -269,13 +271,14 @@ class Dashboard extends CI_Controller {
 
 				$this->authorization_detail_model->save($db_data);
 			}
-			elseif($this->session->use_status == 'Research' OR $this->session->use_status == 'Recreational')
-			{// - if researcher or or recreational, then register appropriate authorization details
+			elseif($this->session->use_status == 'Recreational')
+			{// - or if recreational, then register appropriate additional contact and authorization details
 				
 				$db_data = array(
-					'user_id'	=> $user_id,
-					'incaa_roc_number ' 		=> $this->session->institution,
-					'approved_operation'		=> 'N/A'
+					'user_id'				=> $user_id,
+					'home_address'			=> $this->session->home_address,
+					//'ncaa_roc_number ' 		=> $this->session->ncaa_roc_number,
+					'approved_operation'	=> 'N/A'
 				);
 
 				$this->authorization_detail_model->save($db_data);
