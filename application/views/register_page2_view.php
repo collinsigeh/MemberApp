@@ -37,6 +37,30 @@
                             include('inc/reg_page2_reseach_and_recreational_authorization.php');
                         }
                     ?>
+                    
+                    <div class="form2-section">
+                        <div class="form2-section-heading">Member Account Access</div>
+                        <div class="form2-section-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input class="form-control" type="password" name="password" id="password" value="<?php echo $this->session->password; ?>" required />
+                                        <small class="text-muted">*** Type the password to lock your account ***</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="confirm_password">Confirm Password</label>
+                                        <input class="form-control" type="password" name="confirm_password" id="confirm_password" value="<?php echo $this->session->confirm_password; ?>" required />
+                                        <small class="text-muted">*** Re-type password to confirm ***</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                     <div class="form2-section">
                         <div class="form2-section-heading">NUSA Code of Conduct</div>

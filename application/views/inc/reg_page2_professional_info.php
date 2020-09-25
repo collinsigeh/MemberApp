@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label for="designation">Designation</label>
                                 <input class="form-control" type="text" name="designation" id="designation" value="<?php echo $this->session->designation; ?>" required />
-                                <span class="small text-muted">** Your official job title **</span>
+                                <span class="small text-muted">*** Your official job title ***</span>
                             </div>
 
                         </div>
