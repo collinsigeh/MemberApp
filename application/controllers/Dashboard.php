@@ -9,6 +9,9 @@ class Dashboard extends CI_Controller {
 		
 		$this->load->model('user_model');
 		$this->load->model('setting_model');
+		$this->load->model('professional_info_model');
+		$this->load->model('student_info_model');
+		$this->load->model('automated_email_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -16,8 +19,6 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		echo $this->gonanny();
-		die();
 		if($this->session->userlogged_in !== '*#loggedin@Yes')
 		{
 			redirect(base_url().'dashboard/login/');
@@ -192,10 +193,12 @@ class Dashboard extends CI_Controller {
 			}
 			
 			// member access and agreement details confirmation
+			$this->session->code_of_conduct			= $this->input->post('code_of_conduct');
+			$this->session->terms_and_conditions	= $this->input->post('terms_and_conditions');
 			
 			$this->form_validation->set_rules('password', 'Password', 'trim|required');
-			$this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
-			$this->form_validation->set_rules('code_of_conduct', 'NUSA Code of Conduct', 'trim|required|matches[password]');
+			$this->form_validation->set_rules('confirm_password', 'Password Confirmation', 'trim|required|matches[password]');
+			$this->form_validation->set_rules('code_of_conduct', 'NUSA Code of Conduct', 'trim|required');
 			$this->form_validation->set_rules('terms_and_conditions', 'Terms and Conditions', 'required');
 
 			if($this->form_validation->run() == FALSE)
@@ -254,7 +257,8 @@ class Dashboard extends CI_Controller {
 					'industry'					=> $this->session->industry,
 					'organisation'				=> $this->session->organisation,
 					'organisation_description'	=> $this->session->organisation_description,
-					'office_address'			=> $this->session->office_address
+					'office_address'			=> $this->session->office_address,
+					'designation'				=> $this->session->designation
 				);
 
 				$this->professional_info_model->save($db_data);

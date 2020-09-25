@@ -13,7 +13,7 @@
       {
         ?>
         <div class="alert alert-success">
-          <img src="<?php echo base_url(); ?>assets/img/icon_images/success_info.png" class="info-icon" > <b>Success:</b> Password changed.
+          <img src="<?php echo base_url(); ?>assets/img/icon_images/success_info.png" class="info-icon" > <b>Success:</b> <?php echo $this->session->action_success_message; ?>
         </div>
         <?php
         $this->session->action_success_message = '';

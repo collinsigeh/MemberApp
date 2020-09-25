@@ -28,7 +28,7 @@
 
                             <div class="form-group">
                                 <label for="organisation_description">Briefly describe your Organisation / Company</label>
-                                <textarea class="form-control" name="organisation_description" id="organisation_description" value="<?php echo $this->session->organisation_description; ?>" required></textarea>
+                                <textarea class="form-control" name="organisation_description" id="organisation_description" required><?php echo $this->session->organisation_description; ?></textarea>
                             </div>
 
                             <div class="form-group">

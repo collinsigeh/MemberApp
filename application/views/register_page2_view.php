@@ -80,7 +80,7 @@
                                     withdrawal of my membership. I certify that this is a true and correct statement by me.</div>
                                 </label>
                                 <div class="checkbox">
-                                    <input type="checkbox" name="code_of_conduct" id="code_of_conduct" value="1"> <label for="code_of_conduct">I agree.</label>
+                                    <input type="checkbox" name="code_of_conduct" id="code_of_conduct" value="1" <?php if($this->session->code_of_conduct == 1){ echo 'checked'; } ?>> <label for="code_of_conduct">I agree.</label>
                                 </div>
                             </div>
 
@@ -99,7 +99,7 @@
                                     may be required by the relevant authorities under the Nigerian Law, if the need arises.</div>
                                 </label>
                                 <div class="checkbox">
-                                    <input type="checkbox" name="terms_and_conditions" id="terms_and_conditions" value="1"> <label for="terms_and_conditions">I agree.</label>
+                                    <input type="checkbox" name="terms_and_conditions" id="terms_and_conditions" value="1" <?php if($this->session->terms_and_conditions == 1){ echo 'checked'; } ?>> <label for="terms_and_conditions">I agree.</label>
                                 </div>
                             </div>
 
