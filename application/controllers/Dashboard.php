@@ -282,7 +282,7 @@ class Dashboard extends CI_Controller {
 			$db_check = array(
 				'item' => 'New User Account Email'
 			);
-			$resul			= $this->automated_email_model->get_where($db_check);
+			$result	= $this->automated_email_model->get_where($db_check);
 			$from_email		= $result[0]['sender_email'];
 			$from_name		= $result[0]['sender_name'];
 			$reply_to		= $result[0]['reply_to_email'];
@@ -291,7 +291,7 @@ class Dashboard extends CI_Controller {
 			$subject 		= $result[0]['user_subject_line'];
 			$message 		= $result[0]['message_to_user'];
 
-			$message = $this->automated_email_model->message_cleanup($message);
+			$message = $this->automated_email_model->message_cleanup($message, $user_id);
 
 			$this->automated_email_model->send($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message);
 
