@@ -297,14 +297,32 @@ class Dashboard extends CI_Controller {
 			$reply_to		= $result[0]['reply_to_email'];
 			$reply_to_name	= $result[0]['sender_name'];
 			$email_to 		= $this->session->email;
-			$subject 		= $result[0]['user_subject_line'];
-			$message 		= $result[0]['message_to_user'];
+			$subject_to_user 		= $result[0]['user_subject_line'];
+			$message_to_user 		= $result[0]['message_to_user'];
+			$subject_to_admin 		= $result[0]['admin_subject_line'];
+			$message_to_admin 		= $result[0]['message_to_user'];
 
-			$message = $this->automated_email_model->message_cleanup($message, $user_id);
+			if(strlen($message_to_user) > 1)
+			{
+				$message = $this->automated_email_model->message_cleanup($message_to_user, $user_id);
 
-			$this->send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message);
+				$this->send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject_to_user, $message_to_user);
+			}
 
 			// conditionally send notification to admin
+
+			$result  = $this->setting_model->get();
+			$to = $admin_email = $result->main_admin_email;
+			$send_admin_email = $result->send_admin_email_on_new_reg;
+			if(strlen($admin_email) > 5 && $send_admin_email == 1)
+			{
+				if(strlen($message_to_admin) > 1)
+				{
+					$message = $this->automated_email_model->message_cleanup($message_to_admin, $user_id);
+	
+					$this->send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject_to_admin, $message_to_admin);
+				}
+			}
 
 			// auto login user with a welcome message (e.g. to purchase a subscription package)
 		}
@@ -414,8 +432,8 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message)
-	{
-
+	{ // SIMPLY USED TO PUSH EMAILS WITH PARAMETERS PROVIDED
+		
 		$this->email->from($from_email, $from_name);
 		$this->email->reply_to($reply_to_email, $reply_to_name);
 		$this->email->to($to);
@@ -425,5 +443,10 @@ class Dashboard extends CI_Controller {
 
 		$this->email->send();
 
+	}
+
+	public function email_template()
+	{
+		$this->load->view('templates/email');
 	}
 }
