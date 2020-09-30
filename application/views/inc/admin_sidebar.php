@@ -10,6 +10,6 @@
 <hr>
 <a href="#">Payments</a>
 <hr>
-<a href="<?php echo base_url().'settings/index'; ?>">Settings</a>
+<a href="<?php echo base_url().'settings'; ?>">Settings</a>
 <hr>
 <a href="<?php echo base_url().'dashboard/logout/'; ?>">Logout</a>

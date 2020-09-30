@@ -8,7 +8,6 @@
           <div class="page-breadcrumb">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
             </ol>
           </nav>
@@ -48,7 +47,7 @@
             <div class="action-body">
               <div class="row">
                 <div class="col-md-6">
-                  <a href="#" class="btn btn-sm btn-primary">Manage Subcription</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary">Manage Subcription</a>
                 </div>
               </div>
             </div>
