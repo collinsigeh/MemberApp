@@ -59,8 +59,15 @@
       <div class="col-md-4">
         <div class="sidebar">
           <!-- Sidebar -->
-          <?php 
-            include('inc/sidebar.php'); 
+          <?php
+            if($this->session->user_type == 'Admin')
+            {
+              include('inc/admin_sidebar.php');
+            }
+            else
+            {
+              include('inc/sidebar.php');
+            } 
           ?>
         </div>
       </div>
