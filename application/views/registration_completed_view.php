@@ -6,7 +6,7 @@
         <div class="main-content">
           <!-- Main content -->
           <?php 
-            include('inc/action_message.php');
+            $this->load->view('inc/action_message');
           ?>
           
           <div class="text-center">

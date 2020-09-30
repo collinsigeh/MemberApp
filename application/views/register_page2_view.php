@@ -6,7 +6,7 @@
         <div class="main-content">
           <!-- Main content -->
           <?php 
-            include('inc/action_message.php');
+            $this->load->view('inc/action_message');
           ?>
           <div class="form2">
             <div class="form2-title">New Registration (Cont.)</div>
@@ -18,11 +18,11 @@
                     <?php
                         if($this->session->membership == 'Student')
                         {
-                            include('inc/reg_page2_student_info.php');
+                            $this->load->view('inc/reg_page2_student_info');
                         }
                         else
                         {
-                            include('inc/reg_page2_professional_info.php');
+                            $this->load->view('inc/reg_page2_professional_info');
                         }
                     ?>
 
@@ -30,12 +30,12 @@
                     <?php
                         if($this->session->use_status == 'Operator')
                         {
-                            include('inc/reg_page2_operator_authorization.php');
+                            $this->load->view('inc/reg_page2_operator_authorization');
                         }
                         elseif($this->session->use_status == 'Recreational')
                         {
                             // suspended for now
-                            include('inc/reg_page2_recreational_authorization.php');
+                            $this->load->view('inc/reg_page2_recreational_authorization');
                         }
                     ?>
                     

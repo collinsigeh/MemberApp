@@ -14,8 +14,8 @@
           </nav>
           </div>
           <?php 
-            include('inc/action_message.php');
-            include('inc/general_notice.php'); 
+            $this->load->view('inc/action_message');
+            $this->load->view('inc/general_notice');
           ?>
           <div class="dashboard-section">
             <div class="section-heading">
@@ -62,11 +62,11 @@
           <?php
             if($this->session->user_type == 'Admin')
             {
-              include('inc/admin_sidebar.php');
+              $this->load->view('inc/admin_sidebar');
             }
             else
             {
-              include('inc/sidebar.php');
+              $this->load->view('inc/sidebar');
             } 
           ?>
         </div>

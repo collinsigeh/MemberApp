@@ -6,7 +6,7 @@
         <div class="main-content">
           <!-- Main content -->
           <?php 
-            include('inc/action_message.php');
+            $this->load->view('inc/action_message');
           ?>
           <div class="form2">
             <div class="form2-title">New Registration</div>
