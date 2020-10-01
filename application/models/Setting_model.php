@@ -10,7 +10,7 @@
 
         public function get()
         {
-            $this->db->select('main_admin_email', 'send_admin_email_on_new_reg');
+            //$this->db->select('main_admin_email', 'send_admin_email_on_new_reg');
             $query = $this->db->get('settings');
             return $query->row();
         }

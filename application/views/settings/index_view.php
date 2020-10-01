@@ -22,10 +22,19 @@
             <div class="action-body">
               <div class="row">
                 <div class="col-md-6">
-                  <a href="#" class="btn btn-sm btn-outline-secondary">Application settings</a>
+                  <div class="action-item">
+                    <a href="<?php echo base_url().'settings/application'; ?>" class="btn btn-sm btn-outline-secondary">Application settings</a>
+                  </div>
                 </div>
                 <div class="col-md-6">
-                  <a href="#" class="btn btn-sm btn-outline-secondary">Automated email messages</a>
+                  <div class="action-item">
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Automated email messages</a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="action-item">
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Payment processors</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -37,14 +46,7 @@
         <div class="sidebar">
           <!-- Sidebar -->
           <?php
-            if($this->session->user_type == 'Admin')
-            {
-              $this->load->view('inc/admin_sidebar');
-            }
-            else
-            {
-              $this->load->view('inc/sidebar');
-            } 
+            $this->load->view('inc/admin_sidebar'); 
           ?>
         </div>
       </div>
