@@ -77,7 +77,17 @@
                                 <div class="col-md-6">
                                     <select name="admin_approval" id="" class="form-control" required>
                                         <option value="0">None</option>
-                                        <option value="1" <?php if($settings->require_manual_approval_on_new_reg == 1){ echo 'selected'; } ?>>Yes</option>
+                                        <?php
+                                            foreach($payment_processors as $payment_processor)
+                                            {
+                                                echo '<option value="'.$payment_processor->id.'"';
+                                                if($payment_processor->id == $settings->payment_processor_id)
+                                                {
+                                                    echo 'selected';
+                                                }
+                                                echo '>'.$payment_processor->name.'</option>';
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                             </div>

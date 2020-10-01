@@ -14,6 +14,7 @@ class Settings extends CI_Controller {
 
 		$this->load->model('user_model');
 		$this->load->model('setting_model');
+		$this->load->model('payment_processor_model');
 		$this->load->model('professional_info_model');
 		$this->load->model('student_info_model');
 		$this->load->model('automated_email_model');
@@ -50,7 +51,8 @@ class Settings extends CI_Controller {
 
 		$data = array(
             'page_title'    => 'Settings',
-            'settings'      => $this->setting_model->get()
+            'settings'      => $this->setting_model->get(),
+            'payment_processors'    => $this->payment_processor_model->get()
 		);
 
 		$this->load->view('templates/header', $data);
