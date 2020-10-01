@@ -1,5 +1,12 @@
 <?php
     class Automated_email_model extends CI_Model{
+        
+
+        public function get()
+        {
+            $query = $this->db->get('automated_emails');
+            return $query->result();
+        }
 
         public function get_where($db_check)
         {

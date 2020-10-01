@@ -209,3 +209,18 @@ a.btn:hover{
 .form-group label.consent_detail{
     font-size: 0.8em;
 }
+.table-item-icon{
+    width: 30px;
+    margin-top: -2px;
+    margin-right: 8px;
+}
+.table-link, .table-link:hover{
+    color: #000000;
+}
+.homepage-icon{
+    width: 20px;
+    margin-top: -7px;
+}
+.breadcrumb-item a{
+    color: #000000;
+}

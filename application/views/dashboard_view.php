@@ -18,7 +18,7 @@
           ?>
           <div class="dashboard-section">
             <div class="section-heading">
-              Account Summary
+              Account summary
             </div>
             <div class="section-body">
               <div class="section-item">

@@ -8,7 +8,7 @@
           <div class="page-breadcrumb">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
               <li class="breadcrumb-item active"><a href="<?php echo base_url().'settings'; ?>">Settings</a></li>
               <li class="breadcrumb-item active" aria-current="page">Application</li>
             </ol>
@@ -19,7 +19,7 @@
           ?>
           <div class="dashboard-section">
             <div class="section-heading">
-              Application Settings
+              Application settings
             </div>
             <div class="section-body">
               <div class="section-item">

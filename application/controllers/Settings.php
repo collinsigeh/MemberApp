@@ -122,4 +122,24 @@ class Settings extends CI_Controller {
         redirect(base_url().'settings/application/');
     }
     
+    /*
+    * For a list of automated emails
+    */
+    public function automated_emails()
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+
+		$data = array(
+            'page_title'        => 'Settings - Automated Emails',
+            'automated_emails'  => $this->automated_email_model->get()
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('settings/automated_emails_view');
+		$this->load->view('templates/footer');
+    }
+    
 }

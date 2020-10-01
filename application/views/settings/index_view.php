@@ -8,7 +8,7 @@
           <div class="page-breadcrumb">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
               <li class="breadcrumb-item active" aria-current="page">Settings</li>
             </ol>
           </nav>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="action-item">
-                    <a href="#" class="btn btn-sm btn-outline-secondary">Automated email messages</a>
+                    <a href="<?php echo base_url().'settings/automated_emails'; ?>" class="btn btn-sm btn-outline-secondary">Automated email messages</a>
                   </div>
                 </div>
                 <div class="col-md-6">
