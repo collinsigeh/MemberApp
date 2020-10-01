@@ -15,8 +15,6 @@ class Settings extends CI_Controller {
 		$this->load->model('user_model');
 		$this->load->model('setting_model');
 		$this->load->model('payment_processor_model');
-		$this->load->model('professional_info_model');
-		$this->load->model('student_info_model');
 		$this->load->model('automated_email_model');
 
 		$this->load->library('form_validation');
@@ -133,12 +131,60 @@ class Settings extends CI_Controller {
         }
 
 		$data = array(
-            'page_title'        => 'Settings - Automated Emails',
+            'page_title'        => 'Settings - Automated emails',
             'automated_emails'  => $this->automated_email_model->get()
 		);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('settings/automated_emails_view');
+		$this->load->view('templates/footer');
+    }
+    
+    /*
+    * For a list of payment processors
+    */
+    public function payment_processors()
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+
+		$data = array(
+            'page_title'        => 'Settings - Payment processorss',
+            'payment_processors'  => $this->payment_processor_model->get()
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('settings/payment_processors_view');
+		$this->load->view('templates/footer');
+    }
+    
+    /*
+    * For viewing the details of a payment processor
+    */
+    public function payment_processor($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $payment_processor = $this->payment_processor_model->find($id);
+
+        if(!isset($payment_processor))
+        {
+            $this->session->action_error_message = 'Invalid resource selection.';
+            redirect(base_url().'dashboard');
+        }
+
+		$data = array(
+            'page_title'        => 'Settings - Payment processorss',
+            'payment_processor'  => $payment_processor
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('settings/payment_processor_view');
 		$this->load->view('templates/footer');
     }
     

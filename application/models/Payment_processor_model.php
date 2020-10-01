@@ -7,10 +7,11 @@
             return $query->result();
         }
 
-        public function get_where($db_check)
+        public function find($id)
         {
-            $query = $this->db->get_where('payment_processors', $db_check);
-            return $query->result_array();
+            $this->db->where('id', $id);
+            $query = $this->db->get('payment_processors');
+            return $query->row();
         }
     }
 ?>

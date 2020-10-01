@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="action-item">
-                    <a href="#" class="btn btn-sm btn-outline-secondary">Payment processors</a>
+                    <a href="<?php echo base_url().'settings/payment_processors'; ?>" class="btn btn-sm btn-outline-secondary">Payment processors</a>
                   </div>
                 </div>
               </div>

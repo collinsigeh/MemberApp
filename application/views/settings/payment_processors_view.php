@@ -10,7 +10,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
               <li class="breadcrumb-item"><a href="<?php echo base_url().'settings'; ?>">Settings</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Automated emails</li>
+              <li class="breadcrumb-item active" aria-current="page">Payment processors</li>
             </ol>
           </nav>
           </div>
@@ -19,7 +19,7 @@
           ?>
           <div class="dashboard-section">
             <div class="section-heading">
-              Automated email messages
+              Payment processors
             </div>
             <div class="section-body">
               <div class="section-item">
@@ -31,8 +31,8 @@
                         <table class="table table-striped table-hover table-small">
                         <?php
                             $item_count = 0;
-                            foreach ($automated_emails as $automated_email) {
-                                echo '<tr><td><a href="#" class="table-link"><img src="'.base_url().'assets/img/icon_images/email.png" class="table-item-icon" >'.$automated_email->item.'</a></td></tr>';
+                            foreach ($payment_processors as $payment_processor) {
+                                echo '<tr><td><a href="'.base_url().'settings/payment_processor/'.$payment_processor->id.'" class="table-link"><img src="'.base_url().'assets/img/icon_images/payment_processor.png" class="table-item-icon" >'.$payment_processor->name.'</a></td></tr>';
                                 $item_count++;
                             }
                             if($item_count == 0)
