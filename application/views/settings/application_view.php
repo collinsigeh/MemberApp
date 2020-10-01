@@ -36,9 +36,9 @@
                                     <label for="admin_approval">Require Admin Approval for New Accounts:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <select name="admin_approval" id="" class="form-control" required>
+                                    <select name="admin_approval" id="admin_approval" class="form-control" required>
                                         <option value="1" <?php if($settings->require_manual_approval_on_new_reg == 1){ echo 'selected'; } ?>>Yes</option>
-                                        <option value="1" <?php if($settings->require_manual_approval_on_new_reg !== 1){ echo 'selected'; } ?>>No</option>
+                                        <option value="1" <?php if($settings->require_manual_approval_on_new_reg != 1){ echo 'selected'; } ?>>No</option>
                                     </select>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     <label for="email">Main Admin Email:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="email" name="main_admin_email" id="email" value="<?php echo $settings->main_admin_email; ?>" required />
+                                    <input class="form-control" type="email" name="email" id="email" value="<?php echo $settings->main_admin_email; ?>" required />
                                 </div>
                             </div>
                         </div>
@@ -58,12 +58,12 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="admin_approval">Send Notification to Admin for New Accounts:</label>
+                                    <label for="notify_admin">Send Notification to Admin for New Accounts:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <select name="admin_approval" id="" class="form-control" required>
+                                    <select name="notify_admin" id="notify_admin" class="form-control" required>
                                         <option value="1" <?php if($settings->send_admin_email_on_new_reg == 1){ echo 'selected'; } ?>>Yes</option>
-                                        <option value="1" <?php if($settings->send_admin_email_on_new_reg !== 1){ echo 'selected'; } ?>>No</option>
+                                        <option value="1" <?php if($settings->send_admin_email_on_new_reg != 1){ echo 'selected'; } ?>>No</option>
                                     </select>
                                 </div>
                             </div>
@@ -72,10 +72,10 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="admin_approval">Active Payment Processor:</label>
+                                    <label for="payment_processor">Active Payment Processor:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <select name="admin_approval" id="" class="form-control" required>
+                                    <select name="payment_processor" id="payment_processor" class="form-control" required>
                                         <option value="0">None</option>
                                         <?php
                                             foreach($payment_processors as $payment_processor)

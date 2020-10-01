@@ -14,5 +14,11 @@
             $query = $this->db->get('settings');
             return $query->row();
         }
+
+        public function update($db_data)
+        {
+            //$this->db->where('id', $id);
+            $this->db->update('settings', $db_data);
+        }
     }
 ?>
