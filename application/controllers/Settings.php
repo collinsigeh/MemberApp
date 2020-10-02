@@ -141,6 +141,82 @@ class Settings extends CI_Controller {
     }
     
     /*
+    * For viewing the details of an automated email
+    */
+    public function automated_email($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $automated_email = $this->automated_email_model->find($id);
+
+        if(!isset($automated_email))
+        {
+            $this->session->action_error_message = 'Invalid resource selection.';
+            redirect(base_url().'dashboard');
+        }
+
+		$data = array(
+            'page_title'        => 'Settings - Automated email',
+            'automated_email'  => $automated_email
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('settings/automated_email_view');
+		$this->load->view('templates/footer');
+    }
+    
+    /*
+    * For saving updates to automated emails
+    */
+    public function update_automated_email($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $automated_email = $this->automated_email_model->find($id);
+
+        if(!isset($automated_email))
+        {
+            $this->session->action_error_message = 'Invalid resource selection.';
+            redirect(base_url().'dashboard');
+        }
+        
+        // verify form inputs
+		$this->form_validation->set_rules('description', 'Description', 'trim|required');
+		$this->form_validation->set_rules('user_subject_line', 'User subject line', 'trim|required');
+		$this->form_validation->set_rules('message_to_user', 'Message to user', 'trim|required');
+		$this->form_validation->set_rules('sender_name', 'Sender name', 'trim|required');
+		$this->form_validation->set_rules('sender_email', 'Sender email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('admin_subject_line', 'Admin subject line', 'trim|required');
+		$this->form_validation->set_rules('message_to_admin', 'Message to admin', 'trim|required');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'settings/automated_email/'.$id);
+        }
+
+        // update db
+        $db_data = array(
+            'description' => trim($this->input->post('description')),
+            'user_subject_line' => trim($this->input->post('user_subject_line')),
+            'message_to_user' => trim($this->input->post('message_to_user')),
+            'sender_name' => trim($this->input->post('sender_name')),
+            'sender_email' => strtolower(trim($this->input->post('sender_email'))),
+            'admin_subject_line' => trim($this->input->post('admin_subject_line')),
+            'message_to_admin' => trim($this->input->post('message_to_admin'))
+        );
+        $this->automated_email_model->update($db_data, $id);
+        $this->session->action_success_message = 'Update saved.';
+        redirect(base_url().'settings/automated_email/'.$id);
+    }
+    
+    /*
     * For a list of payment processors
     */
     public function payment_processors()
@@ -179,7 +255,7 @@ class Settings extends CI_Controller {
         }
 
 		$data = array(
-            'page_title'        => 'Settings - Payment processorss',
+            'page_title'        => 'Settings - Payment processor',
             'payment_processor'  => $payment_processor
 		);
 

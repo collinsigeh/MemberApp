@@ -14,6 +14,19 @@
             return $query->result_array();
         }
 
+        public function find($id)
+        {
+            $this->db->where('id', $id);
+            $query = $this->db->get('automated_emails');
+            return $query->row();
+        }
+
+        public function update($db_data, $id)
+        {
+            $this->db->where('id', $id);
+            $this->db->update('automated_emails', $db_data);
+        }
+
         public function message_cleanup($message, $user_id)
         {
             /*

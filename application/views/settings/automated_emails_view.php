@@ -32,7 +32,7 @@
                         <?php
                             $item_count = 0;
                             foreach ($automated_emails as $automated_email) {
-                                echo '<tr><td><a href="#" class="table-link"><img src="'.base_url().'assets/img/icon_images/email.png" class="table-item-icon" >'.$automated_email->item.'</a></td></tr>';
+                                echo '<tr><td><a href="'.base_url().'settings/automated_email/'.$automated_email->id.'" class="table-link"><img src="'.base_url().'assets/img/icon_images/email.png" class="table-item-icon" >'.$automated_email->item.'</a></td></tr>';
                                 $item_count++;
                             }
                             if($item_count == 0)
