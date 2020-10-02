@@ -1,5 +1,20 @@
 <?php
     class User_model extends CI_Model{
+        
+        public function paginate($limit, $offset=0)
+        {
+            $this->db->order_by('firstname ASC, lastname ASC');
+            $this->db->limit($limit, $offset);
+            $query = $this->db->get('users');
+            return $query->result();
+        }
+        
+        public function get()
+        {
+            $this->db->order_by('firstname ASC, lastname ASC');
+            $query = $this->db->get('users');
+            return $query->result();
+        }
 
         public function get_where($db_check)
         {

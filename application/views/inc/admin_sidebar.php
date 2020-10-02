@@ -1,6 +1,6 @@
 <a href="#">My Profile</a>
 <hr>
-<a href="#">User Accounts</a>
+<a href="<?php echo base_url().'users'; ?>">User Accounts</a>
 <hr>
 <a href="#">Member Resources</a>
 <hr>

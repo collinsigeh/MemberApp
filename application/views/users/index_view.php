@@ -18,7 +18,7 @@
           ?>
           <div class="dashboard-section">
             <div class="section-heading">
-              User accounts
+              User list
             </div>
             <div class="section-body">
               <div class="section-item">
@@ -30,8 +30,10 @@
                         <table class="table table-striped table-hover table-small">
                         <?php
                             $item_count = 0;
-                            foreach ($automated_emails as $automated_email) {
-                                echo '<tr><td><a href="'.base_url().'settings/automated_email/'.$automated_email->id.'" class="table-link"><img src="'.base_url().'assets/img/icon_images/email.png" class="table-item-icon" >'.$automated_email->item.'</a></td></tr>';
+                            $i = $start;
+                            foreach ($users as $user) {
+                                echo '<tr><td><b>'.$i.'</b></td><td><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/profile_default.png" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></td></tr>';
+                                $i++;
                                 $item_count++;
                             }
                             if($item_count == 0)
@@ -41,6 +43,12 @@
                         ?>
                         </table>
                     </div>
+                    <small>
+                    <div class="row pagination">
+                        <div class="col-6"><div class="page-links"><?php echo $this->pagination->create_links(); ?></div></div>
+                        <div class="col-6"><div class="page-description">Users <?php echo $start.' to '.$end.' of '.$total; ?></div></div>
+                    </div>
+                    </small>
                   </div>
 
                   </div>

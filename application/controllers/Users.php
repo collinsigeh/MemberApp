@@ -14,26 +14,41 @@ class Users extends CI_Controller {
 
 		$this->load->model('user_model');
 		$this->load->model('setting_model');
-		$this->load->model('payment_processor_model');
-		$this->load->model('automated_email_model');
-
+        
+        $this->load->library('pagination');
 		$this->load->library('form_validation');
         $this->load->library('email');
     }
 
-	public function index()
+	public function index($id=0)
 	{
 		if($this->session->userlogged_in !== '*#loggedin@Yes')
 		{
 			redirect(base_url().'dashboard/login/');
-		}
+        }
+        
+        $offset = $id;
+        $limit = 2;
+        
+        $users = $this->user_model->paginate($limit, $offset);
+        $total = count($this->user_model->get());
+        
+        $config['base_url'] = base_url().'users/index/';
+        $config['total_rows'] = $total;
+        $config['per_page'] = $limit;
 
+        $this->pagination->initialize($config);
+        
 		$data = array(
-			'page_title' => 'Settings'
+            'page_title' => 'Users',
+            'users'      => $users,
+            'total'      => $total,
+            'start'      => $offset + 1,
+            'end'        => $offset + count($users)
 		);
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('settings/index_view');
+		$this->load->view('users/index_view');
 		$this->load->view('templates/footer');
     }
 }
