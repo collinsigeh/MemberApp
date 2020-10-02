@@ -85,8 +85,9 @@ body, a.nav-link{
 .user-image-navbar{
     width: 25px;
     height: 25px;
-    border-radius: 50%;
     background-color: #ccc;
+    border: 1px solid #b3b3b3;
+    border-radius: 50%;
 }
 a.btn:hover{
     font-style: italic;

@@ -28,7 +28,7 @@ class Users extends CI_Controller {
         }
         
         $offset = $id;
-        $limit = 2;
+        $limit = 50;
         
         $users = $this->user_model->paginate($limit, $offset);
         $total = count($this->user_model->get());
