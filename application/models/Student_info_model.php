@@ -5,4 +5,12 @@
         {
             return $this->db->insert('student_info', $db_data);
         }
+
+        public function find($id)
+        {
+            $this->db->where('id', $id);
+            $query = $this->db->get('student_info');
+            return $query->row();
+        }
     }
+?>

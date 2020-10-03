@@ -22,6 +22,13 @@
             return $query->result_array();
         }
 
+        public function find($id)
+        {
+            $this->db->where('id', $id);
+            $query = $this->db->get('users');
+            return $query->row();
+        }
+
         public function save($db_data)
         {
             return $this->db->insert('users', $db_data);
