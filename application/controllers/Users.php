@@ -16,6 +16,7 @@ class Users extends CI_Controller {
         $this->load->model('setting_model');
         $this->load->model('member_subscription_model');
         $this->load->model('student_info_model');
+        $this->load->model('professional_info_model');
         
         $this->load->library('pagination');
 		$this->load->library('form_validation');
@@ -33,6 +34,11 @@ class Users extends CI_Controller {
         $limit = 50;
         
         $users = $this->user_model->paginate($limit, $offset);
+        if(empty($users))
+        {
+            $this->session->action_error_message = 'Unavailable resource selection.';
+            redirect(base_url().'dashboard');
+        }
         $total = count($this->user_model->get());
         
         $config['base_url'] = base_url().'users/index/';
@@ -76,26 +82,47 @@ class Users extends CI_Controller {
         $db_check = array(
             'user_id'=> $id
         );
-        $subscriptions = $this->member_subscription_model->get_where($db_check);
+        $no_subscriptions = count($this->member_subscription_model->get_where($db_check));
 
 		$data = array(
             'page_title'       => 'User detail',
             'user'             => $user,
-            'no_subscriptions' => count($subscriptions)
+            'no_subscriptions' => $no_subscriptions
         );
         
         if($user->membership == 'Student')
         {
-            $data['student_info'] = $this->student_info_model->find($id);
+            $db_check = array(
+                'user_id' => $id
+            );
+            $result = $this->student_info_model->get_where($db_check);
+            if(count($result) > 0)
+            {
+                $data['student_info'] = $result[0];
+            }
         }
         else
         {
-            $data['professional_info'] = $this->professional_info_model->find($id);
+            $db_check = array(
+                'user_id' => $id
+            );
+            $result = $this->professional_info_model->get_where($db_check);
+            if(count($result) > 0)
+            {
+                $data['professional_info'] = $result[0];
+            }
         }
 
         if($user->use_status == 'Operator' OR $user->use_status == 'Recreational')
         {
-            $data['authorization'] = $this->authorization_detail_model->find($id);
+            $db_check = array(
+                'user_id' => $id
+            );
+            $result = $this->authorization_detail_mode->get_where($db_check);
+            if(count($result) > 0)
+            {
+                $data['authorization'] = $result[0];
+            }
         }
 
 		$this->load->view('templates/header', $data);

@@ -12,5 +12,11 @@
             $query = $this->db->get('authorization_detail');
             return $query->row();
         }
+
+        public function get_where($db_check)
+        {
+            $query = $this->db->get_where('authorization_detail', $db_check);
+            return $query->result();
+        }
     }
 ?>

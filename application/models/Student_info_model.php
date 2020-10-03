@@ -12,5 +12,11 @@
             $query = $this->db->get('student_info');
             return $query->row();
         }
+
+        public function get_where($db_check)
+        {
+            $query = $this->db->get_where('student_info', $db_check);
+            return $query->result();
+        }
     }
 ?>

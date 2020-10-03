@@ -12,5 +12,11 @@
             $query = $this->db->get('professional_info');
             return $query->row();
         }
+
+        public function get_where($db_check)
+        {
+            $query = $this->db->get_where('professional_info', $db_check);
+            return $query->result();
+        }
     }
 ?>

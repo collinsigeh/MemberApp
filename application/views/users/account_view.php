@@ -185,7 +185,82 @@
                 </div>
             </div>
             </div>
+            
+            <?php
+            if($user->membership == 'Student')
+            {
+            ?>
+            <div class="dashboard-section">
+              <div class="section-heading">
+                  Student professional info
+              </div>
+              <div class="section-body">
+                <div class="section-item">
+                  <div class="row">
+                    <div class="col-12">
+  
+                    <div class="form3">
+                      <div class="row">
+                          <div class="col-md-3">
+                              <label for="user_type">Institution</label>
+                          </div>
+                          <div class="col-md-9">
+                              <div class="form-group">
+                                <input class="form-control" type="text" name="institution" id="institution" value="<?php if(isset($student_info->institution)){ echo $student_info->institution; } ?>" required />
+                              </div>
+                          </div>
+                      </div>
 
+                      <div class="row">
+                          <div class="col-md-3">
+                              <label for="user_type">Course of Study</label>
+                          </div>
+                          <div class="col-md-9">
+                                <input class="form-control" type="text" name="course_of_study" id="course_of_study" value="<?php if(isset($student_info->course_of_study)){ echo $student_info->course_of_study; } ?>" required />
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="row">
+                          <div class="col-md-3">
+                              <label for="user_type">Degree of Study</label>
+                          </div>
+                          <div class="col-md-9">
+                              <div class="form-group">
+                                <select class="form-control" name="degree" id="degree" required>
+                                    <option value="">-- Select appropriate degree --</option>
+                                    <option value="B.Sc" <?php if(isset($student_info->degree) && $student_info->degree == 'B.Sc'){ echo 'selected'; } ?>>B.Sc</option>
+                                    <option value="Diploma" <?php if(isset($student_info->degree) && $student_info->degree == 'Diploma'){ echo 'selected'; } ?>>Diploma</option>
+                                    <option value="Masters" <?php if(isset($student_info->degree) && $student_info->degree == 'Masters'){ echo 'selected'; } ?>>Masters</option>
+                                    <option value="PhD" <?php if(isset($student_info->degree) && $student_info->degree == 'PhD'){ echo 'selected'; } ?>>PhD</option>
+                                    <option value="Professional Certification" <?php if(isset($student_info->degree) && $student_info->degree == 'Professional Certification'){ echo 'selected'; } ?>>Professional Certification</option>
+                                    <option value="School Certificate" <?php if(isset($student_info->degree) && $student_info->degree == 'School Certificate'){ echo 'selected'; } ?>>School Certificate</option>
+                                    <option value="Others" <?php if(isset($student_info->degree) && $student_info->degree == 'Others'){ echo 'selected'; } ?>>Others</option>
+                                </select>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-3">
+                              <label for="user_type">Graduation year</label>
+                          </div>
+                          <div class="col-md-9">
+                                <input class="form-control" type="text" name="graduation_year" id="graduation_year" value="<?php if(isset($student_info->graduation_year)){ echo $student_info->graduation_year; } ?>" required />
+                              </div>
+                          </div>
+                      </div>
+
+                    </div>
+  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <?php
+        }
+        ?>
           
 
           <?php form_close(); ?>
