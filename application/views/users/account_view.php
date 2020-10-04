@@ -452,6 +452,9 @@
         }
         ?>
           
+          <div class="update-button">
+            <input class="custom-outline-button" type="submit" name="submit" value="Save" />
+          </div>
 
           <?php form_close(); ?>
 

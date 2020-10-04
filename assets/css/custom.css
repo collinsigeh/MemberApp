@@ -255,3 +255,7 @@ a.btn:hover{
     padding-top: 3px;
     text-align: right;
 }
+.update-button{
+    padding: 30px 0;
+    text-align: center;
+}
