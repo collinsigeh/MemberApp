@@ -206,7 +206,7 @@
                           </div>
                           <div class="col-md-9">
                               <div class="form-group">
-                                <input class="form-control" type="text" name="institution" id="institution" value="<?php if(isset($student_info->institution)){ echo $student_info->institution; } ?>" required />
+                                <input class="form-control" type="text" name="institution" id="institution" value="<?php if(isset($student_info->institution)){ echo $student_info->institution; } ?>" />
                               </div>
                           </div>
                       </div>
@@ -217,7 +217,7 @@
                           </div>
                           <div class="col-md-9">
                               <div class="form-group">
-                                <input class="form-control" type="text" name="course_of_study" id="course_of_study" value="<?php if(isset($student_info->course_of_study)){ echo $student_info->course_of_study; } ?>" required />
+                                <input class="form-control" type="text" name="course_of_study" id="course_of_study" value="<?php if(isset($student_info->course_of_study)){ echo $student_info->course_of_study; } ?>" />
                               </div>
                           </div>
                       </div>
@@ -228,7 +228,7 @@
                           </div>
                           <div class="col-md-9">
                               <div class="form-group">
-                                <select class="form-control" name="degree" id="degree" required>
+                                <select class="form-control" name="degree" id="degree">
                                     <option value="">-- Select appropriate degree --</option>
                                     <option value="B.Sc" <?php if(isset($student_info->degree) && $student_info->degree == 'B.Sc'){ echo 'selected'; } ?>>B.Sc</option>
                                     <option value="Diploma" <?php if(isset($student_info->degree) && $student_info->degree == 'Diploma'){ echo 'selected'; } ?>>Diploma</option>
@@ -248,6 +248,94 @@
                 </div>
               </div>
             </div>
+        <?php
+        }
+        else
+        {
+        ?>
+        <div class="dashboard-section">
+          <div class="section-heading">
+              Professional info
+          </div>
+          <div class="section-body">
+            <div class="section-item">
+
+                <div class="form3">
+
+                  <div class="row">
+                      <div class="col-md-3">
+                          <label for="organisation">Organisation / Company</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <input class="form-control" type="text" name="organisation" id="organisation" value="<?php if(isset($professional_info->organisation)){ echo $professional_info->organisation; } ?>" />
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-3">
+                          <label for="industry">Industry</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <select class="form-control" name="industry" id="industry">
+                                    <option value="">-- Select an industry --</option>
+                                    <option value="Agriculture" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Agriculture'){ echo 'selected'; } ?>>Agriculture</option>
+                                    <option value="Construction & Real Estate" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Construction & Real Estate'){ echo 'selected'; } ?>>Construction & Real Estate</option>
+                                    <option value="Consumer Goods Manufacturing" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Consumer Goods Manufacturing'){ echo 'selected'; } ?>>Consumer Goods Manufacturing</option>
+                                    <option value="Financial Services" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Financial Services'){ echo 'selected'; } ?>>Financial Services</option>
+                                    <option value="Healthcare" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Healthcare'){ echo 'selected'; } ?>>Healthcare</option>
+                                    <option value="Industrial Goods Manufacturing" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Industrial Goods Manufacturing'){ echo 'selected'; } ?>>Industrial Goods Manufacturing</option>
+                                    <option value="Information & Communications Technology" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Information & Communications Technology'){ echo 'selected'; } ?>>Information & Communications Technology</option>
+                                    <option value="Natural Resources (Mining & Mineral Extraction)" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Natural Resources (Mining & Mineral Extraction)'){ echo 'selected'; } ?>>Natural Resources (Mining & Mineral Extraction)</option>
+                                    <option value="Oil & Gas" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Oil & Gas'){ echo 'selected'; } ?>>Oil & Gas</option>
+                                    <option value="Services" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Services'){ echo 'selected'; } ?>>Services</option>
+                                    <option value="Utilities (Electricity, Water, etc.)" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Utilities (Electricity, Water, etc.)'){ echo 'selected'; } ?>>Utilities (Electricity, Water, etc.)</option>
+                                    <option value="Conglomerate" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Conglomerate'){ echo 'selected'; } ?>>Conglomerate</option>
+                                </select>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-3">
+                          <label for="organisation_description">Description of organisation</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <textarea class="form-control" name="organisation_description" id="organisation_description" required><?php if(isset($professional_info->organisation_description)){ echo $professional_info->organisation_description; } ?></textarea>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-3">
+                          <label for="office_address">Office address</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <input class="form-control" type="text" name="office_address" id="office_address" value="<?php if(isset($professional_info->office_address)){ echo $professional_info->office_address; } ?>" />
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-3">
+                          <label for="designation">Designation</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <input class="form-control" type="text" name="designation" id="designation" value="<?php if(isset($professional_info->designation)){ echo $professional_info->designation; } ?>" />
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+
+            </div>
+          </div>
+        </div>
         <?php
         }
         ?>
