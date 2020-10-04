@@ -196,10 +196,10 @@
               </div>
               <div class="section-body">
                 <div class="section-item">
-                  <div class="row">
-                    <div class="col-12">
   
                     <div class="form3">
+
+
                       <div class="row">
                           <div class="col-md-3">
                               <label for="user_type">Institution</label>
@@ -216,6 +216,7 @@
                               <label for="user_type">Course of Study</label>
                           </div>
                           <div class="col-md-9">
+                              <div class="form-group">
                                 <input class="form-control" type="text" name="course_of_study" id="course_of_study" value="<?php if(isset($student_info->course_of_study)){ echo $student_info->course_of_study; } ?>" required />
                               </div>
                           </div>
@@ -241,20 +242,9 @@
                           </div>
                       </div>
 
-                      <div class="row">
-                          <div class="col-md-3">
-                              <label for="user_type">Graduation year</label>
-                          </div>
-                          <div class="col-md-9">
-                                <input class="form-control" type="text" name="graduation_year" id="graduation_year" value="<?php if(isset($student_info->graduation_year)){ echo $student_info->graduation_year; } ?>" required />
-                              </div>
-                          </div>
-                      </div>
 
                     </div>
-  
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>
