@@ -338,6 +338,72 @@
         </div>
         <?php
         }
+        if($user->use_status == 'Operator')
+        {
+        ?>
+        <div class="dashboard-section">
+          <div class="section-heading">
+              Professional info
+          </div>
+          <div class="section-body">
+            <div class="section-item">
+
+                <div class="form3">
+
+                  <div class="row">
+                      <div class="col-md-3">
+                            <label for="ncaa_roc_number">NCAA ROC Number</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <input class="form-control" type="text" name="ncaa_roc_number" id="ncaa_roc_number" value="<?php if(isset($authorization_detail->ncaa_roc_number)){ echo $authorization_detail->ncaa_roc_number; } ?>" />
+                                <span class="small text-muted">*** If not available, state your status ***</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-3">
+                            <label for="class_of_operations">Class of Operations</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <div class="checkbox">
+                                    <input type="checkbox" name="vlos" id="vlos" value="1" <?php if(isset($authorization_detail->vlos) && $authorization_detail->vlos == 1){ echo 'checked'; } ?>> <label for="vlos">VLOS (Visual Line of Sight)</label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="bvlos" id="bvlos" value="1" <?php if(isset($authorization_detail->bvlos) && $authorization_detail->bvlos == 1){ echo 'checked'; } ?>> <label for="bvlos">BVLOS (Beyond Visual Line of Sight)</label>
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-3">
+                            <label for="approved_operations">Approved Operations</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <div class="radio">
+                                    <input type="radio" name="approved_operation" id="commercial" value="Commercial" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Commercial'){ echo 'checked'; } ?> required /> <label for="commercial">Commercial</label>
+                                </div>
+                                <div class="radio">
+                                    <input type="radio" name="approved_operation" id="government" value="Government" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Government'){ echo 'checked'; } ?> required /> <label for="government">Government</label>
+                                </div>
+                                <div class="radio">
+                                    <input type="radio" name="approved_operation" id="corporate" value="Corporate" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Corporate'){ echo 'checked'; } ?> required /> <label for="corporate">Corporate</label>
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+
+            </div>
+          </div>
+        </div>
+        <?php
+        }
         ?>
           
 

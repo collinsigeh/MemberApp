@@ -121,7 +121,7 @@ class Users extends CI_Controller {
             $result = $this->authorization_detail_mode->get_where($db_check);
             if(count($result) > 0)
             {
-                $data['authorization'] = $result[0];
+                $data['authorization_detail'] = $result[0];
             }
         }
 

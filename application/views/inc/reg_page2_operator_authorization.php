@@ -10,7 +10,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="ncaa_roc_number">Class of Operations</label>
+                                <label for="class_of_operations">Class of Operations</label>
                                 <div class="checkbox">
                                     <input type="checkbox" name="vlos" id="vlos" value="1" <?php if($this->session->vlos == 1){ echo 'checked'; } ?>> <label for="vlos">VLOS (Visual Line of Sight)</label>
                                 </div>
@@ -20,7 +20,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="ncaa_roc_number">Approved Operations</label>
+                                <label for="approved_operations">Approved Operations</label>
                                 <div class="radio">
                                     <input type="radio" name="approved_operation" id="commercial" value="Commercial" <?php if($this->session->approved_operation == 'Commercial'){ echo 'checked'; } ?> required /> <label for="commercial">Commercial</label>
                                 </div>
