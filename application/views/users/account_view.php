@@ -343,7 +343,7 @@
         ?>
         <div class="dashboard-section">
           <div class="section-heading">
-              Professional info
+              Authorization details
           </div>
           <div class="section-body">
             <div class="section-item">
@@ -396,6 +396,52 @@
                           </div>
                       </div>
                   </div>
+
+                </div>
+
+            </div>
+          </div>
+        </div>
+        <?php
+        }
+        elseif($user->use_status == 'Recreational')
+        {
+        ?>
+        <div class="dashboard-section">
+          <div class="section-heading">
+              Additional details
+          </div>
+          <div class="section-body">
+            <div class="section-item">
+
+                <div class="form3">
+
+                  <div class="row">
+                      <div class="col-md-3">
+                            <label for="home_address">Home Address</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <input class="form-control" type="text" name="home_address" id="home_address" value="<?php if(isset($authorization_detail->home_address)){ echo $authorization_detail->home_address; } ?>" />
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- START TEMPORARILY REMOVED
+
+                  <div class="row">
+                      <div class="col-md-3">
+                            <label for="ncaa_roc_number">NCAA Registration Number</label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                                <input class="form-control" type="text" name="ncaa_roc_number" id="ncaa_roc_number" value="<?php // if(isset($authorization_detail->ncaa_roc_number)){ echo $authorization_detail->ncaa_roc_number; } ?>" />
+                                <span class="small text-muted">*** If not available, state your status ***</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  END TEMPORARILY REMOVED -->
 
                 </div>
 
