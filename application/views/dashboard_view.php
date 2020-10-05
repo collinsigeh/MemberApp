@@ -66,31 +66,38 @@
             </div>
           </div>
           
-          <div class="related-action">
-            <div class="action-title">Related Actions</div>
-            <div class="action-body">
-              <div class="row">
-                <?php
-                if($no_subscriptions > 0)
-                {
-                  ?>
-                  <div class="col-md-6">
-                    <a href="#" class="btn btn-sm btn-outline-secondary">Manage Subcription</a>
-                  </div>
+          <?php
+          if($this->session->user_type == 'Member')
+          {
+            ?>
+            <div class="related-action">
+              <div class="action-title">Related Actions</div>
+              <div class="action-body">
+                <div class="row">
                   <?php
-                }
-                else
-                {
+                  if($no_subscriptions > 0)
+                  {
+                    ?>
+                    <div class="col-md-6">
+                      <a href="#" class="btn btn-sm btn-outline-secondary">Manage Subcription</a>
+                    </div>
+                    <?php
+                  }
+                  else
+                  {
+                    ?>
+                    <div class="col-md-6">
+                      <a href="#" class="btn btn-sm btn-primary">New Subcription</a>
+                    </div>
+                    <?php
+                  }
                   ?>
-                  <div class="col-md-6">
-                    <a href="#" class="btn btn-sm btn-primary">New Subcription</a>
-                  </div>
-                  <?php
-                }
-                ?>
+                </div>
               </div>
             </div>
-          </div>
+            <?php
+          }
+          ?>
         </div>
       </div>
 

@@ -16,6 +16,7 @@
       </div>
       <?php
     }
+
     foreach($subscriptions as $subscription)
     {
       $no_expired_subscriptions = 0;
@@ -40,8 +41,14 @@
         <?php
       }
     }
+
+    if(count($unpaid_orders) > 0)
+    {
+      ?>
+      <div class="alert alert-info">
+        <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have unpaid invoice. <a href="#">Check order history</a>.         
+      </div>
+      <?php
+    }
   ?>
-    <div class="alert alert-info">
-      <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have unpaid invoice. <a href="#">Check order history</a>.         
-    </div>
 </div>

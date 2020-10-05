@@ -13,6 +13,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('student_info_model');
 		$this->load->model('automated_email_model');
 		$this->load->model('member_subscription_model');
+		$this->load->model('order_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -31,10 +32,17 @@ class Dashboard extends CI_Controller {
 		);
 		$subscriptions = $this->member_subscription_model->get_where($db_check);
 
+		$db_check = array(
+			'user_id' => $this->session->user_id,
+			'status' => 'Unpaid'
+		);
+		$unpaid_orders = $this->order_model->get_where($db_check);
+
 		$data = array(
 			'page_title' 	=> 'Dashboard',
 			'subscriptions' => $subscriptions,
-			'now'			=> time()
+			'now'			=> time(),
+			'unpaid_orders'	=> $unpaid_orders
 		);
 
 		$this->load->view('templates/header', $data);
