@@ -28,6 +28,7 @@
                 </div>
               </div>
               <?php
+                $no_subscriptions = 0;
                 foreach($subscriptions as $subscription)
                 {
                   ?>
@@ -53,6 +54,7 @@
                     </div>
                   </div>
                   <?php
+                  $no_subscriptions++;
                 }
               ?>
               <div class="section-item">
@@ -68,9 +70,24 @@
             <div class="action-title">Related Actions</div>
             <div class="action-body">
               <div class="row">
-                <div class="col-md-6">
-                  <a href="#" class="btn btn-sm btn-outline-secondary">Manage Subcription</a>
-                </div>
+                <?php
+                if($no_subscriptions > 0)
+                {
+                  ?>
+                  <div class="col-md-6">
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Manage Subcription</a>
+                  </div>
+                  <?php
+                }
+                else
+                {
+                  ?>
+                  <div class="col-md-6">
+                    <a href="#" class="btn btn-sm btn-primary">New Subcription</a>
+                  </div>
+                  <?php
+                }
+                ?>
               </div>
             </div>
           </div>
