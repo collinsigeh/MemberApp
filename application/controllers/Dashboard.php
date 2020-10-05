@@ -12,6 +12,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('professional_info_model');
 		$this->load->model('student_info_model');
 		$this->load->model('automated_email_model');
+		$this->load->model('member_subscription_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -24,8 +25,16 @@ class Dashboard extends CI_Controller {
 			redirect(base_url().'dashboard/login/');
 		}
 
+		$db_check = array(
+			'user_id'	=> $this->session->user_id,
+			'cancel !=' => 1
+		);
+		$subscriptions = $this->member_subscription_model->get_where($db_check);
+
 		$data = array(
-			'page_title' => 'Dashboard'
+			'page_title' 	=> 'Dashboard',
+			'subscriptions' => $subscriptions,
+			'now'			=> time()
 		);
 
 		$this->load->view('templates/header', $data);

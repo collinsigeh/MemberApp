@@ -27,12 +27,34 @@
                   <div class="col-md-8"><span class="badge badge-pill badge-secondary">Individual</span></div>
                 </div>
               </div>
-              <div class="section-item">
-                <div class="row">
-                  <div class="col-md-4">Individual Subscription</div>
-                  <div class="col-md-8"><span class="badge badge-pill badge-success">Active</span></div>
-                </div>
-              </div>
+              <?php
+                foreach($subscriptions as $subscription)
+                {
+                  ?>
+                  <div class="section-item">
+                    <div class="row">
+                      <div class="col-md-4"><?php echo $subscriptions->product_name; ?></div>
+                      <div class="col-md-8">
+                      <?php
+                        if($now < $subscription->subscription_end && $now > $subscription->subscription_start)
+                        {
+                          echo '<span class="badge badge-pill badge-success">Active</span>';
+                        }
+                        elseif($now >= $subscription->subscription_end)
+                        {
+                          echo '<span class="badge badge-pill badge-danger">Expired</span>';
+                        }
+                        else
+                        {
+                          echo '<span class="badge badge-pill badge-info">Inactive</span>';
+                        }
+                      ?>
+                      </div>
+                    </div>
+                  </div>
+                  <?php
+                }
+              ?>
               <div class="section-item">
                 <div class="row">
                   <div class="col-md-4">Account Status</div>
