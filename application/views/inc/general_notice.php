@@ -42,7 +42,7 @@
       }
     }
 
-    if(count($unpaid_orders) > 0)
+    if($no_unpaid_orders > 0)
     {
       ?>
       <div class="alert alert-info">

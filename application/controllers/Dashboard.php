@@ -36,13 +36,14 @@ class Dashboard extends CI_Controller {
 			'user_id' => $this->session->user_id,
 			'status' => 'Unpaid'
 		);
-		$unpaid_orders = $this->order_model->get_where($db_check);
+		$no_unpaid_orders = count($this->order_model->get_where($db_check));
+
 
 		$data = array(
-			'page_title' 	=> 'Dashboard',
-			'subscriptions' => $subscriptions,
-			'now'			=> time(),
-			'unpaid_orders'	=> $unpaid_orders
+			'page_title' 	   => 'Dashboard',
+			'subscriptions'    => $subscriptions,
+			'now'			   => time(),
+			'no_unpaid_orders' => $no_unpaid_orders
 		);
 
 		$this->load->view('templates/header', $data);
