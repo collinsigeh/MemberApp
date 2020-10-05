@@ -131,10 +131,45 @@ class Users extends CI_Controller {
     }
 
     /*
+    * Update the details of the user with id of $id
+    */
+    public function update_account($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $user = $this->user_model->find($id);
+
+        if(!isset($user))
+        {
+            $this->session->action_error_message = 'Invalid resource selection.';
+            redirect(base_url().'dashboard');
+        }
+
+		$this->form_validation->set_rules('user_type', 'User type', 'trim|required');
+		$this->form_validation->set_rules('membership', 'Membership', 'trim|required');
+		$this->form_validation->set_rules('use_status', 'Member status', 'trim|required');
+		$this->form_validation->set_rules('status', 'Account status', 'trim|required');
+		$this->form_validation->set_rules('title', 'Title', 'trim|required');
+		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+		$this->form_validation->set_rules('sender_email', 'Sender email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
+        $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+
+        $this->session->action_error_message = 'Development still in progress';
+        redirect(base_url().'users/account/'.$id);
+    }
+
+    /*
     * List of subscriptions for the user with id of $id
     */
     public function subscriptions($id=0)
     {
 
+        $this->session->action_error_message = 'Development still in progress';
+        redirect(base_url().'users/account/'.$id);
     }
 }
