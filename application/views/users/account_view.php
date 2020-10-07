@@ -202,7 +202,7 @@
 
                       <div class="row">
                           <div class="col-md-3">
-                              <label for="user_type">Institution</label>
+                              <label for="institution">Institution</label>
                           </div>
                           <div class="col-md-9">
                               <div class="form-group">
@@ -213,7 +213,7 @@
 
                       <div class="row">
                           <div class="col-md-3">
-                              <label for="user_type">Course of Study</label>
+                              <label for="course_of_study">Course of Study</label>
                           </div>
                           <div class="col-md-9">
                               <div class="form-group">
@@ -224,7 +224,7 @@
                       
                       <div class="row">
                           <div class="col-md-3">
-                              <label for="user_type">Degree of Study</label>
+                              <label for="degree">Degree of Study</label>
                           </div>
                           <div class="col-md-9">
                               <div class="form-group">
@@ -238,6 +238,17 @@
                                     <option value="School Certificate" <?php if(isset($student_info->degree) && $student_info->degree == 'School Certificate'){ echo 'selected'; } ?>>School Certificate</option>
                                     <option value="Others" <?php if(isset($student_info->degree) && $student_info->degree == 'Others'){ echo 'selected'; } ?>>Others</option>
                                 </select>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-3">
+                              <label for="graduation_year">Graduation Year</label>
+                          </div>
+                          <div class="col-md-9">
+                              <div class="form-group">
+                                <input class="form-control" type="text" name="graduation_year" id="graduation_year" value="<?php if(isset($student_info->graduation_year)){ echo $student_info->graduation_year; } ?>" />
                               </div>
                           </div>
                       </div>
