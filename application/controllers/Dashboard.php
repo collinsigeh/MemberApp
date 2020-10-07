@@ -483,7 +483,49 @@ class Dashboard extends CI_Controller {
 
 	public function requesting_password_reset()
 	{
-		echo 'i got here processing password reset';
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'dashboard/reset_password/');
+		}
+
+		$email = strtolower($this->input->post('email'));
+		
+		$db_check = array(
+			'email' => $email
+		);
+		$user = $this->user_model->get_where($db_check);
+		if(count($user) < 1)
+		{
+			$this->session->action_error_message = 'Email is NOT recognized.';
+			redirect(base_url().'dashboard/reset_password/');
+		}
+
+		$new_password = $this->user_model->generate_new_password();
+
+		$db_data = array(
+			'password' 		=> password_hash($new_password, PASSWORD_DEFAULT)
+		);
+		$this->user_model->update_where($db_data, $db_check);
+
+		$from_email = 'account-settings@nusa.ng';
+		$from_name = 'NUSA';
+		$reply_to_email = 'no-reply@nusa.ng';
+		$reply_to_name = 'NUSA';
+		$to = $email;
+		$subject_to_user = 'Password reset';
+		$message_to_user = '<p>Dear '.$user->firstname.',</p><p>The password on your account has been reset successfully.</p>
+			<p><b>New password: </b>'.$new_password.'</p>
+			<p><b>Important</b><br />Please change the password to one of your choice from you account profile page.</p>
+			<p>Warm regards<br />NUSA</p>';
+
+		$message = $this->automated_email_model->message_cleanup($message_to_user, $user_id);
+		$this->send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject_to_user, $message_to_user);
+
+        $this->session->action_success_message = 'Password reset and details has been sent to your email';
+        redirect(base_url().'dashboard/reset_password/');
 	}
 
 	public function send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message)

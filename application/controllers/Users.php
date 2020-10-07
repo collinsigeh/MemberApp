@@ -162,6 +162,12 @@ class Users extends CI_Controller {
 		$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
 
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'users/account/'.$id);
+        }
+
         $email = strtolower($this->input->post('email'));
 
         //check if email is taken by others
