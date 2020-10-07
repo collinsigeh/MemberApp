@@ -159,12 +159,23 @@ class Users extends CI_Controller {
 		$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
 
-        $db_data = array(
-            'user_type' => $this->input->post('user_type')
-        );
+        $email = strtolower($this->input->post('email'));
 
-        echo $this->input->post('user_type');
-        die();
+        //check if email is taken by others
+        $db_check = array(
+            'email' => $email,
+            'id !=' => $id
+        );
+        if(count($this->user_model->get_where($db_check)) > 0)
+        {
+            $this->session->action_error_message = 'The email - <i>'.$email.'</i> - is in use.';
+            redirect(base_url().'users/account/'.$id);
+        }
+
+        $db_data = array(
+            'user_type' => $this->input->post('user_type'),
+            'membership' => $this->input->post('membership')
+        );
 
         $this->session->action_error_message = 'Development still in progress';
         redirect(base_url().'users/account/'.$id);
