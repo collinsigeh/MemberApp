@@ -159,6 +159,13 @@ class Users extends CI_Controller {
 		$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
 
+        $db_data = array(
+            'user_type' => $this->input->post('user_type')
+        );
+
+        echo $this->input->post('user_type');
+        die();
+
         $this->session->action_error_message = 'Development still in progress';
         redirect(base_url().'users/account/'.$id);
     }

@@ -304,7 +304,7 @@
                       </div>
                       <div class="col-md-9">
                           <div class="form-group">
-                                <textarea class="form-control" name="organisation_description" id="organisation_description" required><?php if(isset($professional_info->organisation_description)){ echo $professional_info->organisation_description; } ?></textarea>
+                                <textarea class="form-control" name="organisation_description" id="organisation_description"><?php if(isset($professional_info->organisation_description)){ echo $professional_info->organisation_description; } ?></textarea>
                           </div>
                       </div>
                   </div>
