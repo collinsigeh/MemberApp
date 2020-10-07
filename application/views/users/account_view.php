@@ -44,6 +44,30 @@
                         </div>
                     </div>
 
+                    <?php
+                    if($user->user_type == 'Member')
+                    {
+                    ?>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="subcription">Subscription(s)</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                            <?php 
+                                echo $no_subscriptions.' found.';
+                                if($no_subscriptions == 0)
+                                {
+                                    echo ' <a href="'.base_url().'users/subscriptions/'.$user->id.'" class="btn btn-sm btn-outline-secondary">View details</a>';
+                                }
+                            ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    }
+                    ?>
+
                     <div class="row">
                         <div class="col-md-3">
                             <label for="membership">Membership</label>
@@ -91,22 +115,6 @@
                                     <option value="Mr." <?php if($user->status == 'Suspended'){ echo 'selected'; } ?>>Suspended</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="subcription">Subscription(s)</label>
-                        </div>
-                        <div class="col-md-9">
-                            <?php 
-                                echo $no_subscriptions.' found.';
-                                if($no_subscriptions == 0)
-                                {
-                                    echo ' <a href="'.base_url().'users/subscriptions/'.$user->id.'" class="btn btn-sm btn-outline-secondary">View details</a>';
-                                }
-                            ?>
-                            
                         </div>
                     </div>
 
