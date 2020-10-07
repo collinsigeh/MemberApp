@@ -56,9 +56,9 @@
                             <div class="form-group">
                             <?php 
                                 echo $no_subscriptions.' found.';
-                                if($no_subscriptions == 0)
+                                if($no_subscriptions > 0)
                                 {
-                                    echo ' <a href="'.base_url().'users/subscriptions/'.$user->id.'" class="btn btn-sm btn-outline-secondary">View details</a>';
+                                    echo ' <a href="'.base_url().'users/subscriptions/'.$user->id.'" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#userSubscriptionModal">View details</a>';
                                 }
                             ?>
                             </div>
@@ -492,3 +492,10 @@
     </div>
   </div>
 </div>
+
+<?php
+if($user->user_type == 'Member')
+{
+    $this->load->view('inc/modal/user_subscriptions');
+}
+?>

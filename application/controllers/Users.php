@@ -82,12 +82,15 @@ class Users extends CI_Controller {
         $db_check = array(
             'user_id'=> $id
         );
-        $no_subscriptions = count($this->member_subscription_model->get_where($db_check));
+        $subscriptions = $this->member_subscription_model->get_where($db_check);
+        $no_subscriptions = count($subscriptions);
 
 		$data = array(
             'page_title'       => 'User detail',
             'user'             => $user,
-            'no_subscriptions' => $no_subscriptions
+            'no_subscriptions' => $no_subscriptions,
+            'subscriptions'    => $subscriptions,
+            'now'              => time()
         );
         
         if($user->membership == 'Student')
@@ -315,16 +318,6 @@ class Users extends CI_Controller {
         }
 
         $this->session->action_success_message = 'Update saved!';
-        redirect(base_url().'users/account/'.$id);
-    }
-
-    /*
-    * List of subscriptions for the user with id of $id
-    */
-    public function subscriptions($id=0)
-    {
-
-        $this->session->action_error_message = 'Development still in progress';
         redirect(base_url().'users/account/'.$id);
     }
 }
