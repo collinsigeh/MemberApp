@@ -269,6 +269,51 @@ class Users extends CI_Controller {
             }
         }
 
+        
+
+        // logic for authorization detail
+        $authorization_detail_to_modify = 0;
+        if(null !== $this->input->post('home_address') && strlen($this->input->post('home_address')) > 1)
+        {
+            $authorization_data['home_address'] =  $this->input->post('home_address');
+            $authorization_detail_to_modify++;
+        }
+        if(null !== $this->input->post('ncaa_roc_number') && strlen($this->input->post('ncaa_roc_number')) > 1)
+        {
+            $authorization_data['ncaa_roc_number'] =  $this->input->post('ncaa_roc_number');
+            $authorization_detail_to_modify++;
+        }
+        if(null !== $this->input->post('vlos'))
+        {
+            $authorization_data['vlos_class_of_operation'] =  $this->input->post('vlos');
+            $authorization_detail_to_modify++;
+        }
+        if(null !== $this->input->post('bvlos'))
+        {
+            $authorization_data['bvlos_class_of_operation'] =  $this->input->post('bvlos');
+            $authorization_detail_to_modify++;
+        }
+        if(null !== $this->input->post('approved_operation'))
+        {
+            $authorization_data['approved_operation'] =  $this->input->post('approved_operation');
+            $authorization_detail_to_modify++;
+        }
+        if($authorization_detail_to_modify > 0)
+        {
+            $db_check = array(
+                'user_id' => $id
+            );
+            if(count($this->authorization_detail_model->get_where($db_check)) > 0)
+            {
+                $this->authorization_detail_model->update_where($authorization_data, $db_check);
+            }
+            else
+            {
+                $authorization_data['user_id'] = $id;
+                $this->authorization_detail_model->save($authorization_data);
+            }
+        }
+
         $this->session->action_success_message = 'Update saved!';
         redirect(base_url().'users/account/'.$id);
     }

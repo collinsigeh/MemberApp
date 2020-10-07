@@ -380,10 +380,10 @@
                       <div class="col-md-9">
                           <div class="form-group">
                                 <div class="checkbox">
-                                    <input type="checkbox" name="vlos" id="vlos" value="1" <?php if(isset($authorization_detail->vlos) && $authorization_detail->vlos == 1){ echo 'checked'; } ?>> <label for="vlos">VLOS (Visual Line of Sight)</label>
+                                    <input type="checkbox" name="vlos" id="vlos" value="1" <?php if(isset($authorization_detail->vlos_class_of_operation) && $authorization_detail->vlos_class_of_operation == 1){ echo 'checked'; } ?>> <label for="vlos">VLOS (Visual Line of Sight)</label>
                                 </div>
                                 <div class="checkbox">
-                                    <input type="checkbox" name="bvlos" id="bvlos" value="1" <?php if(isset($authorization_detail->bvlos) && $authorization_detail->bvlos == 1){ echo 'checked'; } ?>> <label for="bvlos">BVLOS (Beyond Visual Line of Sight)</label>
+                                    <input type="checkbox" name="bvlos" id="bvlos" value="1" <?php if(isset($authorization_detail->bvlos_class_of_operation) && $authorization_detail->bvlos_class_of_operation == 1){ echo 'checked'; } ?>> <label for="bvlos">BVLOS (Beyond Visual Line of Sight)</label>
                                 </div>
                           </div>
                       </div>
