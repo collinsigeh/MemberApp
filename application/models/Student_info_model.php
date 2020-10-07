@@ -18,5 +18,10 @@
             $query = $this->db->get_where('student_info', $db_check);
             return $query->result();
         }
+
+        public function update_where($db_data, $db_check)
+        {
+            return $this->db->update('student_info', $db_data, $db_check);
+        }
     }
 ?>

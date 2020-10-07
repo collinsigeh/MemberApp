@@ -189,12 +189,51 @@ class Users extends CI_Controller {
         $this->user_model->update($db_data, $id);
 
         // logic for student info
+        $student_info_to_modify = 0;
         if(null !== $this->input->post('institution') && strlen($this->input->post('institution')) > 1)
         {
-            $data['institution'] =  $this->input->post('institution');
+            $student_data['institution'] =  strtoupper(trim($this->input->post('institution')));
+            $student_info_to_modify++;
+        }
+        if(null !== $this->input->post('course_of_study') && strlen($this->input->post('course_of_study')) > 1)
+        {
+            $student_data['course_of_study'] =  strtoupper(trim($this->input->post('course_of_study')));
+            $student_info_to_modify++;
+        }
+        if(null !== $this->input->post('degree') && strlen($this->input->post('degree')) > 1)
+        {
+            $student_data['degree'] =  $this->input->post('degree');
+            $student_info_to_modify++;
+        }
+        if(null !== $this->input->post('graduation_year') && strlen($this->input->post('graduation_year')) > 1)
+        {
+            $student_data['graduation_year'] =  $this->input->post('graduation_year');
+            $student_info_to_modify++;
+        }
+        if($student_info_to_modify > 0)
+        {
+            $db_check = array(
+                'user_id' => $id
+            );
+            $this->student_info_model->update_where($student_data, $db_check);
         }
 
-        $this->session->action_error_message = 'Development still in progress';
+        // logic for professional info
+        $professional_info_to_modify = 0;
+        if(null !== $this->input->post('industry') && strlen($this->input->post('industry')) > 1)
+        {
+            $professional_data['industry'] =  $this->input->post('industry');
+            $professional_info_to_modify++;
+        }
+        if($professional_info_to_modify > 0)
+        {
+            $db_check = array(
+                'user_id' => $id
+            );
+            $this->professional_info_model->update_where($professional_data, $db_check);
+        }
+
+        $this->session->action_success_message = 'Update saved!';
         redirect(base_url().'users/account/'.$id);
     }
 

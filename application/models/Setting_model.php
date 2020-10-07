@@ -16,8 +16,7 @@
 
         public function update($db_data)
         {
-            //$this->db->where('id', $id);
-            $this->db->update('settings', $db_data);
+            return $this->db->update('settings', $db_data);
         }
     }
 ?>
