@@ -18,5 +18,10 @@
             $query = $this->db->get_where('professional_info', $db_check);
             return $query->result();
         }
+
+        public function update_where($db_data, $db_check)
+        {
+            return $this->db->update('professional_info', $db_data, $db_check);
+        }
     }
 ?>

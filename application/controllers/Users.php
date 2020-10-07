@@ -215,7 +215,15 @@ class Users extends CI_Controller {
             $db_check = array(
                 'user_id' => $id
             );
-            $this->student_info_model->update_where($student_data, $db_check);
+            if(count($this->student_info_model->get_where($db_check)) > 0)
+            {
+                $this->student_info_model->update_where($student_data, $db_check);
+            }
+            else
+            {
+                $student_data['user_id'] = $id;
+                $this->student_info_model->save($student_data);
+            }
         }
 
         // logic for professional info
@@ -225,12 +233,40 @@ class Users extends CI_Controller {
             $professional_data['industry'] =  $this->input->post('industry');
             $professional_info_to_modify++;
         }
+        if(null !== $this->input->post('organisation') && strlen($this->input->post('organisation')) > 1)
+        {
+            $professional_data['organisation'] =  $this->input->post('organisation');
+            $professional_info_to_modify++;
+        }
+        if(null !== $this->input->post('organisation_description') && strlen($this->input->post('organisation_description')) > 1)
+        {
+            $professional_data['organisation_description'] =  $this->input->post('organisation_description');
+            $professional_info_to_modify++;
+        }
+        if(null !== $this->input->post('office_address') && strlen($this->input->post('office_address')) > 1)
+        {
+            $professional_data['office_address'] =  $this->input->post('office_address');
+            $professional_info_to_modify++;
+        }
+        if(null !== $this->input->post('designation') && strlen($this->input->post('designation')) > 1)
+        {
+            $professional_data['designation'] =  $this->input->post('designation');
+            $professional_info_to_modify++;
+        }
         if($professional_info_to_modify > 0)
         {
             $db_check = array(
                 'user_id' => $id
             );
-            $this->professional_info_model->update_where($professional_data, $db_check);
+            if(count($this->professional_info_model->get_where($db_check)) > 0)
+            {
+                $this->professional_info_model->update_where($professional_data, $db_check);
+            }
+            else
+            {
+                $professional_data['user_id'] = $id;
+                $this->professional_info_model->save($professional_data);
+            }
         }
 
         $this->session->action_success_message = 'Update saved!';
