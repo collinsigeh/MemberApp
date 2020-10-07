@@ -34,6 +34,12 @@
             return $this->db->insert('users', $db_data);
         }
 
+        public function update($db_data, $id)
+        {
+            $this->db->where('id', $id);
+            $this->db->update('users', $db_data);
+        }
+
         public function generate_new_password()
         {
             $password = '';

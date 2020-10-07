@@ -172,10 +172,27 @@ class Users extends CI_Controller {
             redirect(base_url().'users/account/'.$id);
         }
 
+        $now = time();
+
         $db_data = array(
             'user_type' => $this->input->post('user_type'),
-            'membership' => $this->input->post('membership')
+            'membership' => $this->input->post('membership'),
+            'email' => $email,
+            'title' => $this->input->post('title'),
+            'firstname' => $this->input->post('firstname'),
+            'lastname' => $this->input->post('lastname'),
+            'phone' => $this->input->post('phone'),
+            'gender' => $this->input->post('gender'),
+            'use_status' => $this->input->post('use_status'),
+            'updated_at' => $now
         );
+        $this->user_model->update($db_data, $id);
+
+        // logic for student info
+        if(null !== $this->input->post('institution') && strlen($this->input->post('institution')) > 1)
+        {
+            $data['institution'] =  $this->input->post('institution');
+        }
 
         $this->session->action_error_message = 'Development still in progress';
         redirect(base_url().'users/account/'.$id);
