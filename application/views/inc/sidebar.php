@@ -1,6 +1,6 @@
-<a href="#">My Profile</a>
+<a href="<?php echo base_url().'dashboard/profile/'; ?>">My Profile</a>
 <hr>
-<a href="#">My Subscription <?php if($no_unpaid_orders > 0){ echo '<span class="badge badge-pill badge-danger">'.$no_unpaid_orders.'</span>'; }; ?> </a>
+<a href="#">My Subscription</a>
 <hr>
 <a href="#">Resource Centre</a>
 <hr>

@@ -528,6 +528,79 @@ class Dashboard extends CI_Controller {
         redirect(base_url().'dashboard/reset_password/');
 	}
 
+    /*
+    * Display own profile for logged in user
+    */
+    public function profile()
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+		}
+        
+        $user = $this->user_model->find($this->session->user_id);
+
+        if(!isset($user))
+        {
+            $this->session->action_error_message = 'Invalid resource selection.';
+            redirect(base_url().'dashboard');
+        }
+
+        $now = time();
+        $db_check = array(
+            'user_id'=> $this->session->user_id
+        );
+        $subscriptions = $this->member_subscription_model->get_where($db_check);
+        $no_subscriptions = count($subscriptions);
+
+		$data = array(
+            'page_title'       => 'My profile',
+            'user'             => $user,
+            'no_subscriptions' => $no_subscriptions,
+            'subscriptions'    => $subscriptions,
+            'now'              => time()
+        );
+        
+        if($user->membership == 'Student')
+        {
+            $db_check = array(
+                'user_id' => $this->session->user_id
+            );
+            $result = $this->student_info_model->get_where($db_check);
+            if(count($result) > 0)
+            {
+                $data['student_info'] = $result[0];
+            }
+        }
+        else
+        {
+            $db_check = array(
+                'user_id' => $this->session->user_id
+            );
+            $result = $this->professional_info_model->get_where($db_check);
+            if(count($result) > 0)
+            {
+                $data['professional_info'] = $result[0];
+            }
+        }
+
+        if($user->use_status == 'Operator' OR $user->use_status == 'Recreational')
+        {
+            $db_check = array(
+                'user_id' => $this->session->user_id
+            );
+            $result = $this->authorization_detail_mode->get_where($db_check);
+            if(count($result) > 0)
+            {
+                $data['authorization_detail'] = $result[0];
+            }
+        }
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('profile_view');
+		$this->load->view('templates/footer');
+    }
+
 	public function send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message)
 	{ // SIMPLY USED TO PUSH EMAILS WITH PARAMETERS PROVIDED
 		
