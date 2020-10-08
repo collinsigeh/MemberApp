@@ -54,4 +54,4 @@
     </div>
   </div>
 </div>
-<!-- End userSubscriptionrModal -->
+<!-- End userSubscriptionModal -->

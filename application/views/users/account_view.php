@@ -58,7 +58,7 @@
                                 echo $no_subscriptions.' found.';
                                 if($no_subscriptions > 0)
                                 {
-                                    echo ' <a href="'.base_url().'users/subscriptions/'.$user->id.'" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#userSubscriptionModal">View details</a>';
+                                    echo ' <a href="#" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#userSubscriptionModal">View details</a>';
                                 }
                             ?>
                             </div>
