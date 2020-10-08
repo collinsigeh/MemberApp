@@ -22,7 +22,7 @@
 
           <div class="dashboard-section">
             <div class="section-heading">
-                Add product details
+                New product details
             </div>
             <div class="section-body">
               <div class="section-item">

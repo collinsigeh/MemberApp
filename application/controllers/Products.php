@@ -51,6 +51,9 @@ class Products extends CI_Controller {
 		$this->load->view('templates/footer');
     }
 
+	/*
+	* display product creation form
+	*/
 	public function create()
 	{
 		if($this->session->userlogged_in !== '*#loggedin@Yes')

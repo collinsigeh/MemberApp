@@ -51,6 +51,9 @@ class Dashboard extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	/*
+	* display registration page 1
+	*/
 	public function register()
 	{
 		if($this->session->userlogged_in == '*#loggedin@Yes')
@@ -72,6 +75,9 @@ class Dashboard extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	/*
+	* display registration page 2
+	*/
 	public function register_page2()
 	{
 		if($this->session->userlogged_in == '*#loggedin@Yes')
@@ -101,6 +107,9 @@ class Dashboard extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	/*
+	* process registration details
+	*/
 	public function registering_user()
 	{
 		
@@ -368,10 +377,11 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	/*
+	* display registration completed page
+	*/
 	public function registration_completed()
 	{
-		// redirects to dashboard if user is logged-in
-
 		if($this->session->userlogged_in == '*#loggedin@Yes')
 		{
 			redirect(base_url().'dashboard/');
@@ -388,10 +398,11 @@ class Dashboard extends CI_Controller {
 		session_destroy();
 	}
 
+	/*
+	* display login page for the public
+	*/
 	public function login()
-	{	
-		// redirects to dashboard if user is logged-in
-
+	{
 		if($this->session->userlogged_in == '*#loggedin@Yes')
 		{
 			redirect(base_url().'dashboard/');
@@ -470,6 +481,32 @@ class Dashboard extends CI_Controller {
 		redirect(base_url().'dashboard/login/');
 	}
 
+	/*
+	* update password for logged-in users
+	*/
+	public function update_password()
+	{
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|matches[password]');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->action_error_message = validation_errors();
+			redirect(base_url().'dashboard/profile/');
+		}
+
+		$db_data = array(
+			'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+		);
+		$this->user_model->update($db_data, $this->session->user_id);
+
+		$this->session->action_success_message = 'Password updated';
+		redirect(base_url().'dashboard/profile/');
+	}
+
+	/*
+	* display reset_password page for the public
+	*/
 	public function reset_password()
 	{
 		$data = array(
@@ -481,6 +518,9 @@ class Dashboard extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	/*
+	* resets password for the public
+	*/
 	public function requesting_password_reset()
 	{
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
@@ -601,9 +641,11 @@ class Dashboard extends CI_Controller {
 		$this->load->view('templates/footer');
     }
 
+	/*
+	* push out emails with provided parameters
+	*/
 	public function send_email($from_email, $from_name, $reply_to_email, $reply_to_name, $to, $subject, $message)
-	{ // SIMPLY USED TO PUSH EMAILS WITH PARAMETERS PROVIDED
-		
+	{		
 		$this->email->from($from_email, $from_name);
 		$this->email->reply_to($reply_to_email, $reply_to_name);
 		$this->email->to($to);

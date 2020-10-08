@@ -21,7 +21,7 @@
                     <option value="Subscription">Subscription</option>
                 </select>
             </div>
-            <div class="text-center" style="padding-top: 25px;">
+            <div class="update-button">
                 <input type="submit" value="Continue" class="custom-outline-button">
             </div>
             <?php form_close(); ?>
