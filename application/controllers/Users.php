@@ -158,7 +158,7 @@ class Users extends CI_Controller {
 		$this->form_validation->set_rules('title', 'Title', 'trim|required');
 		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
 		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
-		$this->form_validation->set_rules('sender_email', 'Sender email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('phone', 'Phone', 'trim|required');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
 
@@ -324,6 +324,10 @@ class Users extends CI_Controller {
         }
 
         $this->session->action_success_message = 'Update saved!';
+        if($id == $this->session->user_id)
+        {
+            redirect(base_url().'dashboard/logout/');
+        }
         redirect(base_url().'users/account/'.$id);
     }
 }

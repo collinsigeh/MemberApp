@@ -1,4 +1,4 @@
-<a href="<?php echo base_url().'dashboard/logout/'; ?>">My Profile</a>
+<a href="<?php echo base_url().'dashboard/profile/'; ?>">My Profile</a>
 <hr>
 <a href="<?php echo base_url().'users'; ?>">User Accounts</a>
 <hr>

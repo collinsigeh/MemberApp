@@ -70,11 +70,11 @@
                         }
                         elseif($user->status == 'Pending Approval')
                         {
-                            echo '<span class="badge badge-pill badge-primary">Pending Approval</span>';
+                            echo '<span class="badge badge-pill badge-info">Pending Approval</span>';
                         }
                         elseif($user->status == 'Suspended')
                         {
-                            echo '<span class="badge badge-pill badge-primary">Suspended</span>';
+                            echo '<span class="badge badge-pill badge-danger">Suspended</span>';
                         }
                         else
                         {
