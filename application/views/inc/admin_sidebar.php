@@ -4,7 +4,7 @@
 <hr>
 <a href="#">Member Resources</a>
 <hr>
-<a href="#">Products & Subscriptions</a>
+<a href="<?php echo base_url().'products/'; ?>">Products & Subscriptions</a>
 <hr>
 <a href="#">Order Requests</a>
 <hr>
