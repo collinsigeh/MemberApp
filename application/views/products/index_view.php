@@ -69,7 +69,7 @@
           <div class="related-action">
             <div class="action-title">Related Actions</div>
             <div class="action-body">
-                <a href="#" class="btn btn-sm btn-primary">Create new product</a>
+                <a href="#" data-toggle="modal" data-target="#newProductModal" class="btn btn-sm btn-primary">Create new product</a>
             </div>
           </div>
 
@@ -88,3 +88,7 @@
     </div>
   </div>
 </div>
+
+<?php
+    $this->load->view('inc/modal/new_product');
+?>

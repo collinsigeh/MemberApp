@@ -50,4 +50,46 @@ class Products extends CI_Controller {
 		$this->load->view('products/index_view');
 		$this->load->view('templates/footer');
     }
+
+	public function create()
+	{
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+
+        $this->form_validation->set_rules('product_type', 'Product type', 'trim|required');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            if(isset($this->session->product_type) && strlen($this->session->product_type) > 1)
+            {
+                $product_type = $this->session->product_type;
+            }
+            else
+            {
+                $this->session->action_error_message = validation_errors();
+                redirect(base_url().'products/');
+            }
+        }
+        else
+        {
+            $product_type = $this->session->product_type = $this->input->post('product_type');
+        }
+
+        if($product_type != 'Non-subscription' && $product_type != 'Subscription')
+        {
+            $this->session->action_error_message = 'Invalid product type selection';
+            redirect(base_url().'products/');
+        }
+
+        $data = array(
+            'page_title'   => 'New product',
+            'product_type' => $product_type
+        );
+        
+		$this->load->view('templates/header', $data);
+		$this->load->view('products/create_view');
+		$this->load->view('templates/footer');
+    }
 }

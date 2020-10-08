@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><?php echo $page_title; ?></title>
+  <title><?php if(isset($page_title)){ echo $page_title; } ?></title>
 
   <!-- Bootstrap core CSS -->
   <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">

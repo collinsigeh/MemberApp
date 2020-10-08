@@ -9,7 +9,7 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
-              <li class="breadcrumb-item"><a href="<?php echo base_url().'users'; ?>">User accounts</a></li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url().'users/'; ?>">User accounts</a></li>
               <li class="breadcrumb-item active" aria-current="page"><?php echo $user->firstname.' '.$user->lastname; ?></li>
             </ol>
           </nav>
