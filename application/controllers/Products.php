@@ -14,6 +14,7 @@ class Products extends CI_Controller {
         
         $this->load->model('setting_model');
         $this->load->model('product_model');
+        $this->load->model('payment_processor_model');
         
         $this->load->library('pagination');
 		$this->load->library('form_validation');
@@ -86,9 +87,13 @@ class Products extends CI_Controller {
             redirect(base_url().'products/');
         }
 
+        $result  = $this->setting_model->get();
+        $payment_processor = $this->payment_processor_model->find($result->payment_processor_id);
+
         $data = array(
-            'page_title'   => 'New product',
-            'product_type' => $product_type
+            'page_title'        => 'New product',
+            'product_type'      => $product_type,
+            'currency_symbol'   => $payment_processor->currency_symbol,
         );
         
 		$this->load->view('templates/header', $data);
