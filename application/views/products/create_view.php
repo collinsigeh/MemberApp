@@ -59,7 +59,7 @@
                                 <label for="amount">Price (<?php echo $currency_symbol; ?>)</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="amount" id="amount" value="<?php echo $this->session->product_name; ?>" placeholder="E.g. 25750.50" required />
+                                <input type="text" class="form-control" name="amount" id="amount" value="<?php echo $this->session->product_price; ?>" placeholder="E.g. 25750.50" required />
                                 <small class="text-muted">*** Enter amount <b>without</b> comma ***</small>
                             </div>
                         </div>

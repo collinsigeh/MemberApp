@@ -20,5 +20,10 @@
             $query = $this->db->get_where('products', $db_check);
             return $query->result();
         }
+
+        public function save($db_data)
+        {
+            return $this->db->insert('products', $db_data);
+        }
     }
 ?>

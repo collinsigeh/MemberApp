@@ -34,7 +34,7 @@
                             foreach ($products as $product) {
                                 echo '<tr>
                                     <td><b>'.$i.'</b></td>
-                                    <td><a href="'.base_url().'products/item/'.$product->id.'" class="table-link">'.$product->name.' <span class="badge badge-pill badge-info">'.$product->type.'</span></a></td>
+                                    <td><a href="'.base_url().'products/item/'.$product->id.'" class="table-link">'.$product->name.'</a></td>
                                   </tr>';
                                 $i++;
                                 $item_count++;
