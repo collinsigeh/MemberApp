@@ -16,6 +16,7 @@ class Products extends CI_Controller {
         $this->load->model('product_model');
         $this->load->model('payment_processor_model');
         $this->load->model('subscription_product_model');
+        $this->load->model('non_subscription_product_model');
         
         $this->load->library('pagination');
 		$this->load->library('form_validation');
@@ -119,23 +120,36 @@ class Products extends CI_Controller {
         $this->form_validation->set_rules('name', 'Product name', 'trim|required|is_unique[products.name]');
         $this->form_validation->set_rules('amount', 'Price ('.$payment_processor->currency_symbol.')', 'trim|required');
         
-        $product_data['type'] = $this->input->post('product_type');
-        $product_data['name'] = $this->session->product_name = $this->input->post('name');
+        $product_data['type']   = $this->input->post('product_type');
+        $product_data['name']   = $this->session->product_name = $this->input->post('name');
         $product_data['amount'] = $this->session->product_price = $this->input->post('amount');
 
         if($this->session->product_type == 'Subscription')
         {
-            $this->form_validation->set_rules('subscription_type', 'Product type', 'trim|required');
+            $this->form_validation->set_rules('subscription_type', 'Product type', 'trim|required|in_list[Membership,Non-membership]');
             $this->form_validation->set_rules('duration', 'Validity (days)', 'trim|required');
             $this->form_validation->set_rules('user_limit', 'Product type', 'trim|required');
 
-            $subscription_data['type'] = $this->session->product_subscription_type = $this->input->post('subscription_type');
-            $subscription_data['user_limit'] = $this->session->product_user_limit = $this->input->post('user_limit');
+            $subscription_data['type']                    = $this->session->product_subscription_type = $this->input->post('subscription_type');
+            $subscription_data['user_limit']              = $this->session->product_user_limit = $this->input->post('user_limit');
             $this->session->product_subscription_duration = $this->input->post('duration');
         }
+        elseif($this->session->product_type == 'Non-subscription')
+        {
+            $this->form_validation->set_rules('nature', 'Nature of product', 'trim|required|in_list[Downloadable,Non-downloadable]');
+            
+            $subscription_data['nature'] = $this->session->product_nature = $this->input->post('nature');
 
-        $this->form_validation->set_rules('status', 'Status', 'trim|required');
-        $product_data['status'] = $this->session->product_status = $this->input->post('status');
+            if($this->input->post('nature') == 'Downloadable')
+            {
+                $this->form_validation->set_rules('download_link', 'Download link', 'trim|required|valid_url');
+                $subscription_data['download_link'] = $this->session->product_download_link = $this->input->post('download_link');
+            }
+        }
+
+        $this->form_validation->set_rules('status', 'Status', 'trim|required|in_list[Available,NOT Available]');
+
+        $product_data['status']     = $this->session->product_status = $this->input->post('status');
         $product_data['created_at'] = time();
 
         if($this->form_validation->run() == FALSE)
@@ -145,17 +159,32 @@ class Products extends CI_Controller {
         }
 
         $this->product_model->save($product_data);
-        $result = $this->product_model->get_where($product_data);
-        $product = $result[0];
 
-        $this->session->unset_userdata('product_name');
+        $result     = $this->product_model->get_where($product_data);
+        $product    = $result[0];
 
         if($this->session->product_type == 'Subscription')
         {
-            $subscription_data['product_id'] = $product->id;
-            $subscription_data['duration'] = 24 * 60 * 60 * $this->session->product_subscription_duration;
+            $subscription_data['product_id']    = $product->id;
+            $subscription_data['duration']      = 24 * 60 * 60 * $this->session->product_subscription_duration;
+
             $this->subscription_product_model->save($subscription_data);
+
+            $this->session->unset_userdata('product_subscription_type');
+            $this->session->unset_userdata('product_user_limit');
+            $this->session->unset_userdata('product_subscription_duration');
         }
+        elseif($this->session->product_type == 'Non-subscription')
+        {
+            $this->non_subscription_product_model->save($subscription_data);
+
+            $this->session->unset_userdata('nature');
+            $this->session->unset_userdata('downlaod_link');
+        }
+
+        $this->session->unset_userdata('product_name');
+        $this->session->unset_userdata('product_price');
+        $this->session->unset_userdata('product_status');
 
         $this->session->action_success_message = 'Product saved.';
         redirect(base_url().'products/');

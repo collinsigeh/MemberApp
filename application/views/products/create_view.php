@@ -49,6 +49,7 @@
                             </div>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="name" id="name" value="<?php echo $this->session->product_name; ?>" required />
+                                <small class="text-muted">*** Be as descriptive as possible. Example: <b>NUSA Magazine vol. 10</b> ***</small>
                             </div>
                         </div>
                     </div>
@@ -70,6 +71,10 @@
                       {
                         $this->load->view('inc/subscription_product_view');
                       }
+                      else
+                      {
+                        $this->load->view('inc/non_subscription_product_view');
+                      }
                     ?>
 
                     <div class="form-group">
@@ -79,6 +84,7 @@
                             </div>
                             <div class="col-md-9">
                               <select name="status" id="" class="form-control">
+                                <option value="">-- Select an option --</option>
                                 <option value="Available" <?php if($this->session->product_status == 'Available'){ echo 'selected'; } ?>>Available</option>
                                 <option value="NOT Available" <?php if($this->session->product_status == 'NOT Available'){ echo 'selected'; } ?>>NOT Available</option>
                               </select>

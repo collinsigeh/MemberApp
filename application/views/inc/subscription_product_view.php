@@ -7,6 +7,7 @@
                             </div>
                             <div class="col-md-9">
                               <select name="subscription_type" id="subscription_type" class="form-control">
+                                <option value="">-- Select an option --</option>
                                 <option value="Membership" <?php if($this->session->product_subscription_type == 'Membership'){ echo 'selected'; } ?>>Membership</option>
                                 <option value="Non-membership" <?php if($this->session->product_subscription_type == 'Non-membership'){ echo 'selected'; } ?>>Non-membership</option>
                               </select>
