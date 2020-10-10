@@ -21,6 +21,13 @@
             return $query->result();
         }
 
+        public function find($id)
+        {
+            $this->db->where('id', $id);
+            $query = $this->db->get('products');
+            return $query->row();
+        }
+
         public function save($db_data)
         {
             return $this->db->insert('products', $db_data);

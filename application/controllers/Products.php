@@ -189,4 +189,55 @@ class Products extends CI_Controller {
         $this->session->action_success_message = 'Product saved.';
         redirect(base_url().'products/');
     }
+
+    /*
+    * displays the details of a specific product
+    */
+    public function item($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $product = $this->product_model->find($id);
+        if(empty($product))
+        {
+            $this->session->action_success_message = 'Invalid item selection.';
+            redirect(base_url().'products/');
+        }
+
+        $db_check = array(
+            'product_id' => $product->id
+        );
+
+        if($product->type == 'Subscription')
+        {
+            $product_detail = $this->subscription_product_model->get_where($db_check);
+            if(empty($product_detail))
+            {
+                $this->session->action_success_message = 'Invalid item selection.';
+                redirect(base_url().'products/');
+            }
+        }
+        elseif($product->type == 'Non-subscription')
+        {
+            $product_detail = $this->non_subscription_product_model->get_where($db_check);
+            if(empty($product_detail))
+            {
+                $this->session->action_success_message = 'Invalid item selection.';
+                redirect(base_url().'products/');
+            }
+        }
+        
+		$data = array(
+            'page_title'  => 'Product detail',
+            'product'     => $product,
+            'item_detail' => $product_detail
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('products/item_view');
+		$this->load->view('templates/footer');
+    }
 }
