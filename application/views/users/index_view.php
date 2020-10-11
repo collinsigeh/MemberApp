@@ -29,19 +29,34 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-hover table-small">
                         <?php
-                            $item_count = 0;
-                            $i = $start;
-                            foreach ($users as $user) {
-                                echo '<tr>
-                                    <td><b>'.$i.'</b></td>
-                                    <td><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/profile_default.png" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></td>
-                                  </tr>';
-                                $i++;
-                                $item_count++;
-                            }
-                            if($item_count == 0)
+                            if($total < 1)
                             {
                                 echo '<tr><td>None found</td><tr>';
+                            }
+                            else
+                            {
+                              echo '<tr>
+                                  <th>#</th>
+                                  <th>User</th>
+                                  <th>Type</th>
+                                </tr>';
+                              $i = $start;
+                              foreach ($users as $user) {
+                                  if($user->user_type == 'Admin')
+                                  {
+                                    $user_type = '<span class="badge badge-pill badge-info">Admin</span>';
+                                  }
+                                  else
+                                  {
+                                    $user_type = '<span class="badge badge-pill badge-light">Member</span>';
+                                  }
+                                  echo '<tr>
+                                      <td><b>'.$i.'</b></td>
+                                      <td><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/profile_default.png" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></td>
+                                      <td>'.$user_type.'</td>
+                                      </tr>';
+                                  $i++;
+                              }
                             }
                         ?>
                         </table>

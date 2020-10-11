@@ -29,19 +29,34 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-hover table-small">
                         <?php
-                            $item_count = 0;
-                            $i = $start;
-                            foreach ($products as $product) {
-                                echo '<tr>
-                                    <td><b>'.$i.'</b></td>
-                                    <td><a href="'.base_url().'products/item/'.$product->id.'" class="table-link">'.$product->name.'</a></td>
-                                  </tr>';
-                                $i++;
-                                $item_count++;
-                            }
-                            if($item_count == 0)
+                            if($total < 1)
                             {
                                 echo '<tr><td>None found</td><tr>';
+                            }
+                            else
+                            {
+                              echo '<tr>
+                                  <th>#</th>
+                                  <th>Item</th>
+                                  <th>Type</th>
+                                </tr>';
+                              $i = $start;
+                              foreach ($products as $product) {
+                                  if($product->type == 'Subscription')
+                                  {
+                                    $product_type = '<span class="badge badge-pill badge-info">Subscription</span>';
+                                  }
+                                  else
+                                  {
+                                    $product_type = '<span class="badge badge-pill badge-light">Non-subscription</span>';
+                                  }
+                                  echo '<tr>
+                                      <td><b>'.$i.'</b></td>
+                                      <td><a href="'.base_url().'products/item/'.$product->id.'" class="table-link">'.$product->name.'</a></td>
+                                      <td>'.$product_type.'</td>
+                                      </tr>';
+                                  $i++;
+                              }
                             }
                         ?>
                         </table>
