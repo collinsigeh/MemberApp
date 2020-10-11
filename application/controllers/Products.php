@@ -95,7 +95,7 @@ class Products extends CI_Controller {
         $data = array(
             'page_title'        => 'New product',
             'product_type'      => $product_type,
-            'currency_symbol'   => $payment_processor->currency_symbol,
+            'currency_symbol'   => $payment_processor->currency_symbol
         );
         
 		$this->load->view('templates/header', $data);
@@ -229,11 +229,15 @@ class Products extends CI_Controller {
                 redirect(base_url().'products/');
             }
         }
+
+        $result  = $this->setting_model->get();
+        $payment_processor = $this->payment_processor_model->find($result->payment_processor_id);
         
 		$data = array(
-            'page_title'  => 'Product detail',
-            'product'     => $product,
-            'item_detail' => $product_detail
+            'page_title'        => 'Product detail',
+            'product'           => $product,
+            'item_detail'       => $product_detail[0],
+            'currency_symbol'   => $payment_processor->currency_symbol
 		);
 
 		$this->load->view('templates/header', $data);

@@ -18,11 +18,11 @@
             $this->load->view('inc/action_message');
           ?>
 
-          <?php echo form_open(base_url().'products/save/'); ?>
+          <?php echo form_open(base_url().'products/update/'); ?>
 
           <div class="dashboard-section">
             <div class="section-heading">
-                New product details
+                Product details
             </div>
             <div class="section-body">
               <div class="section-item">
@@ -36,8 +36,8 @@
                                 <label for="product_type">Product type</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="hidden" name="product_type" value="<?php echo $product_type; ?>" required />
-                                <input type="text" class="form-control" name="v_product_type" value="<?php echo $product_type; ?>" disabled />
+                                <input type="hidden" name="product_type" value="<?php echo $product->type; ?>" required />
+                                <input type="text" class="form-control" name="v_product_type" value="<?php echo $product->type; ?>" disabled />
                             </div>
                         </div>
                     </div>
@@ -48,8 +48,7 @@
                                 <label for="name">Product name</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="name" id="name" value="<?php echo $this->session->product_name; ?>" required />
-                                <small class="text-muted">*** Be as descriptive as possible. Example: <b>NUSA Magazine vol. 10</b> ***</small>
+                                <input type="text" class="form-control" name="name" id="name" value="<?php echo $product->name; ?>" required />
                             </div>
                         </div>
                     </div>
@@ -60,14 +59,13 @@
                                 <label for="amount">Price (<?php echo $currency_symbol; ?>)</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="amount" id="amount" value="<?php echo $this->session->product_price; ?>" placeholder="E.g. 25750.50" required />
-                                <small class="text-muted">*** Enter amount <b>without</b> comma ***</small>
+                                <input type="text" class="form-control" name="amount" id="amount" value="<?php echo $product->amount; ?>" placeholder="E.g. 25750.50" required />
                             </div>
                         </div>
                     </div>
 
                     <?php
-                      if($product_type == 'Subscription')
+                      if($product->type == 'Subscription')
                       {
                         $this->load->view('inc/subscription_product_view');
                       }
@@ -85,8 +83,8 @@
                             <div class="col-md-9">
                               <select name="status" id="" class="form-control">
                                 <option value="">-- Select an option --</option>
-                                <option value="Available" <?php if($this->session->product_status == 'Available'){ echo 'selected'; } ?>>Available</option>
-                                <option value="NOT Available" <?php if($this->session->product_status == 'NOT Available'){ echo 'selected'; } ?>>NOT Available</option>
+                                <option value="Available" <?php if($product->status == 'Available'){ echo 'selected'; } ?>>Available</option>
+                                <option value="NOT Available" <?php if($product->status == 'NOT Available'){ echo 'selected'; } ?>>NOT Available</option>
                               </select>
                             </div>
                         </div>
