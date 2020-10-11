@@ -162,11 +162,12 @@ class Products extends CI_Controller {
 
         $result     = $this->product_model->get_where($product_data);
         $product    = $result[0];
+        
+        $subscription_data['product_id']    = $product->id;
 
         if($this->session->product_type == 'Subscription')
         {
-            $subscription_data['product_id']    = $product->id;
-            $subscription_data['duration']      = 24 * 60 * 60 * $this->session->product_subscription_duration;
+            $subscription_data['duration']      = $this->session->product_subscription_duration;
 
             $this->subscription_product_model->save($subscription_data);
 
