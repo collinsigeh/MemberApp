@@ -31,7 +31,7 @@
                         <?php
                             if($total < 1)
                             {
-                                echo '<tr><td>None found</td><tr>';
+                                echo '<tr><td>None found</td></tr>';
                             }
                             else
                             {
@@ -74,7 +74,7 @@
                         <small>
                         <div class="row pagination">
                             <div class="col-6"><div class="page-links"><?php echo $this->pagination->create_links(); ?></div></div>
-                            <div class="col-6"><div class="page-description">Users <?php echo $start.' to '.$end.' of '.$total; ?></div></div>
+                            <div class="col-6"><div class="page-description">Items <?php echo $start.' to '.$end.' of '.$total; ?></div></div>
                         </div>
                         </small>
                         <?php

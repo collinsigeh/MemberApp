@@ -13,5 +13,13 @@
             $query = $this->db->get_where('member_subscription', $db_check);
             return $query->result();
         }
+        
+        public function paginate($db_check, $limit, $offset=0)
+        {
+            $this->db->order_by('subscription_start ASC');
+            $this->db->limit($limit, $offset);
+            $query = $this->db->get_where('member_subscription');
+            return $query->result();
+        }
     }
 ?>

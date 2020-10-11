@@ -62,7 +62,7 @@
                   <div class="section-item">
                     <div class="row">
                       <div class="col-md-4">Subscription</div>
-                      <div class="col-md-8"><span class="badge badge-pill badge-danger">None</span></div>
+                      <div class="col-md-8"><span class="badge badge-pill badge-danger">None</span> <small><a href="#">Subscribe now</a></small></div>
                     </div>
                   </div>
                   <?php

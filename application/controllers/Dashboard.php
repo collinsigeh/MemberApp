@@ -17,6 +17,7 @@ class Dashboard extends CI_Controller {
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
+        $this->load->library('pagination');
 	}
 
 	public function index()
@@ -638,6 +639,50 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('profile_view');
+		$this->load->view('templates/footer');
+    }
+
+    /*
+    * Display subscriptions for logged in member
+    */
+    public function subscriptions($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+		}
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+        }
+
+        $now = time();
+        $db_check = array(
+            'user_id'=> $this->session->user_id
+        );
+        $offset = $id;
+        $limit = 50;
+		$subscriptions = $this->member_subscription_model->paginate($db_check, $limit, $offset);
+		$total = count($this->member_subscription_model->get_where($db_check));
+        
+        $config['base_url'] = base_url().'dashboard/subscriptions/';
+        $config['total_rows'] = $total;
+        $config['per_page'] = $limit;
+
+        $this->pagination->initialize($config);
+
+		$data = array(
+            'page_title'	=> 'My profile',
+            'now'           => $now,
+            'subscriptions' => $subscriptions,
+            'total'         => $total,
+            'start'         => $offset + 1,
+            'end'           => $offset + count($subscriptions)
+        );
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('subscriptions_view');
 		$this->load->view('templates/footer');
     }
 

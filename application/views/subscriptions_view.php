@@ -9,7 +9,7 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
-              <li class="breadcrumb-item active" aria-current="page">User accounts</li>
+              <li class="breadcrumb-item active" aria-current="page">My subscriptions</li>
             </ol>
           </nav>
           </div>
@@ -18,7 +18,7 @@
           ?>
           <div class="dashboard-section">
             <div class="section-heading">
-              User list
+              My subscriptions
             </div>
             <div class="section-body">
               <div class="section-item">
@@ -31,48 +31,59 @@
                         <?php
                             if($total < 1)
                             {
-                                echo '<tr><td>None found</td></tr>';
+                                echo '<tr><td>None found</td><td class="text-right"><a href="#" class="btn btn-sm btn-primary">Subscribe now</a></td></tr>';
                             }
                             else
                             {
                               if($total > 1)
                               {
-                                echo '<div class="alert alert-info">User details are ordered alphabetically.</div>';
+                                echo '<div class="alert alert-info">Subscriptions are ordered alphabetically.</div>';
                               }
                               echo '<thead>
                                   <tr>
                                   <th>#</th>
-                                  <th>User detail</th>
-                                  <th>Account</th>
+                                  <th>Subscription</th>
+                                  <th></th>
                                 </tr>
                                 </thead>';
                               $i = $start;
-                              foreach ($users as $user) {
-                                  if($user->user_type == 'Admin')
-                                  {
-                                    $user_type = '<span class="badge badge-pill badge-info">Admin</span>';
-                                  }
-                                  else
-                                  {
-                                    $user_type = '<span class="badge badge-pill badge-light">Member</span>';
-                                  }
-                                  echo '<tr>
+                              foreach ($subscriptions as $subscription) {
+                                if($now < $subscription->subscription_end && $now > $subscription->subscription_start)
+                                {
+                                  $status = '<span class="badge badge-pill badge-success">Active</span>';
+                                }
+                                elseif($now >= $subscription->subscription_end)
+                                {
+                                    $status = '<span class="badge badge-pill badge-danger">Expired</span>';
+                                }
+                                else
+                                {
+                                    $status = '<span class="badge badge-pill badge-info">Inactive</span>';
+                                }
+                                echo '<tr>
                                       <td><b>'.$i.'</b></td>
-                                      <td><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/profile_default.png" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></td>
-                                      <td>'.$user_type.'</td>
+                                      <td>'.$subscription->name.'</td>
+                                      <td>'.$status.'</td>
                                       </tr>';
-                                  $i++;
+                                $i++;
                               }
                             }
                         ?>
                         </table>
                     </div>
-                    <small>
-                    <div class="row pagination">
-                        <div class="col-6"><div class="page-links"><?php echo $this->pagination->create_links(); ?></div></div>
-                        <div class="col-6"><div class="page-description">Users <?php echo $start.' to '.$end.' of '.$total; ?></div></div>
-                    </div>
-                    </small>
+                    <?php
+                    if($total > 0)
+                    {
+                        ?>
+                        <small>
+                        <div class="row pagination">
+                            <div class="col-6"><div class="page-links"><?php echo $this->pagination->create_links(); ?></div></div>
+                            <div class="col-6"><div class="page-description">Items <?php echo $start.' to '.$end.' of '.$total; ?></div></div>
+                        </div>
+                        </small>
+                        <?php
+                    }
+                    ?>
                   </div>
 
                   </div>
@@ -88,7 +99,7 @@
         <div class="sidebar">
           <!-- Sidebar -->
           <?php
-            $this->load->view('inc/admin_sidebar'); 
+            $this->load->view('inc/sidebar'); 
           ?>
         </div>
       </div>

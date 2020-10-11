@@ -1,6 +1,6 @@
 <a href="<?php echo base_url().'dashboard/profile/'; ?>">My Profile</a>
 <hr>
-<a href="#">My Subscription</a>
+<a href="<?php echo base_url().'dashboard/subscriptions/'; ?>">My Subscription</a>
 <hr>
 <a href="#">Resource Centre</a>
 <hr>
