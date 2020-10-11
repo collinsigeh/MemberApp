@@ -32,5 +32,11 @@
         {
             return $this->db->insert('products', $db_data);
         }
+
+        public function update($db_data, $id)
+        {
+            $this->db->where('id', $id);
+            return $this->db->update('products', $db_data);
+        }
     }
 ?>

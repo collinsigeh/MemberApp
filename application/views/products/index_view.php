@@ -35,11 +35,17 @@
                             }
                             else
                             {
-                              echo '<tr>
+                              if($total > 1)
+                              {
+                                echo '<div class="alert alert-info">Items are ordered alphabetically.</div>';
+                              }
+                              echo '<thead>
+                                  <tr>
                                   <th>#</th>
                                   <th>Item</th>
                                   <th>Type</th>
-                                </tr>';
+                                </tr>
+                                </thead>';
                               $i = $start;
                               foreach ($products as $product) {
                                   if($product->type == 'Subscription')

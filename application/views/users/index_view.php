@@ -35,11 +35,17 @@
                             }
                             else
                             {
-                              echo '<tr>
+                              if($total > 1)
+                              {
+                                echo '<div class="alert alert-info">User details are ordered alphabetically.</div>';
+                              }
+                              echo '<thead>
+                                  <tr>
                                   <th>#</th>
-                                  <th>User</th>
-                                  <th>Type</th>
-                                </tr>';
+                                  <th>User detail</th>
+                                  <th>Account</th>
+                                </tr>
+                                </thead>';
                               $i = $start;
                               foreach ($users as $user) {
                                   if($user->user_type == 'Admin')

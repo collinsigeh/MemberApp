@@ -18,7 +18,7 @@
             $this->load->view('inc/action_message');
           ?>
 
-          <?php echo form_open(base_url().'products/update/'); ?>
+          <?php echo form_open(base_url().'products/update/'.$product->id); ?>
 
           <div class="dashboard-section">
             <div class="section-heading">
@@ -36,7 +36,6 @@
                                 <label for="product_type">Product type</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="hidden" name="product_type" value="<?php echo $product->type; ?>" required />
                                 <input type="text" class="form-control" name="v_product_type" value="<?php echo $product->type; ?>" disabled />
                             </div>
                         </div>

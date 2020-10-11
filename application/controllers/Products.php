@@ -118,11 +118,11 @@ class Products extends CI_Controller {
 
         $this->form_validation->set_rules('product_type', 'Product type', 'trim|required|in_list[Non-subscription,Subscription]');
         $this->form_validation->set_rules('name', 'Product name', 'trim|required|is_unique[products.name]');
-        $this->form_validation->set_rules('amount', 'Price ('.$payment_processor->currency_symbol.')', 'trim|required');
+        $this->form_validation->set_rules('amount', 'Price ('.$payment_processor->currency_symbol.')', 'trim|required|numeric');
         
         $product_data['type']   = $this->input->post('product_type');
-        
-        $product_data['name']           = $this->session->product_name              = $this->input->post('name');
+
+        $product_data['name']           = $this->session->product_name              = trim($this->input->post('name'));
         $product_data['for_individual'] = $this->session->product_for_individual    = $this->input->post('for_individual');
         $product_data['for_corporate']  = $this->session->product_for_corporate     = $this->input->post('for_corporate');
         $product_data['for_student']    = $this->session->product_for_student       = $this->input->post('for_student');
@@ -137,23 +137,23 @@ class Products extends CI_Controller {
         if($this->session->product_type == 'Subscription')
         {
             $this->form_validation->set_rules('subscription_type', 'Product type', 'trim|required|in_list[Membership,Non-membership]');
-            $this->form_validation->set_rules('duration', 'Validity (days)', 'trim|required');
-            $this->form_validation->set_rules('user_limit', 'Product type', 'trim|required');
+            $this->form_validation->set_rules('duration', 'Validity (days)', 'trim|required|integer');
+            $this->form_validation->set_rules('user_limit', 'Product type', 'trim|required|integer');
 
-            $subscription_data['type']                    = $this->session->product_subscription_type = $this->input->post('subscription_type');
-            $subscription_data['user_limit']              = $this->session->product_user_limit = $this->input->post('user_limit');
-            $this->session->product_subscription_duration = $this->input->post('duration');
+            $subscription_data['type']          = $this->session->product_subscription_type     = $this->input->post('subscription_type');
+            $subscription_data['user_limit']    = $this->session->product_user_limit            = $this->input->post('user_limit');
+            $subscription_data['duration']      = $this->session->product_subscription_duration = $this->input->post('duration');
         }
         elseif($this->session->product_type == 'Non-subscription')
         {
             $this->form_validation->set_rules('nature', 'Nature of product', 'trim|required|in_list[Downloadable,Non-downloadable]');
             
-            $subscription_data['nature'] = $this->session->product_nature = $this->input->post('nature');
+            $non_subscription_data['nature'] = $this->session->product_nature = $this->input->post('nature');
 
             if($this->input->post('nature') == 'Downloadable')
             {
                 $this->form_validation->set_rules('download_link', 'Download link', 'trim|required|valid_url');
-                $subscription_data['download_link'] = $this->session->product_download_link = $this->input->post('download_link');
+                $non_subscription_data['download_link'] = $this->session->product_download_link = $this->input->post('download_link');
             }
         }
 
@@ -173,11 +173,9 @@ class Products extends CI_Controller {
         $result     = $this->product_model->get_where($product_data);
         $product    = $result[0];
 
-        $subscription_data['product_id']    = $product->id;
-
         if($this->session->product_type == 'Subscription')
         {
-            $subscription_data['duration']      = $this->session->product_subscription_duration;
+            $subscription_data['product_id'] = $product->id;
 
             $this->subscription_product_model->save($subscription_data);
 
@@ -187,6 +185,8 @@ class Products extends CI_Controller {
         }
         elseif($this->session->product_type == 'Non-subscription')
         {
+            $non_subscription_data['product_id'] = $product->id;
+
             $this->non_subscription_product_model->save($subscription_data);
 
             $this->session->unset_userdata('nature');
@@ -194,6 +194,9 @@ class Products extends CI_Controller {
         }
 
         $this->session->unset_userdata('product_name');
+        $this->session->unset_userdata('product_for_individual');
+        $this->session->unset_userdata('product_for_corporate');
+        $this->session->unset_userdata('product_for_student');
         $this->session->unset_userdata('product_price');
         $this->session->unset_userdata('product_status');
 
@@ -250,5 +253,96 @@ class Products extends CI_Controller {
 		$this->load->view('templates/header', $data);
 		$this->load->view('products/item_view');
 		$this->load->view('templates/footer');
+    }
+
+    /*
+    * Update the details of the product with id of $id
+    */
+    public function update($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $product = $this->product_model->find($id);
+
+        if(!isset($product))
+        {
+            $this->session->action_error_message = 'Invalid resource selection.';
+            redirect(base_url().'products/');
+        }
+        
+        $this->form_validation->set_rules('name', 'Product name', 'trim|required');
+        $this->form_validation->set_rules('amount', 'Price ('.$product->currency_symbol.')', 'trim|required|numeric');
+
+        $product_data['name']           = trim($this->input->post('name'));
+        $product_data['for_individual'] = $this->input->post('for_individual');
+        $product_data['for_corporate']  = $this->input->post('for_corporate');
+        $product_data['for_student']    = $this->input->post('for_student');
+        $product_data['amount']         = $this->input->post('amount');
+
+        if($product->type == 'Subscription')
+        {
+            $this->form_validation->set_rules('subscription_type', 'Product type', 'trim|required|in_list[Membership,Non-membership]');
+            $this->form_validation->set_rules('duration', 'Validity (days)', 'trim|required|integer');
+            $this->form_validation->set_rules('user_limit', 'Product type', 'trim|required|integer');
+
+            $subscription_data['type']          = $this->input->post('subscription_type');
+            $subscription_data['user_limit']    = $this->input->post('user_limit');
+            $subscription_data['duration']      = $this->input->post('duration');
+        }
+        elseif($this->session->product_type == 'Non-subscription')
+        {
+            $this->form_validation->set_rules('nature', 'Nature of product', 'trim|required|in_list[Downloadable,Non-downloadable]');
+            
+            $non_subscription_data['nature'] = $this->input->post('nature');
+
+            if($this->input->post('nature') == 'Downloadable')
+            {
+                $this->form_validation->set_rules('download_link', 'Download link', 'trim|required|valid_url');
+                $non_subscription_data['download_link'] = $this->input->post('download_link');
+            }
+        }
+
+        $this->form_validation->set_rules('status', 'Status', 'trim|required|in_list[Available,NOT Available]');
+
+        $product_data['status']     = $this->input->post('status');
+        $product_data['created_at'] = time();
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'products/create/');
+        }
+
+        //check if product name is already in use
+        $db_check = array(
+            'name' => $product_data['name'],
+            'id !=' => $id
+        );
+        if(count($this->product_model->get_where($db_check)) > 0)
+        {
+            $this->session->action_error_message = 'The name - <i>'.$product_data['name'].'</i> - is in use.';
+            redirect(base_url().'products/item/'.$id);
+        }
+
+        $this->product_model->update($product_data, $id);
+
+        $db_check = array(
+            'product_id' => $product->id
+        );
+
+        if($product->type == 'Subscription')
+        {
+            $this->subscription_product_model->update_where($subscription_data, $db_check);
+        }
+        elseif($product->type == 'Non-subscription')
+        {
+            $this->non_subscription_product_model->update_where($non_subscription_data, $db_check);
+        }
+
+        $this->session->action_success_message = 'Update saved.';
+        redirect(base_url().'products/item/'.$id);
     }
 }
