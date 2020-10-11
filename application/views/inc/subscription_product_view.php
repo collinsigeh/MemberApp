@@ -1,9 +1,18 @@
 <?php
     if($page_title == 'Product detail')
     {
-        $this->session->product_subscription_type       = $item_detail->type;
-        $this->session->product_subscription_duration   = $item_detail->duration;
-        $this->session->product_user_limit              = $item_detail->user_limit;
+        if(!empty($item_detail))
+        {
+            $this->session->product_subscription_type       = $item_detail->type;
+            $this->session->product_subscription_duration   = $item_detail->duration;
+            $this->session->product_user_limit              = $item_detail->user_limit;
+        }
+        else
+        {
+            $this->session->product_subscription_type       = '';
+            $this->session->product_subscription_duration   = '';
+            $this->session->product_user_limit              = '';
+        }
     }
 ?>
 

@@ -228,27 +228,34 @@ class Products extends CI_Controller {
         if($product->type == 'Subscription')
         {
             $product_detail = $this->subscription_product_model->get_where($db_check);
+            /*
             if(empty($product_detail))
             {
                 $this->session->action_success_message = 'Invalid item selection.';
                 redirect(base_url().'products/');
             }
+            */
         }
         elseif($product->type == 'Non-subscription')
         {
             $product_detail = $this->non_subscription_product_model->get_where($db_check);
+            /*
             if(empty($product_detail))
             {
                 $this->session->action_success_message = 'Invalid item selection.';
                 redirect(base_url().'products/');
             }
+            */
         }
         
 		$data = array(
             'page_title'        => 'Product detail',
-            'product'           => $product,
-            'item_detail'       => $product_detail[0]
-		);
+            'product'           => $product
+        );
+        if(isset($product_detail[0]))
+        {
+            $data['item_detail'] = $product_detail[0];
+        }
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('products/item_view');

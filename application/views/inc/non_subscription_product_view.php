@@ -1,8 +1,16 @@
 <?php
     if($page_title == 'Product detail')
     {
-        $this->session->product_nature          = $item_detail->nature;
-        $this->session->product_download_link   = $item_detail->download_link;
+        if(!empty($item_detail))
+        {
+            $this->session->product_nature          = $item_detail->nature;
+            $this->session->product_download_link   = $item_detail->download_link;
+        }
+        else
+        {
+            $this->session->product_nature          = '';
+            $this->session->product_download_link   = '';
+        }
     }
 ?>
 
