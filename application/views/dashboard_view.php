@@ -56,6 +56,17 @@
                   <?php
                   $no_subscriptions++;
                 }
+                if($no_subscriptions < 1 && $this->session->user_type == 'Member')
+                {
+                  ?>
+                  <div class="section-item">
+                    <div class="row">
+                      <div class="col-md-4">Subscription</div>
+                      <div class="col-md-8"><span class="badge badge-pill badge-danger">None</span></div>
+                    </div>
+                  </div>
+                  <?php
+                }
               ?>
               <div class="section-item">
                 <div class="row">
