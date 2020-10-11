@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="amount">Price (<?php echo $currency_symbol; ?>)</label>
+                                <label for="amount">Price (<?php echo $product->currency_symbol; ?>)</label>
                             </div>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="amount" id="amount" value="<?php echo $product->amount; ?>" placeholder="E.g. 25750.50" required />

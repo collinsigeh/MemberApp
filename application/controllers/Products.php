@@ -126,7 +126,7 @@ class Products extends CI_Controller {
 
         $result  = $this->setting_model->get();
         $payment_processor = $this->payment_processor_model->find($result->payment_processor_id);
-        
+
         $product_data['currency_symbol'] = $payment_processor->currency_symbol;
 
         if($this->session->product_type == 'Subscription')
@@ -235,15 +235,11 @@ class Products extends CI_Controller {
                 redirect(base_url().'products/');
             }
         }
-
-        $result  = $this->setting_model->get();
-        $payment_processor = $this->payment_processor_model->find($result->payment_processor_id);
         
 		$data = array(
             'page_title'        => 'Product detail',
             'product'           => $product,
-            'item_detail'       => $product_detail[0],
-            'currency_symbol'   => $payment_processor->currency_symbol
+            'item_detail'       => $product_detail[0]
 		);
 
 		$this->load->view('templates/header', $data);
