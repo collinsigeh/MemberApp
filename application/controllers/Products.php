@@ -121,7 +121,12 @@ class Products extends CI_Controller {
         $this->form_validation->set_rules('amount', 'Price ('.$payment_processor->currency_symbol.')', 'trim|required');
         
         $product_data['type']   = $this->input->post('product_type');
-        $product_data['name']   = $this->session->product_name = $this->input->post('name');
+        
+        $product_data['name']           = $this->session->product_name              = $this->input->post('name');
+        $product_data['for_individual'] = $this->session->product_for_individual    = $this->input->post('for_individual');
+        $product_data['for_corporate']  = $this->session->product_for_corporate     = $this->input->post('for_corporate');
+        $product_data['for_student']    = $this->session->product_for_student       = $this->input->post('for_student');
+        
         $product_data['amount'] = $this->session->product_price = $this->input->post('amount');
 
         $result  = $this->setting_model->get();

@@ -56,6 +56,25 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
+                                <label for="created_for">Created for</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    <input type="checkbox" name="for_individual" id="for_individual" value="1" <?php if($product->for_individual == 1){ echo 'checked'; } ?> /> <label for="for_individual">Individual members</label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="for_corporate" id="for_corporate" value="1" <?php if($product->for_corporate == 1){ echo 'checked'; } ?> /> <label for="for_corporate">Corporate members</label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="for_student" id="for_student" value="1" <?php if($product->for_student == 1){ echo 'checked'; } ?> /> <label for="for_student">Student members</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
                                 <label for="amount">Price (<?php echo $product->currency_symbol; ?>)</label>
                             </div>
                             <div class="col-md-9">
