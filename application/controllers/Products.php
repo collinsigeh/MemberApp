@@ -124,6 +124,11 @@ class Products extends CI_Controller {
         $product_data['name']   = $this->session->product_name = $this->input->post('name');
         $product_data['amount'] = $this->session->product_price = $this->input->post('amount');
 
+        $result  = $this->setting_model->get();
+        $payment_processor = $this->payment_processor_model->find($result->payment_processor_id);
+        
+        $product_data['currency_symbol'] = $payment_processor->currency_symbol;
+
         if($this->session->product_type == 'Subscription')
         {
             $this->form_validation->set_rules('subscription_type', 'Product type', 'trim|required|in_list[Membership,Non-membership]');
@@ -162,7 +167,7 @@ class Products extends CI_Controller {
 
         $result     = $this->product_model->get_where($product_data);
         $product    = $result[0];
-        
+
         $subscription_data['product_id']    = $product->id;
 
         if($this->session->product_type == 'Subscription')
