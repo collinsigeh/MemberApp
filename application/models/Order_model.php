@@ -34,5 +34,12 @@
         {
             return $this->db->insert('orders', $db_data);
         }
+
+        public function find($id)
+        {
+            $this->db->where('id', $id);
+            $query = $this->db->get('orders');
+            return $query->row();
+        }
     }
 ?>

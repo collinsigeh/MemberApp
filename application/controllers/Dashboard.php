@@ -873,10 +873,6 @@ class Dashboard extends CI_Controller {
         elseif($item->type == 'Non-subscription')
         {
             $product_detail = $this->non_subscription_product_model->get_where($db_check);
-			if(!empty($product_detail))
-			{
-				$order_description = $item->name.' for '.$product_detail[0]->nature.' member(s)';
-			}
 		}
 		$item_detail = $product_detail[0];
 
@@ -942,6 +938,65 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('orders_view');
+		$this->load->view('templates/footer');
+    }
+
+    /*
+    * displays the details of a specific shop item for order confirmation
+    */
+    public function order_item($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/logins/');
+        }
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+        
+        $order = $this->order_model->find($id);
+        if(empty($order))
+        {
+            $this->session->action_success_message = 'Invalid item selection.';
+            redirect(base_url().'dashboard/orders/');
+		}
+
+        $db_check = array(
+            'id' => $order->product_id
+		);
+		$product = $this->product_model->get_where($db_check);
+        if(empty($product))
+        {
+            $this->session->action_success_message = 'Faulty order selection.';
+            redirect(base_url().'dashboard/orders/');
+		}
+
+        $db_check = array(
+            'product_id' => $order->product_id
+		);
+        if($product[0]->type == 'Subscription')
+        {
+            $product_detail = $this->subscription_product_model->get_where($db_check);
+        }
+        elseif($product[0]->type == 'Non-subscription')
+        {
+            $product_detail = $this->non_subscription_product_model->get_where($db_check);
+        }
+        
+		$data = array(
+			'page_title'	=> 'Order item - '.$order->description,
+			'order'			=> $order,
+			'product'		=> $product[0]
+        );
+        if(isset($product_detail[0]))
+        {
+            $data['item_detail'] = $product_detail[0];
+        }
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('order_item_view');
 		$this->load->view('templates/footer');
     }
 

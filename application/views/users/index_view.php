@@ -35,10 +35,6 @@
                             }
                             else
                             {
-                              if($total > 1)
-                              {
-                                echo '<div class="alert alert-info">User details are ordered alphabetically.</div>';
-                              }
                               echo '<thead>
                                   <tr>
                                   <th>#</th>
