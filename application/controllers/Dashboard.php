@@ -893,6 +893,48 @@ class Dashboard extends CI_Controller {
 		redirect(base_url().'dashboard/order_item/'.$order->id);
 	}
 
+    /*
+    * Display orders for logged in member
+    */
+    public function orders($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+		}
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+		
+        $db_check = array(
+            'user_id'=> $this->session->user_id
+        );
+        $offset = $id;
+        $limit = 50;
+		$orders = $this->order_model->paginate_where($db_check, $limit, $offset);
+		$total = count($this->order_model->get_where($db_check));
+        
+        $config['base_url'] = base_url().'dashboard/orders/';
+        $config['total_rows'] = $total;
+        $config['per_page'] = $limit;
+
+        $this->pagination->initialize($config);
+
+		$data = array(
+            'page_title'	=> 'My orders',
+            'orders'		=> $orders,
+            'total'         => $total,
+            'start'         => $offset + 1,
+            'end'           => $offset + count($orders)
+        );
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('orders_view');
+		$this->load->view('templates/footer');
+    }
+
 	/*
 	* push out emails with provided parameters
 	*/

@@ -4,7 +4,7 @@
 <hr>
 <a href="#">Resource Centre</a>
 <hr>
-<a href="#">Order History</a>
+<a href="<?php echo base_url().'dashboard/orders/'; ?>">Order History</a>
 <hr>
 <a href="<?php echo base_url().'dashboard/shop/'; ?>">Shop</a>
 <hr>
