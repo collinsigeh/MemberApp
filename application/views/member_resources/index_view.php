@@ -44,7 +44,7 @@
                                 </thead>';
                               $i = $start;
                               foreach ($resources as $resource) {
-                                  if($user->item_type == 'Downloadable')
+                                  if($resource->type == 'Downloadable')
                                   {
                                     $item_type = '<span class="badge badge-pill badge-info">Downloadable</span>';
                                   }
@@ -54,7 +54,7 @@
                                   }
                                   echo '<tr>
                                       <td><b>'.$i.'</b></td>
-                                      <td><a href="'.base_url().'member_resources/item/'.$resource->id.'" class="table-link">'.$resource->description.'</a></td>
+                                      <td><a href="'.base_url().'member_resources/item/'.$resource->id.'" class="table-link">'.$resource->name.'</a></td>
                                       <td>'.$item_type.'</td>
                                       </tr>';
                                   $i++;
