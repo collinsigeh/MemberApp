@@ -18,7 +18,7 @@
             $this->load->view('inc/action_message');
           ?>
 
-          <?php echo form_open(base_url().'dashboard/confirm_order/'.$product->id); ?>
+          <?php echo form_open(base_url().'dashboard/submit_order/'.$product->id); ?>
 
           <div class="dashboard-section">
             <div class="section-heading">

@@ -810,6 +810,89 @@ class Dashboard extends CI_Controller {
 		$this->load->view('templates/footer');
     }
 
+    /*
+    * confirms availability and suitability of items before sumbiting the order
+    */
+    public function submit_order($product_id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+
+		$this->form_validation->set_rules('submit', 'Submit order button', 'trim|required');
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->action_error_message = validation_errors();
+			redirect(base_url().'dashboard/shop/');
+		}
+		
+		$db_check = array(
+			'id'	 => $product_id,
+			'status' => 'Available'
+		);
+		if($this->session->membership == 'Individual')
+		{
+			$db_check['for_individual'] = 1;
+		}
+		elseif($this->session->membership == 'Corporate')
+		{
+			$db_check['for_corporate'] = 1;
+		}
+		elseif($this->session->membership == 'Student')
+		{
+			$db_check['for_student'] = 1;
+		}
+        
+        $product = $this->product_model->get_where($db_check);
+        if(empty($product))
+        {
+            $this->session->action_success_message = 'Invalid item selection.';
+            redirect(base_url().'dashboard/shop/');
+		}
+		$item = $product[0];
+
+        $db_check = array(
+            'product_id' => $item->id
+        );
+
+        if($item->type == 'Subscription')
+        {
+            $product_detail = $this->subscription_product_model->get_where($db_check);
+        }
+        elseif($item->type == 'Non-subscription')
+        {
+            $product_detail = $this->non_subscription_product_model->get_where($db_check);
+		}
+		$item_detail = $product_detail[0];
+
+		$db_data = array(
+			'product_id' => $item->id,
+			'currency_symbol' => $item->currency_symbol,
+			'amount' => $item->item,
+			'status' => 'Unpaid',
+			'user_id' => $this->session->user_id,
+			'created_at' => time()
+		);
+		$this->order_model->save();
+
+		$result = $this->order_model->get_where($db_data);
+		if(empty($result))
+		{
+			$this->session->action_error_message = '<p>An unexpected error has occured!</p>Please try again.';
+			redirect(base_url().'dashboard/shop/');
+		}
+		$order = $result[0];
+
+		$this->session->action_success_message = 'Order saved. Make payment!';
+		redirect(base_url().'dashboard/order_item/'.$order->id);
+	}
+
 	/*
 	* push out emails with provided parameters
 	*/
