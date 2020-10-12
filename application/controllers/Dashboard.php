@@ -707,6 +707,18 @@ class Dashboard extends CI_Controller {
 		$db_check = array(
 			'status' => 'Available'
 		);
+		if($this->session->membership == 'Individual')
+		{
+			$db_check['for_individual'] = 1;
+		}
+		elseif($this->session->membership == 'Corporate')
+		{
+			$db_check['for_corporate'] = 1;
+		}
+		elseif($this->session->membership == 'Student')
+		{
+			$db_check['for_student'] = 1;
+		}
         
         $products = $this->product_model->paginate_where($db_check, $limit, $offset);
         $total = count($products);

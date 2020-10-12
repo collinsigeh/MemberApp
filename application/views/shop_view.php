@@ -9,7 +9,7 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
-              <li class="breadcrumb-item active" aria-current="page">My subscriptions</li>
+              <li class="breadcrumb-item active" aria-current="page">Members' shop</li>
             </ol>
           </nav>
           </div>
@@ -18,7 +18,7 @@
           ?>
           <div class="dashboard-section">
             <div class="section-heading">
-              My subscriptions
+              Members' shop
             </div>
             <div class="section-body">
               <div class="section-item">
@@ -33,6 +33,10 @@
                         }
                         else
                         {
+                            if($total > 1)
+                            {
+                                echo '<div class="alert alert-info">Shop items are arranged alphabetically.</div>';
+                            }
                             ?>
                             <div class="row">
                                 <?php
@@ -50,11 +54,11 @@
                                                 </div>
                                                 <div class="action">
                                                     <div class="row">
-                                                        <div class="col-6">
-                                                            <a href="#">View</a>
+                                                        <div class="col-5">
+                                                            <a href="#" class="btn btn-sm btn-secondary">View</a>
                                                         </div>
-                                                        <div class="col-6 text-right">
-                                                            <a href="#">Buy now</a>
+                                                        <div class="col-7 text-right">
+                                                            <a href="#" class="btn btn-sm btn-primary">Buy now</a>
                                                         </div>
                                                     </div>
                                                 </div>

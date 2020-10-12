@@ -13,7 +13,7 @@
         {
             $this->db->order_by('name ASC');
             $this->db->limit($limit, $offset);
-            $query = $this->db->get_where('products');
+            $query = $this->db->get_where('products', $db_check);
             return $query->result();
         }
         
