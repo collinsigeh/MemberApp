@@ -12,7 +12,7 @@ class Member_resources extends CI_Controller {
             redirect(base_url().'dashboard/');
         }
         
-        $this->load->model('member_resources_model');
+        $this->load->model('member_resource_model');
         
         $this->load->library('pagination');
 		$this->load->library('form_validation');
@@ -28,13 +28,8 @@ class Member_resources extends CI_Controller {
         $offset = $id;
         $limit = 50;
         
-        $resources = $this->member_resources_model->paginate($limit, $offset);
-        if(empty($resources))
-        {
-            $this->session->action_error_message = 'Unavailable resource selection.';
-            redirect(base_url().'dashboard');
-        }
-        $total = count($this->member_resources_model->get());
+        $resources = $this->member_resource_model->paginate($limit, $offset);
+        $total = count($this->member_resource_model->get());
         
         $config['base_url'] = base_url().'member_resources/index/';
         $config['total_rows'] = $total;
@@ -47,7 +42,7 @@ class Member_resources extends CI_Controller {
             'resources'     => $resources,
             'total'         => $total,
             'start'         => $offset + 1,
-            'end'           => $offset + count($users)
+            'end'           => $offset + count($resources)
 		);
 
 		$this->load->view('templates/header', $data);

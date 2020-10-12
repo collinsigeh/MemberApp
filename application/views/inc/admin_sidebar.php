@@ -2,7 +2,7 @@
 <hr>
 <a href="<?php echo base_url().'users'; ?>">User Accounts</a>
 <hr>
-<a href="#">Member Resources</a>
+<a href="<?php echo base_url().'member_resources/'; ?>">Member Resources</a>
 <hr>
 <a href="<?php echo base_url().'products/'; ?>">Products & Subscriptions</a>
 <hr>
