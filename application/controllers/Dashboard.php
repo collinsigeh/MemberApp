@@ -14,6 +14,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('automated_email_model');
 		$this->load->model('member_subscription_model');
 		$this->load->model('order_model');
+		$this->load->model('product_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -673,7 +674,7 @@ class Dashboard extends CI_Controller {
         $this->pagination->initialize($config);
 
 		$data = array(
-            'page_title'	=> 'My profile',
+            'page_title'	=> 'My subscriptions',
             'now'           => $now,
             'subscriptions' => $subscriptions,
             'total'         => $total,
@@ -683,6 +684,49 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('subscriptions_view');
+		$this->load->view('templates/footer');
+    }
+
+    /*
+    * Displays products available for purchase to the logged in member
+    */
+	public function shop($id=0)
+	{
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+        }
+        
+        $offset = $id;
+		$limit = 50;
+		$db_check = array(
+			'status' => 'Available'
+		);
+        
+        $products = $this->product_model->paginate_where($db_check, $limit, $offset);
+        $total = count($products);
+        
+        $config['base_url'] = base_url().'dashboard/shop/';
+        $config['total_rows'] = $total;
+        $config['per_page'] = $limit;
+
+        $this->pagination->initialize($config);
+        
+		$data = array(
+            'page_title'    => 'Shop',
+            'products'     	=> $products,
+            'total'         => $total,
+            'start'         => $offset + 1,
+            'end'           => $offset + count($products)
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('shop_view');
 		$this->load->view('templates/footer');
     }
 

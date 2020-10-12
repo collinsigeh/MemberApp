@@ -31,7 +31,7 @@
                         <?php
                             if($total < 1)
                             {
-                                echo '<tr><td>None found</td><td class="text-right"><a href="#" class="btn btn-sm btn-primary">Subscribe now</a></td></tr>';
+                                echo '<tr><td>None found</td><td class="text-right"><a href="'.base_url().'dashboard/shop/" class="btn btn-sm btn-primary">Subscribe now</a></td></tr>';
                             }
                             else
                             {

@@ -9,6 +9,14 @@
             return $query->result();
         }
         
+        public function paginate_where($db_check, $limit, $offset=0)
+        {
+            $this->db->order_by('name ASC');
+            $this->db->limit($limit, $offset);
+            $query = $this->db->get_where('products');
+            return $query->result();
+        }
+        
         public function get()
         {
             $query = $this->db->get('products');
