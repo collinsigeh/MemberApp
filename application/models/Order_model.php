@@ -29,5 +29,10 @@
             $query = $this->db->get_where('orders', $db_check);
             return $query->result();
         }
+
+        public function save($db_data)
+        {
+            return $this->db->insert('orders', $db_data);
+        }
     }
 ?>

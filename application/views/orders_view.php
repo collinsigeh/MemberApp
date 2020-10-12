@@ -47,7 +47,7 @@
                                 </tr>
                                 </thead>';
                               $i = $start;
-                              foreach ($orders as $sorder) {
+                              foreach ($orders as $order) {
                                 if($order->status == 'Paid')
                                 {
                                   $status = '<span class="badge badge-pill badge-success">Paid</span>';
@@ -70,7 +70,7 @@
                                 }
                                 echo '<tr>
                                       <td><b>'.$i.'</b></td>
-                                      <td>'.$order->name.'</td>
+                                      <td><a href="'.base_url().'dashboard/order_item/'.$order->id.'" class="table-link">'.$order->description.'</a></td>
                                       <td>'.$status.'</td>
                                       </tr>';
                                 $i++;

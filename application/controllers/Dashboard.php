@@ -856,6 +856,7 @@ class Dashboard extends CI_Controller {
             redirect(base_url().'dashboard/shop/');
 		}
 		$item = $product[0];
+		$order_description = $item->name;
 
         $db_check = array(
             'product_id' => $item->id
@@ -863,23 +864,32 @@ class Dashboard extends CI_Controller {
 
         if($item->type == 'Subscription')
         {
-            $product_detail = $this->subscription_product_model->get_where($db_check);
+			$product_detail = $this->subscription_product_model->get_where($db_check);
+			if(!empty($product_detail))
+			{
+				$order_description = $item->name.' for '.$product_detail[0]->user_limit.' member(s)';
+			}
         }
         elseif($item->type == 'Non-subscription')
         {
             $product_detail = $this->non_subscription_product_model->get_where($db_check);
+			if(!empty($product_detail))
+			{
+				$order_description = $item->name.' for '.$product_detail[0]->nature.' member(s)';
+			}
 		}
 		$item_detail = $product_detail[0];
 
 		$db_data = array(
 			'product_id' => $item->id,
+			'description' => $order_description,
 			'currency_symbol' => $item->currency_symbol,
-			'amount' => $item->item,
+			'amount' => $item->amount,
 			'status' => 'Unpaid',
 			'user_id' => $this->session->user_id,
 			'created_at' => time()
 		);
-		$this->order_model->save();
+		$this->order_model->save($db_data);
 
 		$result = $this->order_model->get_where($db_data);
 		if(empty($result))
