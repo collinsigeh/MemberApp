@@ -33,10 +33,6 @@
                         }
                         else
                         {
-                            if($total > 1)
-                            {
-                                echo '<div class="alert alert-info">Shop items are arranged alphabetically.</div>';
-                            }
                             ?>
                             <div class="row">
                                 <?php
@@ -55,10 +51,10 @@
                                                 <div class="action">
                                                     <div class="row">
                                                         <div class="col-5">
-                                                            <a href="#" class="btn btn-sm btn-secondary">View</a>
+                                                            <a href="<?php echo base_url().'dashboard/shop_item/'.$product->id; ?>" class="btn btn-sm btn-secondary">View</a>
                                                         </div>
                                                         <div class="col-7 text-right">
-                                                            <a href="#" class="btn btn-sm btn-primary">Buy now</a>
+                                                            <a href="<?php echo base_url().'dashboard/shop_item/'.$product->id; ?>" class="btn btn-sm btn-primary">Buy now</a>
                                                         </div>
                                                     </div>
                                                 </div>

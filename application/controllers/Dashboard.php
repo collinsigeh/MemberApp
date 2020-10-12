@@ -15,6 +15,8 @@ class Dashboard extends CI_Controller {
 		$this->load->model('member_subscription_model');
 		$this->load->model('order_model');
 		$this->load->model('product_model');
+        $this->load->model('subscription_product_model');
+        $this->load->model('non_subscription_product_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -739,6 +741,72 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('shop_view');
+		$this->load->view('templates/footer');
+    }
+
+    /*
+    * displays the details of a specific shop item for order confirmation
+    */
+    public function shop_item($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+		
+		$db_check = array(
+			'id'	 => $id,
+			'status' => 'Available'
+		);
+		if($this->session->membership == 'Individual')
+		{
+			$db_check['for_individual'] = 1;
+		}
+		elseif($this->session->membership == 'Corporate')
+		{
+			$db_check['for_corporate'] = 1;
+		}
+		elseif($this->session->membership == 'Student')
+		{
+			$db_check['for_student'] = 1;
+		}
+        
+        $product = $this->product_model->get_where($db_check);
+        if(empty($product))
+        {
+            $this->session->action_success_message = 'Invalid item selection.';
+            redirect(base_url().'dashboard/shop/');
+		}
+
+        $db_check = array(
+            'product_id' => $product[0]->id
+        );
+
+        if($product[0]->type == 'Subscription')
+        {
+            $product_detail = $this->subscription_product_model->get_where($db_check);
+        }
+        elseif($product[0]->type == 'Non-subscription')
+        {
+            $product_detail = $this->non_subscription_product_model->get_where($db_check);
+        }
+        
+		$data = array(
+            'page_title'	=> 'Shop item - '.$product[0]->name,
+            'product'		=> $product[0]
+        );
+        if(isset($product_detail[0]))
+        {
+            $data['item_detail'] = $product_detail[0];
+        }
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('shop_item_view');
 		$this->load->view('templates/footer');
     }
 

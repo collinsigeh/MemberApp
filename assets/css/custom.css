@@ -283,3 +283,9 @@ a.btn:hover{
     width: 100%;
     font-size: 0.8em;
 }
+.form3 .shop-item-name{
+    font-size: 1.3em;
+}
+.form3 .shop-item-details{
+    padding-top: 30px;
+}
