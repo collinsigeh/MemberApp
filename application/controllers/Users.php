@@ -184,16 +184,17 @@ class Users extends CI_Controller {
         $now = time();
 
         $db_data = array(
-            'user_type' => $this->input->post('user_type'),
-            'membership' => $this->input->post('membership'),
-            'email' => $email,
-            'title' => $this->input->post('title'),
-            'firstname' => $this->input->post('firstname'),
-            'lastname' => $this->input->post('lastname'),
-            'phone' => $this->input->post('phone'),
-            'gender' => $this->input->post('gender'),
-            'use_status' => $this->input->post('use_status'),
-            'updated_at' => $now
+            'user_type'     => $this->input->post('user_type'),
+            'membership'    => $this->input->post('membership'),
+            'email'         => $email,
+            'status'        => $this->input->post('status'),
+            'title'         => $this->input->post('title'),
+            'firstname'     => $this->input->post('firstname'),
+            'lastname'      => $this->input->post('lastname'),
+            'phone'         => $this->input->post('phone'),
+            'gender'        => $this->input->post('gender'),
+            'use_status'    => $this->input->post('use_status'),
+            'updated_at'    => $now
         );
         $this->user_model->update($db_data, $id);
 

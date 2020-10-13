@@ -20,16 +20,84 @@
 
           <?php echo form_open(base_url().'users/update_account/'.$user->id); ?>
 
-          <div class="dashboard-section">
+            <div class="dashboard-section">
+            <div class="section-heading">
+                Personal details
+            </div>
+            <div class="section-body">
+                <div class="section-item">
+                <div class="row">
+                    <div class="col-12">
+
+                    <div class="form3">
+
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <select class="form-control" name="title" id="title" required>
+                                <option value="Mr." <?php if($user->title == 'Mr.'){ echo 'selected'; } ?>>Mr.</option>
+                                <option value="Mrs." <?php if($user->title == 'Mrs.'){ echo 'selected'; } ?>>Mrs.</option>
+                                <option value="Miss" <?php if($user->title == 'Miss'){ echo 'selected'; } ?>>Miss</option>
+                                <option value="Engr." <?php if($user->title == 'Engr.'){ echo 'selected'; } ?>>Engr.</option>
+                                <option value="Dr." <?php if($user->title == 'Dr.'){ echo 'selected'; } ?>>Dr.</option>
+                                <option value="Prof." <?php if($user->title == 'Prof.'){ echo 'selected'; } ?>>Prof.</option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstname">First Name</label>
+                                    <input class="form-control" type="text" name="firstname" id="firstname" value="<?php echo $user->firstname; ?>" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lastname">Last Name</label>
+                                    <input class="form-control" type="text" name="lastname" id="lastname" value="<?php echo $user->lastname; ?>" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input class="form-control" type="email" name="email" id="email" value="<?php echo $user->email; ?>" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input class="form-control" type="tel" name="phone" id="phone" value="<?php echo $user->phone; ?>" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Select your gender</label>
+                            <select class="form-control" name="gender" id="gender" required>
+                                <option value="Male" <?php if($user->gender == 'Male'){ echo 'selected'; } ?>>Male</option>
+                                <option value="Female" <?php if($user->gender == 'Female'){ echo 'selected'; } ?>>Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="dashboard-section">
             <div class="section-heading">
                 Account setting
             </div>
             <div class="section-body">
-              <div class="section-item">
+                <div class="section-item">
                 <div class="row">
-                  <div class="col-12">
+                    <div class="col-12">
 
-                  <div class="form3">
+                    <div class="form3">
                     <div class="row">
                         <div class="col-md-3">
                             <label for="user_type">User type</label>
@@ -110,82 +178,14 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <select class="form-control" name="status" id="status" required>
-                                    <option value="Mr." <?php if($user->status == 'Active'){ echo 'selected'; } ?>>Active</option>
-                                    <option value="Mr." <?php if($user->status == 'Pending Approval'){ echo 'selected'; } ?>>Pending Approval</option>
-                                    <option value="Mr." <?php if($user->status == 'Suspended'){ echo 'selected'; } ?>>Suspended</option>
+                                    <option value="Active" <?php if($user->status == 'Active'){ echo 'selected'; } ?>>Active</option>
+                                    <option value="Pending Approval" <?php if($user->status == 'Pending Approval'){ echo 'selected'; } ?>>Pending Approval</option>
+                                    <option value="Suspended" <?php if($user->status == 'Suspended'){ echo 'selected'; } ?>>Suspended</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                  </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-            <div class="dashboard-section">
-            <div class="section-heading">
-                Personal details
-            </div>
-            <div class="section-body">
-                <div class="section-item">
-                <div class="row">
-                    <div class="col-12">
-
-                    <div class="form3">
-
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <select class="form-control" name="title" id="title" required>
-                                <option value="Mr." <?php if($user->title == 'Mr.'){ echo 'selected'; } ?>>Mr.</option>
-                                <option value="Mrs." <?php if($user->title == 'Mrs.'){ echo 'selected'; } ?>>Mrs.</option>
-                                <option value="Miss" <?php if($user->title == 'Miss'){ echo 'selected'; } ?>>Miss</option>
-                                <option value="Engr." <?php if($user->title == 'Engr.'){ echo 'selected'; } ?>>Engr.</option>
-                                <option value="Dr." <?php if($user->title == 'Dr.'){ echo 'selected'; } ?>>Dr.</option>
-                                <option value="Prof." <?php if($user->title == 'Prof.'){ echo 'selected'; } ?>>Prof.</option>
-                            </select>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="firstname">First Name</label>
-                                    <input class="form-control" type="text" name="firstname" id="firstname" value="<?php echo $user->firstname; ?>" required />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="lastname">Last Name</label>
-                                    <input class="form-control" type="text" name="lastname" id="lastname" value="<?php echo $user->lastname; ?>" required />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input class="form-control" type="email" name="email" id="email" value="<?php echo $user->email; ?>" required />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="phone">Phone</label>
-                                    <input class="form-control" type="tel" name="phone" id="phone" value="<?php echo $user->phone; ?>" required />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="gender">Select your gender</label>
-                            <select class="form-control" name="gender" id="gender" required>
-                                <option value="Male" <?php if($user->gender == 'Male'){ echo 'selected'; } ?>>Male</option>
-                                <option value="Female" <?php if($user->gender == 'Female'){ echo 'selected'; } ?>>Female</option>
-                            </select>
-                        </div>
                     </div>
 
                     </div>
