@@ -24,7 +24,7 @@
               <div class="section-item">
                 <div class="row">
                   <div class="col-md-4">Membership</div>
-                  <div class="col-md-8"><span class="badge badge-pill badge-secondary">Individual</span></div>
+                  <div class="col-md-8"><span class="badge badge-pill badge-secondary"><?php echo $this->session->membership; ?></span></div>
                 </div>
               </div>
               <?php
@@ -71,7 +71,22 @@
               <div class="section-item">
                 <div class="row">
                   <div class="col-md-4">Account Status</div>
-                  <div class="col-md-8"><span class="badge badge-pill badge-success">Active</span></div>
+                  <div class="col-md-8">
+                    <?php
+                      if($this->session->status == 'Active')
+                      {
+                        echo '<span class="badge badge-pill badge-success">Active</span>';
+                      }
+                      elseif($this->session->status == 'Pending Approval')
+                      {
+                        echo '<span class="badge badge-pill badge-info">Pending Approval</span>';
+                      }
+                      elseif($this->session->status == 'Suspended')
+                      {
+                        echo '<span class="badge badge-pill badge-danger">Suspended</span>';
+                      }
+                    ?>
+                  </div>
                 </div>
               </div>
             </div>

@@ -9,7 +9,7 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
-              <li class="breadcrumb-item active" aria-current="page">Member resources</li>
+              <li class="breadcrumb-item active" aria-current="page">Resource center</li>
             </ol>
           </nav>
           </div>
@@ -18,7 +18,7 @@
           ?>
           <div class="dashboard-section">
             <div class="section-heading">
-              Resourse list
+              My resources
             </div>
             <div class="section-body">
               <div class="section-item">
@@ -44,20 +44,20 @@
                                 </thead>';
                               $i = $start;
                               foreach ($resources as $resource) {
-                                  if($resource->type == 'Downloadable')
-                                  {
-                                    $item_type = '<span class="badge badge-pill badge-info">Downloadable</span>';
-                                  }
-                                  else
-                                  {
-                                    $item_type = '<span class="badge badge-pill badge-light">Non-downloadable</span>';
-                                  }
-                                  echo '<tr>
+                                if($resource->type == 'Downloadable')
+                                {
+                                  $item_type = '<span class="badge badge-pill badge-info">Downloadable</span>';
+                                }
+                                else
+                                {
+                                  $item_type = '<span class="badge badge-pill badge-light">Non-downloadable</span>';
+                                }
+                                echo '<tr>
                                       <td><b>'.$i.'</b></td>
-                                      <td><a href="'.base_url().'member_resources/item/'.$resource->id.'" class="table-link">'.$resource->name.'</a></td>
+                                      <td><a href="'.base_url().'dashboard/resource_item/'.$resource->id.'" class="table-link">'.$resource->name.'</a></td>
                                       <td>'.$item_type.'</td>
                                       </tr>';
-                                  $i++;
+                                $i++;
                               }
                             }
                         ?>
@@ -83,12 +83,6 @@
               </div>
             </div>
           </div>
-          <div class="related-action">
-            <div class="action-title">Related Actions</div>
-            <div class="action-body">
-                <a href="<?php echo base_url().'member_resources/create/'; ?>" class="btn btn-sm btn-primary">Create new resource</a>
-            </div>
-          </div>
           
         </div>
       </div>
@@ -97,7 +91,7 @@
         <div class="sidebar">
           <!-- Sidebar -->
           <?php
-            $this->load->view('inc/admin_sidebar'); 
+            $this->load->view('inc/sidebar'); 
           ?>
         </div>
       </div>

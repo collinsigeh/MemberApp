@@ -74,7 +74,7 @@
                         <small>
                         <div class="row pagination">
                             <div class="col-6"><div class="page-links"><?php echo $this->pagination->create_links(); ?></div></div>
-                            <div class="col-6"><div class="page-description">Items <?php echo $start.' to '.$end.' of '.$total; ?></div></div>
+                            <div class="col-6"><div class="page-description"><?php echo $start.' to '.$end.' of '.$total; ?> Items</div></div>
                         </div>
                         </small>
                         <?php

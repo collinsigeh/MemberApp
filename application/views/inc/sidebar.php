@@ -2,7 +2,7 @@
 <hr>
 <a href="<?php echo base_url().'dashboard/subscriptions/'; ?>">My Subscriptions</a>
 <hr>
-<a href="#">Resource Centre</a>
+<a href="<?php echo base_url().'dashboard/resources/'; ?>">Resource Centre</a>
 <hr>
 <a href="<?php echo base_url().'dashboard/orders/'; ?>">Order History</a>
 <hr>

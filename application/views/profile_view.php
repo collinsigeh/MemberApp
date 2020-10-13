@@ -106,7 +106,7 @@
                                                 }
                                                 else
                                                 {
-                                                    echo '<a href="#" class="btn btn-sm btn-outline-secondary">New subscription</a>';
+                                                    echo '<a href="'.base_url().'dashboard/shop/" class="btn btn-sm btn-outline-secondary">New subscription</a>';
                                                 }
                                             ?>
                                             </div>

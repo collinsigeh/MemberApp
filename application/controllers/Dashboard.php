@@ -17,6 +17,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('product_model');
         $this->load->model('subscription_product_model');
         $this->load->model('non_subscription_product_model');
+        $this->load->model('member_resource_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -997,6 +998,64 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('order_item_view');
+		$this->load->view('templates/footer');
+    }
+
+    /*
+    * Display free resources available to the logged in member
+    */
+    public function resources($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+		}
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+
+		if($this->session->membership == 'Individual')
+		{
+			$db_check = array(
+				'for_individual'=> 1
+			);
+		}
+		elseif($this->session->membership == 'Corporate')
+		{
+			$db_check = array(
+				'for_corporate'=> 1
+			);
+		}
+		elseif($this->session->membership == 'Student')
+		{
+			$db_check = array(
+				'for_student'=> 1
+			);
+		}
+		
+        $offset = $id;
+        $limit = 50;
+		$resources = $this->member_resource_model->paginate_where($db_check, $limit, $offset);
+		$total = count($this->member_resource_model->get_where($db_check));
+        
+        $config['base_url'] = base_url().'dashboard/resources/';
+        $config['total_rows'] = $total;
+        $config['per_page'] = $limit;
+
+        $this->pagination->initialize($config);
+
+		$data = array(
+            'page_title'	=> 'My resources',
+            'resources'	=> $resources,
+            'total'         => $total,
+            'start'         => $offset + 1,
+            'end'           => $offset + count($resources)
+        );
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('resources_view');
 		$this->load->view('templates/footer');
     }
 
