@@ -7,6 +7,8 @@ MemberApp is an application for organisations to manage their membership, subscr
 - Admin control
 - Unlimited subscription packages
 - Unlimited paid products creation  and management
+- Unlimited free members' resources
+- Members' e-commerce shop
 ## Technology Stack
 This is a LAMP Stack project built with CodeIgniter (a PHP Framework) with implementation using the following:
 - PHP
