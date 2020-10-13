@@ -994,7 +994,7 @@ class Dashboard extends CI_Controller {
     {
 		if($this->session->userlogged_in !== '*#loggedin@Yes')
 		{
-			redirect(base_url().'dashboard/logins/');
+			redirect(base_url().'dashboard/login/');
         }
 		        
         if($this->session->user_type !== 'Member')
@@ -1129,7 +1129,7 @@ class Dashboard extends CI_Controller {
     {
 		if($this->session->userlogged_in !== '*#loggedin@Yes')
 		{
-			redirect(base_url().'dashboard/logins/');
+			redirect(base_url().'dashboard/login/');
         }
 		        
         if($this->session->user_type !== 'Member')
