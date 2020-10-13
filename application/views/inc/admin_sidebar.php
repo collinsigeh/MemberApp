@@ -8,7 +8,7 @@
 <hr>
 <a href="<?php echo base_url().'orders/'; ?>">Order Requests</a>
 <hr>
-<a href="#">Payments</a>
+<a href="<?php echo base_url().'payments/'; ?>">Payments</a>
 <hr>
 <a href="<?php echo base_url().'settings'; ?>">Settings</a>
 <hr>
