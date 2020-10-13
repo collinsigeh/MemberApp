@@ -10,7 +10,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
               <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard/orders/'; ?>">Order history</a></li>
-              <li class="breadcrumb-item active" aria-current="page"><?php echo substr($order->description, 0, 18).'...'; ?></li>
+              <li class="breadcrumb-item active" aria-current="page"><?php if(strlen($order->description) > 18){ echo substr($order->description, 0, 18).'...'; }else{ echo $order->description; } ?></li>
             </ol>
           </nav>
           </div>

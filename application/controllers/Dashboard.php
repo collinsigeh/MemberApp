@@ -943,7 +943,7 @@ class Dashboard extends CI_Controller {
     }
 
     /*
-    * displays the details of a specific shop item for order confirmation
+    * displays the details of a specific order item
     */
     public function order_item($id=0)
     {
@@ -1048,7 +1048,7 @@ class Dashboard extends CI_Controller {
 
 		$data = array(
             'page_title'	=> 'My resources',
-            'resources'	=> $resources,
+            'resources'		=> $resources,
             'total'         => $total,
             'start'         => $offset + 1,
             'end'           => $offset + count($resources)
@@ -1056,6 +1056,63 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('resources_view');
+		$this->load->view('templates/footer');
+    }
+
+    /*
+    * displays the details of a specific resource item
+    */
+    public function resource_item($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/logins/');
+        }
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+        
+        $resource = $this->member_resource_model->find($id);
+        if(empty($resource))
+        {
+            $this->session->action_success_message = 'Invalid item selection.';
+            redirect(base_url().'dashboard/resources/');
+		}
+
+		if($this->session->membership == 'Individual')
+		{
+			if($resource->for_individual != 1)
+			{
+				$this->session->action_success_message = 'Wrong item selection.';
+				redirect(base_url().'dashboard/resources/');
+			}
+		}
+		elseif($this->session->membership == 'Corporate')
+		{
+			if($resource->for_corporate != 1)
+			{
+				$this->session->action_success_message = 'Wrong item selection.';
+				redirect(base_url().'dashboard/resources/');
+			}
+		}
+		elseif($this->session->membership == 'Student')
+		{
+			if($resource->for_student != 1)
+			{
+				$this->session->action_success_message = 'Wrong item selection.';
+				redirect(base_url().'dashboard/resources/');
+			}
+		}
+
+		$data = array(
+            'page_title'	=> 'Resource item',
+            'resource'		=> $resource
+        );
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('resource_item_view');
 		$this->load->view('templates/footer');
     }
 
