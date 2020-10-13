@@ -16,7 +16,7 @@
         
         public function paginate($limit, $offset=0)
         {
-            $this->db->order_by('crated_at DESC');
+            $this->db->order_by('created_at DESC');
             $this->db->limit($limit, $offset);
             $query = $this->db->get('orders');
             return $query->result();

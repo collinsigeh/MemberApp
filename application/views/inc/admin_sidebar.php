@@ -6,7 +6,7 @@
 <hr>
 <a href="<?php echo base_url().'products/'; ?>">Products & Subscriptions</a>
 <hr>
-<a href="#">Order Requests</a>
+<a href="<?php echo base_url().'orders/'; ?>">Order Requests</a>
 <hr>
 <a href="#">Payments</a>
 <hr>
