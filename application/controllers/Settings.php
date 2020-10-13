@@ -18,6 +18,15 @@ class Settings extends CI_Controller {
 		$this->load->model('automated_email_model');
 
 		$this->load->library('form_validation');
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
     }
 
 	public function index()

@@ -660,6 +660,15 @@ class Dashboard extends CI_Controller {
         {
             redirect(base_url().'dashboard/');
         }
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
 
         $now = time();
         $db_check = array(
@@ -704,6 +713,15 @@ class Dashboard extends CI_Controller {
         {
             redirect(base_url().'dashboard/');
         }
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
         
         $offset = $id;
 		$limit = 50;
@@ -759,6 +777,15 @@ class Dashboard extends CI_Controller {
         {
             redirect(base_url().'dashboard/');
 		}
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
 		
 		$db_check = array(
 			'id'	 => $id,
@@ -825,6 +852,15 @@ class Dashboard extends CI_Controller {
         {
             redirect(base_url().'dashboard/');
 		}
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
 
 		$this->form_validation->set_rules('submit', 'Submit order button', 'trim|required');
 		if($this->form_validation->run() == FALSE)
@@ -915,6 +951,15 @@ class Dashboard extends CI_Controller {
             redirect(base_url().'dashboard/');
 		}
 		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
+		
         $db_check = array(
             'user_id'=> $this->session->user_id
         );
@@ -956,6 +1001,15 @@ class Dashboard extends CI_Controller {
         {
             redirect(base_url().'dashboard/');
 		}
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
         
         $order = $this->order_model->find($id);
         if(empty($order))
@@ -1015,6 +1069,15 @@ class Dashboard extends CI_Controller {
         {
             redirect(base_url().'dashboard/');
 		}
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
 
 		if($this->session->membership == 'Individual')
 		{
@@ -1073,6 +1136,15 @@ class Dashboard extends CI_Controller {
         {
             redirect(base_url().'dashboard/');
 		}
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
         
         $resource = $this->member_resource_model->find($id);
         if(empty($resource))

@@ -21,6 +21,15 @@ class Users extends CI_Controller {
         $this->load->library('pagination');
 		$this->load->library('form_validation');
         $this->load->library('email');
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
     }
 
 	public function index($id=0)
@@ -178,6 +187,12 @@ class Users extends CI_Controller {
         if(count($this->user_model->get_where($db_check)) > 0)
         {
             $this->session->action_error_message = 'The email - <i>'.$email.'</i> - is in use.';
+            redirect(base_url().'users/account/'.$id);
+        }
+        
+        if($this->session->user_id == $id && $this->input->post('status') == 'Suspended')
+        {
+            $this->session->action_error_message = 'Attempt to suspend own account.';
             redirect(base_url().'users/account/'.$id);
         }
 

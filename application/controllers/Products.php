@@ -12,6 +12,7 @@ class Products extends CI_Controller {
             redirect(base_url().'dashboard/');
         }
         
+        $this->load->model('user_model');
         $this->load->model('setting_model');
         $this->load->model('product_model');
         $this->load->model('payment_processor_model');
@@ -20,6 +21,15 @@ class Products extends CI_Controller {
         
         $this->load->library('pagination');
 		$this->load->library('form_validation');
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
     }
 
 	public function index($id=0)
