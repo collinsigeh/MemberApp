@@ -320,7 +320,7 @@ class Products extends CI_Controller {
         if($this->form_validation->run() == FALSE)
         {
             $this->session->action_error_message = validation_errors();
-            redirect(base_url().'products/create/');
+            redirect(base_url().'products/item/'.$id);
         }
 
         //check if product name is already in use

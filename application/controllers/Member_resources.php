@@ -116,4 +116,90 @@ class Member_resources extends CI_Controller {
         $this->session->action_success_message = 'Item saved.';
         redirect(base_url().'member_resources/');
     }
+
+    /*
+    * displays the details of a specific member resource
+    */
+    public function item($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $resource = $this->member_resource_model->find($id);
+        if(empty($resource))
+        {
+            $this->session->action_success_message = 'Invalid item selection.';
+            redirect(base_url().'member_resources/');
+        }
+        
+		$data = array(
+            'page_title'        => 'Resource detail',
+            'resource'           => $resource
+        );
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('member_resources/item_view');
+		$this->load->view('templates/footer');
+    }
+
+    /*
+    * Update the details of the resource with id of $id
+    */
+    public function update($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $resource = $this->member_resource_model->find($id);
+
+        if(!isset($resource))
+        {
+            $this->session->action_error_message = 'Invalid resource selection.';
+            redirect(base_url().'resources/');
+        }
+        
+        $this->form_validation->set_rules('name', 'Item name', 'trim|required');
+        $this->form_validation->set_rules('description', 'Item description', 'trim|required');
+        $this->form_validation->set_rules('type', 'Nature of item', 'trim|required|in_list[Non-downloadable,Downloadable]');
+
+        $db_data['name']           = trim($this->input->post('name'));
+        $db_data['for_individual'] = $this->input->post('for_individual');
+        $db_data['for_corporate']  = $this->input->post('for_corporate');
+        $db_data['for_student']    = $this->input->post('for_student');
+        $db_data['description']    = $this->input->post('description');
+        $db_data['type']           = $this->input->post('type');
+        $db_data['download_link']  = $this->input->post('download_link');
+        $db_data['updated_at']     = time();
+
+        if($db_data['type'] == 'Downloadable')
+        {
+            $this->form_validation->set_rules('download_link', 'Download_link', 'trim|required|valid_url');
+        }
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'member_resources/item/'.$id);
+        }
+
+        //check if resource name is already in use
+        $db_check = array(
+            'name' => $db_data['name'],
+            'id !=' => $id
+        );
+        if(count($this->member_resource_model->get_where($db_check)) > 0)
+        {
+            $this->session->action_error_message = 'The name - <i>'.$db_data['name'].'</i> - is in use.';
+            redirect(base_url().'member_resources/item/'.$id);
+        }
+
+        $this->member_resource_model->update($db_data, $id);
+        
+        $this->session->action_success_message = 'Update saved.';
+        redirect(base_url().'member_resources/item/'.$id);
+    }
 }

@@ -41,5 +41,11 @@
             $query = $this->db->get('member_resources');
             return $query->row();
         }
+
+        public function update($db_data, $id)
+        {
+            $this->db->where('id', $id);
+            return $this->db->update('member_resources', $db_data);
+        }
     }
 ?>
