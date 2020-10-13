@@ -42,11 +42,19 @@
       }
     }
 
-    if($no_unpaid_orders > 0)
+    if($no_unpaid_orders == 1)
     {
       ?>
       <div class="alert alert-info">
-        <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have unpaid invoice. <a href="#">Check order history</a>.         
+        <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have unpaid invoice. <a href="<?php echo base_url().'dashboard/orders/'; ?>">Check order history</a>.         
+      </div>
+      <?php
+    }
+    elseif($no_unpaid_orders > 1)
+    {
+      ?>
+      <div class="alert alert-info">
+        <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have unpaid invoices. <a href="<?php echo base_url().'dashboard/orders/'; ?>">Check order history</a>.         
       </div>
       <?php
     }
