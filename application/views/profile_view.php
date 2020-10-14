@@ -33,7 +33,7 @@
 
                                         <div class="profile-pic">
                                             <img src="<?php echo base_url().'assets/profile_images/'.$user->photo; ?>" alt="profile_pic"> 
-                                            <a href="#" data-toggle="modal" data-target="#newPasswordModal">Update image</a>
+                                            <a href="#" data-toggle="modal" data-target="#updatePhotoModal">Update image</a>
                                         </div>
 
                                         <div class="form-group">
@@ -516,4 +516,5 @@
 
 <?php
 $this->load->view('inc/modal/new_password');
+$this->load->view('inc/modal/update_photo');
 ?>

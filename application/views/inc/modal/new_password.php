@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-5"><label for="password">New password</label></div>
                 <div class="col-md-7">
-                    <input type="password" name="password" id="password" class="form-control">
+                    <input type="password" name="password" id="password" class="form-control" required />
                 </div>
             </div>
             </div>
@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-5"><label for="confirm_password">Confirm password</label></div>
                 <div class="col-md-7">
-                    <input type="password" name="confirm_password" id="confirm_password" class="form-control">
+                    <input type="password" name="confirm_password" id="confirm_password" class="form-control" required />
                 </div>
             </div>
             </div>
