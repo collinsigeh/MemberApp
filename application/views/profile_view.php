@@ -32,7 +32,7 @@
                                     <div class="form3">
 
                                         <div class="profile-pic">
-                                            <img src="<?php echo base_url().'assets/profile_images/'.$user->photo; ?>" alt="profile_pic"> 
+                                            <img src="<?php echo base_url().'assets/img/profile_images/'.$user->photo; ?>" alt="profile_pic"> 
                                             <a href="#" data-toggle="modal" data-target="#updatePhotoModal">Update image</a>
                                         </div>
 

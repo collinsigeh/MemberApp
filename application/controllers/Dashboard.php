@@ -576,6 +576,40 @@ class Dashboard extends CI_Controller {
     /*
     * Display own profile for logged in user
     */
+	public function update_photo()
+	{
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+		}
+		
+		$config['upload_path'] 		= './assets/img/profile_images/';
+		$config['allowed_types'] 	= 'gif|jpg|png';
+		$config['max_size']     	= '2048';
+		$config['file_name']		= time().'-'.$this->session->user_id;
+
+		$this->load->library('upload', $config);
+
+		if(!$this->upload->do_upload('userfile'))
+        {
+			$this->session->action_error_message = $this->upload->display_errors();
+			redirect(base_url().'dashboard/profile/');
+		}
+		
+		$upload_data = $this->upload->data();
+
+		$db_data = array(
+			'photo' => $upload_data['file_name']
+		);
+		$this->user_model->update($db_data, $this->session->user_id);
+		
+		$this->session->action_success_message = 'Profile photo saved';
+		redirect(base_url().'dashboard/profile/');
+	}
+
+    /*
+    * Display own profile for logged in user
+    */
     public function profile()
     {
 		if($this->session->userlogged_in !== '*#loggedin@Yes')
