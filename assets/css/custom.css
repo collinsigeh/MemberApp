@@ -121,16 +121,10 @@ a.btn:hover{
 .form-body{
     padding: 20px 0;
 }
-.form2{
-
-}
 .form2-title{
     font-size: 1.4em;
     font-weight: 700;
     border-bottom: 1px dotted #ccc;
-}
-.form2-body{
-    
 }
 .form2-section{
     padding: 20px 0;
@@ -297,6 +291,14 @@ a.btn:hover{
     border: 2px solid #666666;
 }
 .profile-pic a{
+    font-size: 0.8em;
+    vertical-align: bottom;
+}
+.valid-id img{
+    width: 350px;
+    border: 2px solid #666666;
+}
+.valid-id a{
     font-size: 0.8em;
     vertical-align: bottom;
 }

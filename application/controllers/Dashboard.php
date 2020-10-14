@@ -584,7 +584,7 @@ class Dashboard extends CI_Controller {
 		}
 		
 		$config['upload_path'] 		= './assets/img/profile_images/';
-		$config['allowed_types'] 	= 'gif|jpg|png';
+		$config['allowed_types'] 	= 'gif|jpg|jpeg|png';
 		$config['max_size']     	= '2048';
 		$config['file_name']		= time().'-'.$this->session->user_id;
 
@@ -604,6 +604,40 @@ class Dashboard extends CI_Controller {
 		$this->user_model->update($db_data, $this->session->user_id);
 		
 		$this->session->action_success_message = 'Profile photo saved';
+		redirect(base_url().'dashboard/profile/');
+	}
+
+    /*
+    * Display own profile for logged in user
+    */
+	public function upload_id()
+	{
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+		}
+		
+		$config['upload_path'] 		= './assets/img/valid_ids/';
+		$config['allowed_types'] 	= 'gif|jpg|jpeg|png';
+		$config['max_size']     	= '2048';
+		$config['file_name']		= time().'-'.$this->session->user_id;
+
+		$this->load->library('upload', $config);
+
+		if(!$this->upload->do_upload('userfile'))
+        {
+			$this->session->action_error_message = $this->upload->display_errors();
+			redirect(base_url().'dashboard/profile/');
+		}
+		
+		$upload_data = $this->upload->data();
+
+		$db_data = array(
+			'valid_id' => $upload_data['file_name']
+		);
+		$this->user_model->update($db_data, $this->session->user_id);
+		
+		$this->session->action_success_message = 'ID saved';
 		redirect(base_url().'dashboard/profile/');
 	}
 

@@ -33,7 +33,7 @@
 
                                         <div class="profile-pic">
                                             <img src="<?php echo base_url().'assets/img/profile_images/'.$user->photo; ?>" alt="profile_pic"> 
-                                            <a href="#" data-toggle="modal" data-target="#updatePhotoModal">Update image</a>
+                                            <a href="#" data-toggle="modal" data-target="#updatePhotoModal" class="btn btn-sm btn-primary">Update photo</a>
                                         </div>
 
                                         <div class="form-group">
@@ -84,6 +84,22 @@
                                                 <option value="Male" <?php if($user->gender == 'Male'){ echo 'selected'; } ?>>Male</option>
                                                 <option value="Female" <?php if($user->gender == 'Female'){ echo 'selected'; } ?>>Female</option>
                                             </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">Valid ID</label>
+                                            <div class="valid-id">
+                                                <?php 
+                                                    if(strlen($user->valid_id) < 5)
+                                                    {
+                                                        echo '<a href="#" data-toggle="modal" data-target="#uploadIDModal" class="btn btn-sm btn-primary">Upload ID</a>';
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<img src="'.base_url().'assets/img/valid_ids/'.$user->valid_id.'" alt="valid_id">';
+                                                    }
+                                                ?>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -517,4 +533,5 @@
 <?php
 $this->load->view('inc/modal/new_password');
 $this->load->view('inc/modal/update_photo');
+$this->load->view('inc/modal/upload_id');
 ?>
