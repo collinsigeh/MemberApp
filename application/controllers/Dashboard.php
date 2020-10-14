@@ -260,6 +260,7 @@ class Dashboard extends CI_Controller {
 				'phone' 		=> $this->session->phone,
 				'gender' 		=> $this->session->gender,
 				'use_status' 	=> $this->session->use_status,
+				'photo'			=> 'profile_default.png',
 				'created_at' 	=> time()
 			);
 			
