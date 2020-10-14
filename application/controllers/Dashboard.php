@@ -467,6 +467,7 @@ class Dashboard extends CI_Controller {
 		$this->session->phone = $user['phone'];
 		$this->session->gender = $user['gender'];
 		$this->session->use_status = $user['use_status'];
+		$this->session->photo = $user['photo'];
 
 		$this->session->userlogged_in = '*#loggedin@Yes';
 

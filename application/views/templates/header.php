@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a class="nav-link" href="https://nusa.ng" target="_blank">MAIN WEBSITE</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->firstname.' '.$this->session->lastname; ?> <img src="<?php echo base_url(); ?>assets/img/profile_images/profile_default.png" class="user-image-navbar" /></a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->firstname.' '.$this->session->lastname; ?> <img src="<?php echo base_url().'assets/img/profile_images/'.$this->session->photo; ?>" class="user-image-navbar" /></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="<?php echo base_url().'dashboard/profile/'; ?>">My profile</a>
               <div class="dropdown-divider"></div>
