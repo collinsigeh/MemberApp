@@ -54,7 +54,7 @@
                                   }
                                   echo '<tr>
                                       <td><b>'.$i.'</b></td>
-                                      <td><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/profile_default.png" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></td>
+                                      <td><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/'.$user->photo.'" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></td>
                                       <td>'.$user_type.'</td>
                                       </tr>';
                                   $i++;

@@ -12,7 +12,7 @@
         <?php echo form_open_multipart(base_url().'dashboard/update_photo/'); ?>
             <div class="form-group">
                 <label for="password">Select photo to upload</label>
-                <input type="file" name="userfile"class="form-control" required />
+                <input type="file" name="userfile" class="form-control" required />
                 <small class="text-muted"><b>Allowed formats:</b> .gif, .jpg, .jpeg and .png<br/><b>Max size:</b> 2MB</small>
             </div>
 

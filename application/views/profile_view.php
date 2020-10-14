@@ -32,7 +32,7 @@
                                     <div class="form3">
 
                                         <div class="profile-pic">
-                                            <img src="<?php echo base_url().'assets/img/profile_images/'.$user->photo; ?>" alt="profile_pic"> 
+                                            <a href="<?php echo base_url().'assets/img/profile_images/'.$user->photo; ?>" target="_blank"><img src="<?php echo base_url().'assets/img/profile_images/'.$user->photo; ?>" alt="profile_pic"></a>
                                             <a href="#" data-toggle="modal" data-target="#updatePhotoModal" class="btn btn-sm btn-primary">Update photo</a>
                                         </div>
 
@@ -96,7 +96,7 @@
                                                     }
                                                     else
                                                     {
-                                                        echo '<img src="'.base_url().'assets/img/valid_ids/'.$user->valid_id.'" alt="valid_id">';
+                                                        echo '<a href='.base_url().'assets/img/valid_ids/'.$user->valid_id.'" target="_blank"><img src="'.base_url().'assets/img/valid_ids/'.$user->valid_id.'" alt="valid_id"></a>';
                                                     }
                                                 ?>
                                             </div>

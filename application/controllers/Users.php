@@ -294,8 +294,6 @@ class Users extends CI_Controller {
             }
         }
 
-        
-
         // logic for authorization detail
         $authorization_detail_to_modify = 0;
         if(null !== $this->input->post('home_address') && strlen($this->input->post('home_address')) > 1)
@@ -346,4 +344,46 @@ class Users extends CI_Controller {
         }
         redirect(base_url().'users/account/'.$id);
     }
+
+    /*
+    * Update ID for specific user with id $id
+    */
+	public function update_id($id=0)
+	{
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $user = $this->user_model->find($id);
+
+        if(!isset($user))
+        {
+            $this->session->action_error_message = 'Invalid resource selection.';
+            redirect(base_url().'dashboard');
+        }
+		
+		$config['upload_path'] 		= './assets/img/valid_ids/';
+		$config['allowed_types'] 	= 'gif|jpg|jpeg|png';
+		$config['max_size']     	= '2048';
+		$config['file_name']		= time().'-'.$id;
+
+		$this->load->library('upload', $config);
+
+		if(!$this->upload->do_upload('userfile'))
+        {
+			$this->session->action_error_message = $this->upload->display_errors();
+			redirect(base_url().'users/account/'.$id);
+		}
+		
+		$upload_data = $this->upload->data();
+
+		$db_data = array(
+			'valid_id' => $upload_data['file_name']
+		);
+		$this->user_model->update($db_data, $id);
+		
+		$this->session->action_success_message = 'ID saved';
+		redirect(base_url().'users/account/'.$id);
+	}
 }
