@@ -43,7 +43,7 @@ class Products extends CI_Controller {
         $limit = 50;
         
         $products = $this->product_model->paginate($limit, $offset);
-        $total = count($products);
+        $total = count($this->product_model->get());
         
         $config['base_url'] = base_url().'products/index/';
         $config['total_rows'] = $total;

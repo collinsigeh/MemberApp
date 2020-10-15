@@ -43,7 +43,7 @@ class Orders extends CI_Controller {
         $limit = 50;
         
         $orders = $this->order_model->paginate($limit, $offset);
-        $total = count($orders);
+        $total = count($this->order_model->get());
         
         $config['base_url'] = base_url().'orders/index/';
         $config['total_rows'] = $total;
