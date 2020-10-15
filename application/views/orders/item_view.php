@@ -9,7 +9,7 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard'; ?>"><img src="<?php echo base_url().'assets/img/icon_images/homepage_icon.png'; ?>" alt="Dashboard" class="homepage-icon" ></a></li>
-              <li class="breadcrumb-item"><a href="<?php echo base_url().'dashboard/orders/'; ?>">Order requests</a></li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url().'orders/'; ?>">Order requests</a></li>
               <li class="breadcrumb-item active" aria-current="page"><?php if(strlen($order->description) > 18){ echo substr($order->description, 0, 18).'...'; }else{ echo $order->description; } ?></li>
             </ol>
           </nav>
@@ -30,6 +30,17 @@
                     <div class="form3">
                         <div class="shop-item-name">
                             <?php echo $order->description; ?>
+                        </div>
+
+                        <div class="shop-item-details">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Order no.:
+                                </div>
+                                <div class="col-md-9">
+                                    <?php echo $order->id; ?>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="shop-item-details">

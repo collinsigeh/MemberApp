@@ -405,4 +405,62 @@ class Users extends CI_Controller {
 		$this->load->view('users/create_view');
 		$this->load->view('templates/footer');
     }
+
+	/*
+	* save new admin details
+    */
+    public function save_admin()
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $this->form_validation->set_rules('title', 'Title', 'trim|required');
+        $this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[users.email]');
+        $this->form_validation->set_rules('phone', 'Phone', 'trim|required');
+        $this->form_validation->set_rules('gender', 'Gender', 'trim|required|in_list[Male,Female]');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('confirm_password', 'Password Confirmation', 'trim|required|matches[password]');
+
+        $this->session->user_password     = trim($this->input->post('password'));
+
+        $db_data['user_type']   = 'Admin';
+        $db_data['membership']  = 'Individual';
+        $db_data['password']    = password_hash($this->session->user_password, PASSWORD_DEFAULT);
+        $db_data['status']      = 'Active';
+        $db_data['title']       = $this->session->user_title        = trim($this->input->post('title'));
+        $db_data['firstname']   = $this->session->user_first_name   = trim($this->input->post('firstname'));
+        $db_data['lastname']    = $this->session->user_last_name    = trim($this->input->post('lastname'));
+        $db_data['email']       = $this->session->user_email        = trim($this->input->post('email'));
+        $db_data['phone']       = $this->session->user_phone        = trim($this->input->post('phone'));
+        $db_data['gender']      = $this->session->user_gender       = trim($this->input->post('gender'));
+        $db_data['use_status']  = 'Others';
+        $db_data['photo']       = 'profile_default.png';
+        $db_data['created_at']  = time();
+        
+        $this->session->user_confirm_password = trim($this->input->post('user_confirm_password'));
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'users/create_admin/');
+        }
+
+        $this->user_model->save($db_data);
+
+        $this->session->unset_userdata('user_title');
+        $this->session->unset_userdata('user_first_name');
+        $this->session->unset_userdata('user_last_name');
+        $this->session->unset_userdata('user_email');
+        $this->session->unset_userdata('user_phone');
+        $this->session->unset_userdata('user_gender');
+        $this->session->unset_userdata('user_password');
+        $this->session->unset_userdata('user_confirm_password');
+
+        $this->session->action_success_message = 'Admin account created.';
+        redirect(base_url().'users/create_admin/');
+    }
 }
