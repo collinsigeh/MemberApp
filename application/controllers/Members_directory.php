@@ -16,12 +16,7 @@ class Members_directory extends CI_Controller {
     * Display a directory of registered and active members
     */
 	public function index($id=0)
-	{
-		if($this->session->userlogged_in !== '*#loggedin@Yes')
-		{
-			redirect(base_url().'dashboard/login/');
-        }
-        
+	{        
         $offset = $id;
         $limit = 50;
 
@@ -33,7 +28,7 @@ class Members_directory extends CI_Controller {
         $members = $this->user_model->paginate_where($db_check, $limit, $offset);
         $total = count($this->user_model->get_where($db_check));
         
-        $config['base_url'] = base_url().'orders/index/';
+        $config['base_url'] = base_url().'members_directory/index/';
         $config['total_rows'] = $total;
         $config['per_page'] = $limit;
 
