@@ -9,6 +9,14 @@
             return $query->result();
         }
         
+        public function paginate_where($db_check, $limit, $offset=0)
+        {
+            $this->db->order_by('firstname ASC, lastname ASC');
+            $this->db->limit($limit, $offset);
+            $query = $this->db->get_where('users', $db_check);
+            return $query->result();
+        }
+        
         public function get()
         {
             $this->db->order_by('firstname ASC, lastname ASC');
@@ -18,6 +26,7 @@
 
         public function get_where($db_check)
         {
+            $this->db->order_by('firstname ASC, lastname ASC');
             $query = $this->db->get_where('users', $db_check);
             return $query->result_array();
         }
