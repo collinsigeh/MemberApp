@@ -76,6 +76,12 @@
               </div>
             </div>
           </div>
+          <div class="related-action">
+            <div class="action-title">Related Actions</div>
+            <div class="action-body">
+                <a href="<?php echo base_url().'users/create_admin/'; ?>" class="btn btn-sm btn-primary">Create new admin</a>
+            </div>
+          </div>
           
         </div>
       </div>

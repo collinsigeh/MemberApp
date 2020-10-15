@@ -386,4 +386,23 @@ class Users extends CI_Controller {
 		$this->session->action_success_message = 'ID saved';
 		redirect(base_url().'users/account/'.$id);
 	}
+
+	/*
+	* display admin account creation form
+	*/
+	public function create_admin()
+	{
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+
+        $data = array(
+            'page_title'        => 'New admin'
+        );
+        
+		$this->load->view('templates/header', $data);
+		$this->load->view('users/create_view');
+		$this->load->view('templates/footer');
+    }
 }
