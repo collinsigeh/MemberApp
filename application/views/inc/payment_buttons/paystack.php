@@ -46,7 +46,7 @@
 
         callback: function(response){
 
-            window.location = "<?php echo base_url().'verify_transaction.php?reference='; ?>" + response.reference;
+            window.location = "<?php echo base_url().'verifypaystack_transaction/?reference='; ?>" + response.reference;
 
         }
 

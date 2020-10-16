@@ -878,7 +878,7 @@ class Dashboard extends CI_Controller {
         $product = $this->product_model->get_where($db_check);
         if(empty($product))
         {
-            $this->session->action_success_message = 'Invalid item selection.';
+            $this->session->action_error_message = 'Invalid item selection.';
             redirect(base_url().'dashboard/shop/');
 		}
 
@@ -960,7 +960,7 @@ class Dashboard extends CI_Controller {
         $product = $this->product_model->get_where($db_check);
         if(empty($product))
         {
-            $this->session->action_success_message = 'Invalid item selection.';
+            $this->session->action_error_message = 'Invalid item selection.';
             redirect(base_url().'dashboard/shop/');
 		}
 		$item = $product[0];
@@ -1085,7 +1085,7 @@ class Dashboard extends CI_Controller {
         $order = $this->order_model->find($id);
         if(empty($order))
         {
-            $this->session->action_success_message = 'Invalid item selection.';
+            $this->session->action_error_message = 'Invalid item selection.';
             redirect(base_url().'dashboard/orders/');
 		}
 
@@ -1095,7 +1095,7 @@ class Dashboard extends CI_Controller {
 		$product = $this->product_model->get_where($db_check);
         if(empty($product))
         {
-            $this->session->action_success_message = 'Faulty order selection.';
+            $this->session->action_error_message = 'Faulty order selection.';
             redirect(base_url().'dashboard/orders/');
 		}
 
@@ -1224,7 +1224,7 @@ class Dashboard extends CI_Controller {
         $resource = $this->member_resource_model->find($id);
         if(empty($resource))
         {
-            $this->session->action_success_message = 'Invalid item selection.';
+            $this->session->action_error_message = 'Invalid item selection.';
             redirect(base_url().'dashboard/resources/');
 		}
 
@@ -1232,7 +1232,7 @@ class Dashboard extends CI_Controller {
 		{
 			if($resource->for_individual != 1)
 			{
-				$this->session->action_success_message = 'Wrong item selection.';
+				$this->session->action_error_message = 'Wrong item selection.';
 				redirect(base_url().'dashboard/resources/');
 			}
 		}
@@ -1240,7 +1240,7 @@ class Dashboard extends CI_Controller {
 		{
 			if($resource->for_corporate != 1)
 			{
-				$this->session->action_success_message = 'Wrong item selection.';
+				$this->session->action_error_message = 'Wrong item selection.';
 				redirect(base_url().'dashboard/resources/');
 			}
 		}

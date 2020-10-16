@@ -77,7 +77,7 @@ class Orders extends CI_Controller {
         $order = $this->order_model->find($id);
         if(empty($order))
         {
-            $this->session->action_success_message = 'Invalid item selection.';
+            $this->session->action_error_message = 'Invalid item selection.';
             redirect(base_url().'orders/');
 		}
 
@@ -87,7 +87,7 @@ class Orders extends CI_Controller {
 		$product = $this->product_model->get_where($db_check);
         if(empty($product))
         {
-            $this->session->action_success_message = 'Faulty order selection.';
+            $this->session->action_error_message = 'Faulty order selection.';
             redirect(base_url().'orders/');
 		}
 
