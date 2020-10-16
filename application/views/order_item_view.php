@@ -56,7 +56,7 @@
                                         }
                                         elseif($order->status == 'Unpaid')
                                         {
-                                            $status = '<span class="badge badge-pill badge-danger">Unpaid</span> <a href="#" class="btn btn-sm btn-outline-primary">Make payment</a>';
+                                            $status = '<span class="badge badge-pill badge-danger">Unpaid</span> ';
                                         }
                                         elseif($order->status == 'Delivered')
                                         {
@@ -70,9 +70,20 @@
                                         {
                                             $status = '<span class="badge badge-pill badge-info">Invalid</span>';
                                         }
-
-                                        echo $status;
                                     ?>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <?php echo $status; ?>
+                                        </div>
+                                        <div class="col-9">
+                                            <?php
+                                                if($order->status == 'Unpaid')
+                                                {
+                                                    $this->load->view('inc/payment_buttons/paystack');
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -179,17 +190,6 @@
               </div>
             </div>
           </div>
-          
-          <?php
-            if($order->status == 'Unpaid')
-            {
-                ?>
-                <div class="update-button">
-                  <a href="#" class="custom-outline-button">Make payment</a>
-                </div>
-                <?php
-            }
-          ?>
 
         </div>
 

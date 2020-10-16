@@ -18,6 +18,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('subscription_product_model');
         $this->load->model('non_subscription_product_model');
         $this->load->model('member_resource_model');
+		$this->load->model('payment_processor_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -1109,16 +1110,20 @@ class Dashboard extends CI_Controller {
         {
             $product_detail = $this->non_subscription_product_model->get_where($db_check);
         }
+		
+		$setting = $this->setting_model->get();
+		$payment_processor = $this->payment_processor_model->find($setting->payment_processor_id);
         
 		$data = array(
 			'page_title'	=> 'Order item - '.$order->description,
 			'order'			=> $order,
-			'product'		=> $product[0]
+			'product'		=> $product[0],
+			'payment_processor'	=> $payment_processor
         );
         if(isset($product_detail[0]))
         {
             $data['item_detail'] = $product_detail[0];
-        }
+		}
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('order_item_view');
