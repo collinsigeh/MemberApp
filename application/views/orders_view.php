@@ -39,6 +39,7 @@
                                   <tr>
                                   <th>#</th>
                                   <th>Item</th>
+                                  <th>Date</th>
                                   <th></th>
                                 </tr>
                                 </thead>';
@@ -67,6 +68,7 @@
                                 echo '<tr>
                                       <td><b>'.$i.'</b></td>
                                       <td><a href="'.base_url().'dashboard/order_item/'.$order->id.'" class="table-link">'.$order->description.'</a></td>
+                                      <td><small>'.date('d-M-Y', $order->created_at).'</small></td>
                                       <td>'.$status.'</td>
                                       </tr>';
                                 $i++;

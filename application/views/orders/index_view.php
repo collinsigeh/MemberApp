@@ -68,7 +68,7 @@
                                 echo '<tr>
                                       <td><b>'.$i.'</b></td>
                                       <td><a href="'.base_url().'orders/item/'.$order->id.'" class="table-link">'.$order->description.'</a></td>
-                                      <td>'.date('d-M-Y', $order->created_at).'</td>
+                                      <td><small>'.date('d-M-Y', $order->created_at).'</small></td>
                                       <td>'.$status.'</td>
                                       </tr>';
                                 $i++;
