@@ -10,6 +10,9 @@ class Verifypaystack_transaction extends CI_Controller {
 		$this->load->model('user_model');
 		$this->load->model('payment_processor_model');
 		$this->load->model('order_model');
+		$this->load->model('product_model');
+		$this->load->model('subscription_product_model');
+		$this->load->model('member_subscription_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -48,26 +51,64 @@ class Verifypaystack_transaction extends CI_Controller {
 
         if($err){
             // there was an error contacting the Paystack API
-        die('Curl returned error: ' . $err.'<div style="margin: 80px auto;"><a href="'.base_url().'dashboard/"><< Go to dashboard</a></div>');
+            die('Curl returned error: ' . $err.'<div style="margin: 80px auto;"><a href="'.base_url().'dashboard/"><< Go to dashboard</a></div>');
         }
 
         $tranx = json_decode($response);
 
         if(!$tranx->status){
-        // there was an error from the API
-        die('API returned error: ' . $tranx->message.'<div style="margin: 80px auto;"><a href="'.base_url().'dashboard/"><< Go to dashboard</a></div>');
+            // there was an error from the API
+            die('API returned error: ' . $tranx->message.'<div style="margin: 80px auto;"><a href="'.base_url().'dashboard/"><< Go to dashboard</a></div>');
         }
-
-        print_r($tranx);
-        die();
 
         if('success' == $tranx->data->status){
-        // transaction was successful...
-        // please check other things like whether you already gave value for this ref
-        // if the email matches the customer who owns the product etc
-        // Give value
-        echo "<h2>Thank you for making a purchase. Your file has bee sent your email.</h2>";
+            // transaction was successful...
+            // please check other things like whether you already gave value for this ref
+            // if the email matches the customer who owns the product etc
+            // Give value
+
+            $order = $this->order_model->find($tranx->data->metadata->custom_fields->order_number);
+            if(!empty($order))
+            {
+                if($tranx->data->amount >= $order->amount * 100 && $tranx->data->currency == $order->currency)
+                {
+                    if($order->product_id > 0)
+                    {
+                        $product = $this->product_model->find($order->product_id);
+                        
+                        if(!empty($product))
+                        {
+                            if($product->type == 'Subscription')
+                            {
+                                $db_check = array(
+                                    'product_id' => $product->id
+                                );
+                                $product_detail = $this->subscription_product_model->get_where($db_check);
+
+                                if(!empty($product_detail))
+                                {
+                                    $user = $this->user_model->find($order->user_id);
+                                    if(!empty($user))
+                                    {
+                                        $db_data = array(
+                                            'manager_email' => $user->email,
+                                            'user_id' => $user->id,
+                                            'product_id' => $product->id,
+                                            'product_name' => $product->name,
+                                            'subscription_code' => strtoupper(substr($order->description, 0, 4).'-'.$order_number),
+                                            'user_limit' => $product_detail->user_limit,
+                                            'subscription_start' => 
+                                        );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+        // redirect(base_url().'dashboard/');
 
     }
 }

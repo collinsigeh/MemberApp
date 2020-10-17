@@ -973,10 +973,6 @@ class Dashboard extends CI_Controller {
         if($item->type == 'Subscription')
         {
 			$product_detail = $this->subscription_product_model->get_where($db_check);
-			if(!empty($product_detail))
-			{
-				$order_description = $item->name.' for '.$product_detail[0]->user_limit.' member(s)';
-			}
         }
         elseif($item->type == 'Non-subscription')
         {
