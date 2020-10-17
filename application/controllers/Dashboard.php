@@ -19,7 +19,8 @@ class Dashboard extends CI_Controller {
         $this->load->model('non_subscription_product_model');
         $this->load->model('member_resource_model');
 		$this->load->model('payment_processor_model');
-
+		$this->load->model('payment_model');
+		
 		$this->load->library('form_validation');
 		$this->load->library('email');
         $this->load->library('pagination');

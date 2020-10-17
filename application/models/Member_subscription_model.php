@@ -27,5 +27,10 @@
             $this->db->where('id', $id);
             return $this->db->update('member_subscription', $db_data);
         }
+
+        public function save($db_data)
+        {
+            return $this->db->insert('member_subscription', $db_data);
+        }
     }
 ?>

@@ -13,6 +13,7 @@ class Verifypaystack_transaction extends CI_Controller {
 		$this->load->model('product_model');
 		$this->load->model('subscription_product_model');
 		$this->load->model('member_subscription_model');
+		$this->load->model('payment_model');
 
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -70,30 +71,31 @@ class Verifypaystack_transaction extends CI_Controller {
             $order = $this->order_model->find($tranx->data->metadata->custom_fields->order_number);
             if(!empty($order))
             {
-                if($tranx->data->amount >= $order->amount * 100 && $tranx->data->currency == $order->currency)
+                $description = 'Paystack reference '.$tranx->data->reference;
+                $amount = $tranx->data->amount / 100;
+                // pre to and actually save payment
+                $db_data = array(
+                    'description' => $description,
+                    'currency_symbol' => $tranx->data->currency,
+                    'amount' => $amount,
+                    'payment_method' => 'Paystack online',
+                    'status' => 'Confirmed',
+                    'order_id' => $order->id,
+                    'created_at' => time()
+                );
+                $db_check = array(
+                    'description' => $description,
+                    'currency_symbol' => $tranx->data->currency,
+                    'amount' => $amount
+                );
+                if(empty($this->payment_model->get_where($db_check)))
                 {
-                    $description = 'Paystack reference '.$tranx->data->reference;
-                    $amount = $tranx->data->amount / 100;
-                    // pre to and actually save payment
-                    $db_data = array(
-                        'description' => $description,
-                        'currency_symbol' => $tranx->data->currency,
-                        'amount' => $amount,
-                        'payment_method' => 'Paystack online',
-                        'status' => 'Confirmed',
-                        'order_id' => $order->id,
-                        'created_at' => time()
-                    );
-                    $db_check = array(
-                        'description' => $description,
-                        'currency_symbol' => $tranx->data->currency,
-                        'amount' => $amount
-                    );
-                    if(empty($this->payment_model->get_where($db_check)))
-                    {
-                        $this->payment_model->save($db_data);
-                    }
+                    $this->payment_model->save($db_data);
+                    $this->session->action_success_message = 'Payment received!';
+                }
 
+                if($tranx->data->amount >= $order->amount * 100 && $tranx->data->currency == $order->currency_symbol)
+                {
                     // prep to and update order - status to paid
                     $db_check = array(
                         'id' => $order->id,
@@ -138,12 +140,12 @@ class Verifypaystack_transaction extends CI_Controller {
                                             
                                                 //set db_data and updat member subscription
                                                 $db_data = array(
-                                                    'user_limit' => $product_detail->user_limit,
+                                                    'user_limit' => $product_detail[0]->user_limit,
                                                     'subscription_start' => $subscription_start,
-                                                    'subscription_end' => $subscription_start + ($product_detail->duration * 24 * 60 * 60),
+                                                    'subscription_end' => $subscription_start + ($product_detail[0]->duration * 24 * 60 * 60),
                                                     'order_id' => $order->id
                                                 );
-                                                $this->member_subscription->update($db_data, $ms_to_renew->id);
+                                                $this->member_subscription_model->update($db_data, $ms_to_renew->id);
 
                                                 // update order to delivered
                                                 $db_check = array(
@@ -164,14 +166,14 @@ class Verifypaystack_transaction extends CI_Controller {
                                                 'user_id' => $user->id,
                                                 'product_id' => $product->id,
                                                 'product_name' => $product->name,
-                                                'subscription_code' => strtoupper(substr($order->description, 0, 4).'-'.$order_number),
-                                                'user_limit' => $product_detail->user_limit,
+                                                'subscription_code' => strtoupper(substr($order->description, 0, 4).'-'.$order->id),
+                                                'user_limit' => $product_detail[0]->user_limit,
                                                 'subscription_start' => $subscription_start,
-                                                'subscription_end' => $subscription_start + ($product_detail->duration * 24 * 60 * 60),
+                                                'subscription_end' => $subscription_start + ($product_detail[0]->duration * 24 * 60 * 60),
                                                 'order_id' => $order->id,
                                                 'cancel' => 0
                                             );
-                                            $this->member_suscription->save($db_data);
+                                            $this->member_subscription_model->save($db_data);
 
                                             // update order to delivered
                                             $db_check = array(
