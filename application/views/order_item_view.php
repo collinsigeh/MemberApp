@@ -35,6 +35,17 @@
                         <div class="shop-item-details">
                             <div class="row">
                                 <div class="col-md-3">
+                                    Order no.:
+                                </div>
+                                <div class="col-md-9">
+                                    <?php echo $order->id; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="shop-item-details">
+                            <div class="row">
+                                <div class="col-md-3">
                                     Amount due:
                                 </div>
                                 <div class="col-md-9">
