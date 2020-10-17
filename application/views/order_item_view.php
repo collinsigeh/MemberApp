@@ -194,6 +194,55 @@
                                 <?php
                             }
                         ?>
+
+                        <div class="shop-item-details">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Payment transactions
+                                </div>
+                                <div class="col-md-9">
+                                    <?php
+                                        if(count($payments) < 1)
+                                        {
+                                            echo '<small><div class="alert alert-info">None</div></small>';
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                            <small>
+                                                <table class="table table-bordered table-small">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Amount</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                            $sn = 1;
+                                                            foreach ($payments as $payment) {
+                                                                ?>
+                                                                <tr>
+                                                                    <td><?php echo $sn; ?></td>
+                                                                    <td><?php echo $payment->currency_symbol.' '.$payment->amount; ?></td>
+                                                                    <td><?php echo date('d-M-Y', $payment->created_at); ?></td>
+                                                                    <td><?php echo $payment->status; ?></td>
+                                                                </tr>
+                                                                <?php
+                                                                $sn++;
+                                                            }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </small>
+                                            <?php
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                   </div>

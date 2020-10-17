@@ -1109,11 +1109,17 @@ class Dashboard extends CI_Controller {
 		
 		$setting = $this->setting_model->get();
 		$payment_processor = $this->payment_processor_model->find($setting->payment_processor_id);
+
+        $db_check = array(
+            'order_id' => $order->id
+        );
+        $payments = $this->payment_model->get_where($db_check);
         
 		$data = array(
 			'page_title'	=> 'Order item - '.$order->description,
 			'order'			=> $order,
 			'product'		=> $product[0],
+			'payments'		=> $payments,
 			'payment_processor'	=> $payment_processor
         );
         if(isset($product_detail[0]))
