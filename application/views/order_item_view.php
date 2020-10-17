@@ -71,7 +71,7 @@
                                         }
                                         elseif($order->status == 'Delivered')
                                         {
-                                            $status = '<span class="badge badge-pill badge-light">Completed</span>';
+                                            $status = '<span class="badge badge-pill badge-success">Completed</span>';
                                         }
                                         elseif($order->status == 'Cancelled')
                                         {

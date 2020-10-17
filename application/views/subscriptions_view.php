@@ -58,7 +58,7 @@
                                 }
                                 echo '<tr>
                                       <td><b>'.$i.'</b></td>
-                                      <td>'.$subscription->name.'</td>
+                                      <td>'.$subscription->product_name.'</td>
                                       <td>'.$status.'</td>
                                       </tr>';
                                 $i++;

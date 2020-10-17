@@ -34,7 +34,7 @@
                   ?>
                   <div class="section-item">
                     <div class="row">
-                      <div class="col-md-4"><?php echo $subscriptions->product_name; ?></div>
+                      <div class="col-md-4"><?php echo $subscription->product_name; ?></div>
                       <div class="col-md-8">
                       <?php
                         if($now < $subscription->subscription_end && $now > $subscription->subscription_start)

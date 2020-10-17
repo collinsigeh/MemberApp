@@ -39,6 +39,7 @@
                                   <tr>
                                   <th>#</th>
                                   <th>Amount</th>
+                                  <th>Description</th>
                                   <th>Date</th>
                                   <th>Status</th>
                                 </tr>
@@ -58,10 +59,11 @@
                                     $status = '<span class="badge badge-pill badge-danger">Invalid</span>';
                                   }
                                   echo '<tr>
-                                      <td><b>'.$i.'</b></td>
-                                      <td><a href="'.base_url().'payment/item/'.$payment->id.'" class="table-link">'.$payment->currency_symbol.' '.$payment->amount.'</a></td>
-                                      <td>'.date('d-M-Y', $payment->created_at).'</td>
-                                      <td>'.$status.'</td>
+                                      <td><small><b>'.$i.'</b></small></td>
+                                      <td><small><b>'.$payment->currency_symbol.' '.$payment->amount.'</b></small></td>
+                                      <td><small>'.$payment->description.'</small></td>
+                                      <td><small>'.date('d-M-Y', $payment->created_at).'</small></td>
+                                      <td><small>'.$status.'</small></td>
                                       </tr>';
                                   $i++;
                               }
