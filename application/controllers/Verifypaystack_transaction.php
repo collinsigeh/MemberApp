@@ -72,6 +72,40 @@ class Verifypaystack_transaction extends CI_Controller {
             {
                 if($tranx->data->amount >= $order->amount * 100 && $tranx->data->currency == $order->currency)
                 {
+                    $description = 'Paystack reference '.$tranx->data->reference;
+                    $amount = $tranx->data->amount / 100;
+                    // pre to and actually save payment
+                    $db_data = array(
+                        'description' => $description,
+                        'currency_symbol' => $tranx->data->currency,
+                        'amount' => $amount,
+                        'payment_method' => 'Paystack online',
+                        'status' => 'Confirmed',
+                        'order_id' => $order->id,
+                        'created_at' => time()
+                    );
+                    $db_check = array(
+                        'description' => $description,
+                        'currency_symbol' => $tranx->data->currency,
+                        'amount' => $amount
+                    );
+                    if(empty($this->payment_model->get_where($db_check)))
+                    {
+                        $this->payment_model->save($db_data);
+                    }
+
+                    // prep to and update order - status to paid
+                    $db_check = array(
+                        'id' => $order->id,
+                        'status' => 'Unpaid'
+                    );
+                    $db_data = array(
+                        'status' => 'Paid',
+                        'updated_at' => time()
+                    );
+                    $this->order_model->update_where($db_data, $db_check);
+
+                    // attempt to deliver on order
                     if($order->product_id > 0)
                     {
                         $product = $this->product_model->find($order->product_id);
@@ -90,25 +124,77 @@ class Verifypaystack_transaction extends CI_Controller {
                                     $user = $this->user_model->find($order->user_id);
                                     if(!empty($user))
                                     {
-                                        $db_data = array(
-                                            'manager_email' => $user->email,
-                                            'user_id' => $user->id,
-                                            'product_id' => $product->id,
-                                            'product_name' => $product->name,
-                                            'subscription_code' => strtoupper(substr($order->description, 0, 4).'-'.$order_number),
-                                            'user_limit' => $product_detail->user_limit,
-                                            'subscription_start' => 
-                                        );
+                                        $subscription_start = time();
+
+                                        if($order->type == 'Renewal')
+                                        {
+                                            $ms_to_renew = $this->member_subscription->find($order->ms_id_to_renew);
+                                            if(!empty($ms_to_renew))
+                                            {
+                                                if($ms_to_renew->subscription_end > $subscription_start)
+                                                {
+                                                    $subscription_start = $ms_to_renew->subcription_end;
+                                                }
+                                            
+                                                //set db_data and updat member subscription
+                                                $db_data = array(
+                                                    'user_limit' => $product_detail->user_limit,
+                                                    'subscription_start' => $subscription_start,
+                                                    'subscription_end' => $subscription_start + ($product_detail->duration * 24 * 60 * 60),
+                                                    'order_id' => $order->id
+                                                );
+                                                $this->member_subscription->update($db_data, $ms_to_renew->id);
+
+                                                // update order to delivered
+                                                $db_check = array(
+                                                    'id' => $order->id,
+                                                    'status' => 'Paid'
+                                                );
+                                                $db_data = array(
+                                                    'status' => 'Delivered',
+                                                    'updated_at' => time()
+                                                );
+                                                $this->order_model->update_where($db_data, $db_check);
+                                            }
+                                        }
+                                        elseif($order->type == 'Purchase')
+                                        {
+                                            $db_data = array(
+                                                'manager_email' => $user->email,
+                                                'user_id' => $user->id,
+                                                'product_id' => $product->id,
+                                                'product_name' => $product->name,
+                                                'subscription_code' => strtoupper(substr($order->description, 0, 4).'-'.$order_number),
+                                                'user_limit' => $product_detail->user_limit,
+                                                'subscription_start' => $subscription_start,
+                                                'subscription_end' => $subscription_start + ($product_detail->duration * 24 * 60 * 60),
+                                                'order_id' => $order->id,
+                                                'cancel' => 0
+                                            );
+                                            $this->member_suscription->save($db_data);
+
+                                            // update order to delivered
+                                            $db_check = array(
+                                                'id' => $order->id,
+                                                'status' => 'Paid'
+                                            );
+                                            $db_data = array(
+                                                'status' => 'Delivered',
+                                                'updated_at' => time()
+                                            );
+                                            $this->order_model->update_where($db_data, $db_check);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+                redirect(base_url().'dashboard/order_item/'.$order->id);
             }
         }
 
-        // redirect(base_url().'dashboard/');
+        redirect(base_url().'dashboard/');
 
     }
 }

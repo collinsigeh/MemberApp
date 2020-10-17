@@ -21,5 +21,11 @@
             $query = $this->db->get_where('member_subscription');
             return $query->result();
         }
+
+        public function update($db_data, $id)
+        {
+            $this->db->where('id', $id);
+            return $this->db->update('member_subscription', $db_data);
+        }
     }
 ?>

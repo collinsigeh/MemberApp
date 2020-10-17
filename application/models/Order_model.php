@@ -41,5 +41,10 @@
             $query = $this->db->get('orders');
             return $query->row();
         }
+
+        public function update_where($db_data, $db_check)
+        {
+            return $this->db->update('orders', $db_data, $db_check);
+        }
     }
 ?>
