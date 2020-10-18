@@ -71,11 +71,11 @@ class Verifypaystack_transaction extends CI_Controller {
             $order = $this->order_model->find($tranx->data->metadata->custom_fields->order_number);
             if(!empty($order))
             {
-                $description = 'Paystack reference '.$tranx->data->reference;
+                $ref = $tranx->data->reference;
                 $amount = $tranx->data->amount / 100;
                 // pre to and actually save payment
                 $db_data = array(
-                    'description' => $description,
+                    'ref' => $ref,
                     'currency_symbol' => $tranx->data->currency,
                     'amount' => $amount,
                     'payment_method' => 'Paystack online',
@@ -84,7 +84,7 @@ class Verifypaystack_transaction extends CI_Controller {
                     'created_at' => time()
                 );
                 $db_check = array(
-                    'description' => $description,
+                    'ref' => $ref,
                     'currency_symbol' => $tranx->data->currency,
                     'amount' => $amount
                 );
