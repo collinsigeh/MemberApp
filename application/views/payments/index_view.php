@@ -39,7 +39,7 @@
                                   <tr>
                                   <th>#</th>
                                   <th>Amount</th>
-                                  <th>Description</th>
+                                  <th>Ref</th>
                                   <th>Date</th>
                                   <th>Status</th>
                                 </tr>
@@ -59,9 +59,9 @@
                                     $status = '<span class="badge badge-pill badge-danger">Invalid</span>';
                                   }
                                   echo '<tr>
-                                      <td><small><b>'.$i.'</b></small></td>
-                                      <td><small><b>'.$payment->currency_symbol.' '.$payment->amount.'</b></small></td>
-                                      <td><small>'.$payment->description.'</small></td>
+                                      <td><b>'.$i.'</b></td>
+                                      <td><b>'.$payment->currency_symbol.' '.$payment->amount.'</b></td>
+                                      <td>'.$payment->ref.'</td>
                                       <td><small>'.date('d-M-Y', $payment->created_at).'</small></td>
                                       <td><small>'.$status.'</small></td>
                                       </tr>';

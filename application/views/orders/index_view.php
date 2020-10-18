@@ -66,10 +66,10 @@
                                     $status = '<span class="badge badge-pill badge-info">Invalid</span>';
                                 }
                                 echo '<tr>
-                                      <td><b>'.$i.'</b></td>
-                                      <td><a href="'.base_url().'orders/item/'.$order->id.'" class="table-link">'.$order->description.'</a></td>
+                                      <td><small><b>'.$i.'</b></small></td>
+                                      <td><small><b><a href="'.base_url().'orders/item/'.$order->id.'" class="table-link">'.$order->description.'</a></b></small></td>
                                       <td><small>'.date('d-M-Y', $order->created_at).'</small></td>
-                                      <td>'.$status.'</td>
+                                      <td><small>'.$status.'</small></td>
                                       </tr>';
                                 $i++;
                               }

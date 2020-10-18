@@ -53,9 +53,9 @@
                                     $item_type = '<span class="badge badge-pill badge-light">Non-downloadable</span>';
                                   }
                                   echo '<tr>
-                                      <td><small><b>'.$i.'</b></small></td>
-                                      <td><small><a href="'.base_url().'member_resources/item/'.$resource->id.'" class="table-link">'.$resource->name.'</a></small></td>
-                                      <td><small>'.$item_type.'</small></td>
+                                      <td><b>'.$i.'</b></td>
+                                      <td><a href="'.base_url().'member_resources/item/'.$resource->id.'" class="table-link">'.$resource->name.'</a></td>
+                                      <td>'.$item_type.'</td>
                                       </tr>';
                                   $i++;
                               }
