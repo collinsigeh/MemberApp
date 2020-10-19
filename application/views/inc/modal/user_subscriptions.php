@@ -16,7 +16,7 @@
         <table class="table table-small">
         <?php
         foreach ($subscriptions as $subscription) {
-            if($subscriptions->cancel == 1)
+            if($subscription->cancel == 1)
             {
                 $subscription_status = '<span class="badge badge-pill badge-danger">Cancelled</span>';
             }
