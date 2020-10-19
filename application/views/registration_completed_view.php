@@ -10,7 +10,7 @@
           ?>
           
           <div class="text-center">
-            <a href="<?php echo base_url(); ?>" class="custom-outline-button">Back to Homepage</a>
+            <a href="<?php echo base_url().'dashboard/login/'; ?>" class="custom-outline-button">Go to Login page</a>
           </div>
       </div>
     </div>
