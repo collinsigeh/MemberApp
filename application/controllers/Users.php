@@ -17,6 +17,7 @@ class Users extends CI_Controller {
         $this->load->model('member_subscription_model');
         $this->load->model('student_info_model');
         $this->load->model('professional_info_model');
+        $this->load->model('authorization_detail_model');
         
         $this->load->library('pagination');
 		$this->load->library('form_validation');
@@ -130,7 +131,7 @@ class Users extends CI_Controller {
             $db_check = array(
                 'user_id' => $id
             );
-            $result = $this->authorization_detail_mode->get_where($db_check);
+            $result = $this->authorization_detail_model->get_where($db_check);
             if(count($result) > 0)
             {
                 $data['authorization_detail'] = $result[0];
