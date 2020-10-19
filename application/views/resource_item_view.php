@@ -64,7 +64,7 @@
                                                     <tr>
                                                         <th>Download link</th>
                                                         <td>
-                                                            <?php echo $resource->download_link; ?>
+                                                            <?php echo '<a href="'.$resource->download_link.'" target="_blank">Download '.$resource->name.'</a>'; ?>
                                                         </td>
                                                     </tr>
                                                     <?php
