@@ -20,6 +20,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('member_resource_model');
 		$this->load->model('payment_processor_model');
 		$this->load->model('payment_model');
+		$this->load->model('authorization_detail_model');
 		
 		$this->load->library('form_validation');
 		$this->load->library('email');
@@ -706,7 +707,7 @@ class Dashboard extends CI_Controller {
             $db_check = array(
                 'user_id' => $this->session->user_id
             );
-            $result = $this->authorization_detail_mode->get_where($db_check);
+            $result = $this->authorization_detail_model->get_where($db_check);
             if(count($result) > 0)
             {
                 $data['authorization_detail'] = $result[0];
