@@ -19,6 +19,12 @@
             return $query->result();
         }
 
+        public function update($db_data, $id)
+        {
+            $this->db->where('id', $id);
+            return $this->db->update('authorization_detail', $db_data);
+        }
+
         public function update_where($db_data, $db_check)
         {
             return $this->db->update('authorization_detail', $db_data, $db_check);
