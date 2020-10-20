@@ -1157,6 +1157,31 @@ class Dashboard extends CI_Controller {
             redirect(base_url().'dashboard/');
 		}
 		// end check for suspended account
+		
+		// check for pending approval account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Pending Approval')
+        {
+			$this->session->status = 'Pending Approval';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for pending approval account
+
+		// check for active subscriptions
+		$now = time();
+		$db_check = array(
+			'user_id'	=> $this->session->user_id,
+			'cancel !=' => 1,
+			'subscription_start <=' => $now,
+			'subscription_end >=' => $now
+		);
+		$active_subscriptions = $this->member_subscription_model->get_where($db_check);
+		if(empty($active_subscriptions))
+		{
+			$this->session->status = 'You do NOT have an active subscription.';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for active subscription
 
 		if($this->session->membership == 'Individual')
 		{
@@ -1224,6 +1249,31 @@ class Dashboard extends CI_Controller {
             redirect(base_url().'dashboard/');
 		}
 		// end check for suspended account
+		
+		// check for pending approval account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Pending Approval')
+        {
+			$this->session->status = 'Pending Approval';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for pending approval account
+
+		// check for active subscriptions
+		$now = time();
+		$db_check = array(
+			'user_id'	=> $this->session->user_id,
+			'cancel !=' => 1,
+			'subscription_start <=' => $now,
+			'subscription_end >=' => $now
+		);
+		$active_subscriptions = $this->member_subscription_model->get_where($db_check);
+		if(empty($active_subscriptions))
+		{
+			$this->session->status = 'You do NOT have an active subscription.';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for active subscription
         
         $resource = $this->member_resource_model->find($id);
         if(empty($resource))
