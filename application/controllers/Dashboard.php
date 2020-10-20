@@ -1178,7 +1178,7 @@ class Dashboard extends CI_Controller {
 		$active_subscriptions = $this->member_subscription_model->get_where($db_check);
 		if(empty($active_subscriptions))
 		{
-			$this->session->status = 'You do NOT have an active subscription.';
+			$this->session->action_error_message = 'You do NOT have an active subscription.';
             redirect(base_url().'dashboard/');
 		}
 		// end check for active subscription
@@ -1270,7 +1270,7 @@ class Dashboard extends CI_Controller {
 		$active_subscriptions = $this->member_subscription_model->get_where($db_check);
 		if(empty($active_subscriptions))
 		{
-			$this->session->status = 'You do NOT have an active subscription.';
+			$this->session->action_error_message = 'You do NOT have an active subscription.';
             redirect(base_url().'dashboard/');
 		}
 		// end check for active subscription
