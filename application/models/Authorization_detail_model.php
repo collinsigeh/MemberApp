@@ -18,5 +18,10 @@
             $query = $this->db->get_where('authorization_detail', $db_check);
             return $query->result();
         }
+
+        public function update_where($db_data, $db_check)
+        {
+            return $this->db->update('authorization_detail', $db_data, $db_check);
+        }
     }
 ?>
