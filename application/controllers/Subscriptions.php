@@ -27,4 +27,13 @@ class Subscriptions extends CI_Controller {
     {
 
     }
+
+    /*
+    * Add a new subscription to a user
+    */
+    public function add_to_user($id=0)
+    {
+		$user = $this->user_model->find($id);
+		print_r($user);
+    }
 }

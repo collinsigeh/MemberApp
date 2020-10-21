@@ -36,7 +36,7 @@
             <div class="update-button">
                 <input type="submit" value="Submit" class="custom-outline-button">
             </div>
-            <?php form_close(); ?>
+            <?php echo form_close(); ?>
       </div>
     </div>
   </div>

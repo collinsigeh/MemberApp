@@ -24,7 +24,7 @@
             <div class="update-button">
                 <input type="submit" value="Continue" class="custom-outline-button">
             </div>
-            <?php form_close(); ?>
+            <?php echo form_close(); ?>
       </div>
     </div>
   </div>
