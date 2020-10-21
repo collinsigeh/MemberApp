@@ -150,6 +150,9 @@
                                         }
                                     ?>
                                     </div>
+                                    <div class="form-group">
+                                        <a href="#" data-toggle="modal" data-target="#addSubscriptionModal" class="btn btn-sm btn-primary">Add new subscription</a>
+                                    </div>
                                 </div>
                             </div>
                             <?php
@@ -512,6 +515,7 @@
 if($user->user_type == 'Member')
 {
     $this->load->view('inc/modal/user_subscriptions');
+    $this->load->view('inc/modal/add_subscription');
 }
 $this->load->view('inc/modal/update_id');
 ?>
