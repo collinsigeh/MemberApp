@@ -4,7 +4,7 @@
     {
       ?>
       <div class="alert alert-info">
-        <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> Your account is <b>pending approval</b>.  Contact NUSA secretary!.         
+        <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> Your account is <b>pending approval</b>.  Contact NUSA secretary!      
       </div>
       <?php
     }
@@ -12,7 +12,7 @@
     {
       ?>
       <div class="alert alert-danger">
-        <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> Your account is <b>inactive</b>. Contact NUSA secretary!.      
+        <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> Your account is <b>inactive</b>. Contact NUSA secretary!   
       </div>
       <?php
     }

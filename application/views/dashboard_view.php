@@ -83,7 +83,7 @@
                       }
                       elseif($this->session->status == 'Suspended')
                       {
-                        echo '<span class="badge badge-pill badge-danger">Suspended</span>';
+                        echo '<span class="badge badge-pill badge-danger">Inactive</span>';
                       }
                     ?>
                   </div>

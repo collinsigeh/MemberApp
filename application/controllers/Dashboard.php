@@ -54,6 +54,13 @@ class Dashboard extends CI_Controller {
 			'no_unpaid_orders' => $no_unpaid_orders
 		);
 
+		if($this->session->user_type == 'Admin'){
+			$db_check = array(
+				'status' => 'Pending Approval'
+			);
+			$data['no_pending_accounts'] = count($this->user_model->get_where($db_check));
+		}
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('dashboard_view');
 		$this->load->view('templates/footer');
