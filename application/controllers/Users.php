@@ -18,6 +18,7 @@ class Users extends CI_Controller {
         $this->load->model('student_info_model');
         $this->load->model('professional_info_model');
         $this->load->model('authorization_detail_model');
+        $this->load->model('product_model');
         
         $this->load->library('pagination');
 		$this->load->library('form_validation');
@@ -137,6 +138,29 @@ class Users extends CI_Controller {
                 $data['authorization_detail'] = $result[0];
             }
         }
+
+        if($user->membership == 'Individual')
+        {
+            $db_check = array(
+                'type' => 'Subscription',
+                'for_individual' => 1
+            );
+        }
+        elseif($user->membership == 'Corporate')
+        {
+            $db_check = array(
+                'type' => 'Subscription',
+                'for_corporate' => 1
+            );
+        }
+        elseif($user->membership == 'student')
+        {
+            $db_check = array(
+                'type' => 'Subscription',
+                'for_student' => 1
+            );
+        }
+        $data['subscription_products'] = $this->product_model->get_where($db_check);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('users/account_view');

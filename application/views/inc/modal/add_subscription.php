@@ -18,9 +18,15 @@
         <?php echo form_open(base_url().'subscriptions/add_to_user/'.$user->id); ?>
             <div class="form-group">
                 <label for="subscriptions">Select subscription to add:</label>
-                <div class="radio">
-                    <input type="radio" name="subscription_id" id="subscription_id" value="sub id"> <label for="subscription_id">Sub name</label>
-                </div>
+                <?php
+                  foreach ($subscription_products as $product) {
+                    ?>
+                    <div class="radio">
+                        <input type="radio" name="subscription_id" id="subscription_id" value="<?php echo $product->id; ?>"> <label for="subscription_id"><?php echo $product->name; ?></label>
+                    </div>
+                    <?php
+                  }
+                ?>
             </div>
             <div class="form-group">
                 <label for="confirm">Confirm Action:</label>
