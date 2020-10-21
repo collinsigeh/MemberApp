@@ -73,7 +73,7 @@
 
                                   echo '<tr>
                                       <td><small><b>'.$i.'</b></small></td>
-                                      <td><small><b><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/'.$user->photo.'" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></b></small></td>
+                                      <td><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/'.$user->photo.'" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></td>
                                       <td><small>'.$user_type.'</small></td>
                                       <td><small>'.$status.'</small></td>
                                       </tr>';
