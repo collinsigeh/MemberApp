@@ -1,5 +1,25 @@
 <div class="notice">
   <?php
+    if($this->session->user_type == 'Admin')
+    {
+      if($no_pending_accounts == 1)
+      {
+        ?>
+        <div class="alert alert-info">
+          <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> <?php echo $no_pending_accounts; ?> user account is <b>pending approval</b>.  <a href="<?php echo base_url().'users/pending_accounts/'; ?>">View details</a>!      
+        </div>
+        <?php
+      }
+      elseif($no_pending_accounts > 1)
+      {
+        ?>
+        <div class="alert alert-info">
+          <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> <?php echo $no_pending_accounts; ?> user accounts are <b>pending approval</b>.  <a href="<?php echo base_url().'users/pending_accounts/'; ?>">View details</a>!      
+        </div>
+        <?php
+      }
+    }
+
     if($this->session->status == 'Pending Approval')
     {
       ?>
