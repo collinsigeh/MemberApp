@@ -464,4 +464,47 @@ class Users extends CI_Controller {
         $this->session->action_success_message = 'Admin account created.';
         redirect(base_url().'users/create_admin/');
     }
+
+    /*
+    * displays a list of accounts that are pending approval
+    */
+	public function pending_accounts($id=0)
+	{
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+        
+        $offset = $id;
+        $limit = 50;
+        $db_check = array(
+            'status' => 'Pending Approval'
+        );
+
+        $users = $this->user_model->paginate_where($db_check, $limit, $offset);
+        if(empty($users))
+        {
+            $this->session->action_error_message = 'Unavailable resource selection.';
+            redirect(base_url().'dashboard');
+        }
+        $total = count($this->user_model->get_where($db_check));
+        
+        $config['base_url'] = base_url().'users/index/';
+        $config['total_rows'] = $total;
+        $config['per_page'] = $limit;
+
+        $this->pagination->initialize($config);
+        
+		$data = array(
+            'page_title'    => 'Users',
+            'users'         => $users,
+            'total'         => $total,
+            'start'         => $offset + 1,
+            'end'           => $offset + count($users)
+		);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('users/pending_accounts_view');
+		$this->load->view('templates/footer');
+    }
 }
