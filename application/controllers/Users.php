@@ -143,6 +143,7 @@ class Users extends CI_Controller {
         {
             $db_check = array(
                 'type' => 'Subscription',
+                'status' => 'Available',
                 'for_individual' => 1
             );
         }
@@ -150,6 +151,7 @@ class Users extends CI_Controller {
         {
             $db_check = array(
                 'type' => 'Subscription',
+                'status' => 'Available',
                 'for_corporate' => 1
             );
         }
@@ -157,6 +159,7 @@ class Users extends CI_Controller {
         {
             $db_check = array(
                 'type' => 'Subscription',
+                'status' => 'Available',
                 'for_student' => 1
             );
         }

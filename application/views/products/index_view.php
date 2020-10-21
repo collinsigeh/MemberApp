@@ -39,7 +39,8 @@
                                   <tr>
                                   <th>#</th>
                                   <th>Item</th>
-                                  <th>Type</th>
+                                  <th style="font-size: 0.8em;">Type</th>
+                                  <th style="font-size: 0.8em;">Status</th>
                                 </tr>
                                 </thead>';
                               $i = $start;
@@ -52,10 +53,24 @@
                                   {
                                     $product_type = '<span class="badge badge-pill badge-light">Non-subscription</span>';
                                   }
+
+                                  if($product->status == 'Available')
+                                  {
+                                  $status = '<span class="badge badge-pill badge-success">Available</span>';
+                                  }
+                                  elseif($product->status == 'NOT Available')
+                                  {
+                                      $status = '<span class="badge badge-pill badge-danger">NOT Available</span>';
+                                  }
+                                  else
+                                  {
+                                      $status = '<span class="badge badge-pill badge-light">Undefined</span>';
+                                  }
                                   echo '<tr>
-                                      <td><b>'.$i.'</b></td>
+                                      <td><small><b>'.$i.'</b></small></td>
                                       <td><a href="'.base_url().'products/item/'.$product->id.'" class="table-link">'.$product->name.'</a></td>
-                                      <td>'.$product_type.'</td>
+                                      <td><small>'.$product_type.'</small></td>
+                                      <td><small>'.$status.'</small></td>
                                       </tr>';
                                   $i++;
                               }
