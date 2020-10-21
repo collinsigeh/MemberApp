@@ -38,8 +38,9 @@
                               echo '<thead>
                                   <tr>
                                   <th>#</th>
-                                  <th>User account</th>
-                                  <th>Type</th>
+                                  <th>User</th>
+                                  <th style="font-size: 0.8em;">Type</th>
+                                  <th style="font-size: 0.8em;">Account status</th>
                                 </tr>
                                 </thead>';
                               $i = $start;
@@ -52,10 +53,29 @@
                                   {
                                     $user_type = '<span class="badge badge-pill badge-light">Member</span>';
                                   }
+
+                                  if($user->status == 'Active')
+                                  {
+                                  $status = '<span class="badge badge-pill badge-success">Active</span>';
+                                  }
+                                  elseif($user->status == 'Suspended')
+                                  {
+                                      $status = '<span class="badge badge-pill badge-danger">Inactive</span>';
+                                  }
+                                  elseif($user->status == 'Pending Approval')
+                                  {
+                                      $status = '<span class="badge badge-pill badge-info">Pending Approval</span>';
+                                  }
+                                  else
+                                  {
+                                      $status = '<span class="badge badge-pill badge-light">Undefined</span>';
+                                  }
+
                                   echo '<tr>
-                                      <td><b>'.$i.'</b></td>
-                                      <td><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/'.$user->photo.'" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></td>
-                                      <td>'.$user_type.'</td>
+                                      <td><small><b>'.$i.'</b></small></td>
+                                      <td><small><b><a href="'.base_url().'users/account/'.$user->id.'" class="table-link"><img src="'.base_url().'assets/img/profile_images/'.$user->photo.'" class="table-profile-icon" >'.$user->firstname.' '.$user->lastname.' ('.$user->email.')</a></b></small></td>
+                                      <td><small>'.$user_type.'</small></td>
+                                      <td><small>'.$status.'</small></td>
                                       </tr>';
                                   $i++;
                               }
