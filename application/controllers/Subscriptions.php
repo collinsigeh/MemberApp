@@ -75,6 +75,11 @@ class Subscriptions extends CI_Controller {
             $this->session->action_error_message = 'The subscription End date should be further than the subscription Start date.';
             redirect(base_url().'users/account/'.$id);
         }
+        if($subscription_end <= time())
+        {
+            $this->session->action_error_message = 'The subscription End date should be further today.';
+            redirect(base_url().'users/account/'.$id);
+        }
 
         $product_id = $this->input->post('subscription_product_id');
 
@@ -123,19 +128,21 @@ class Subscriptions extends CI_Controller {
             redirect(base_url().'users/account/'.$id);
         }
         $product_detail = $result[0];
-
-        $subscription_start = $subscription_end = 0;
         
         $db_data = array(
           'manager_email' => $user->email,
           'user_id' => $user->id,
           'product_id' => $product->id,
           'product_name' => $product->name,
-          'subscription_code' => strtoupper(substr($order->description, 0, 4)).'-'.$this->session->user_id.'-'.time(),
+          'subscription_code' => strtoupper(substr($product->name, 0, 4)).'-'.$this->session->user_id.'-'.time(),
           'user_limit' => $product_detail->user_limit,
           'subscription_start' => $subscription_start,
-          'subscription_end' => $subscription_end
+          'subscription_end' => $subscription_end,
+          'cancel' => 0
         );
+        $this->member_subscription_model->save($db_data);
 
+        $this->session->action_success_message = 'Subscription added for '.$user->firstname.' '.$user->lastname;
+        redirect(base_url().'users/account/'.$id);
     }
 }

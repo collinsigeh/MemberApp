@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label for="confirm">Confirm action:</label>
-                <input class="form-control" type="text" name="confirm" id="confirm" placeholder="ADD" required />
+                <input class="form-control" type="text" name="confirm" id="confirm" required />
                 <small class="text-muted">*** Type <b>ADD</b> in the box above to confirm ***</small>
             </div>
             <div class="update-button">
