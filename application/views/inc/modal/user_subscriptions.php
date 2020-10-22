@@ -11,10 +11,11 @@
       <div class="modal-body">
         <small>
         <div class="alert alert-info">
-            Here are subscriptions by <?php echo $user->firstname.' '.$user->lastname; ?>
+            Here are subscriptions for <?php echo $user->firstname.' '.$user->lastname; ?>
         </div>
         <table class="table table-small">
         <?php
+        $sub_no = 1;
         foreach ($subscriptions as $subscription) {
             if($subscription->cancel == 1)
             {
@@ -37,15 +38,16 @@
             }
             ?>
             <tr>
-                <td style="vertical-align: top;">1</td>
+                <td style="vertical-align: top;"><?php echo $sub_no; ?></td>
                 <td>
                     <div class="alert alert-secondary">
-                        <p><?php echo $subscription->product_name.' '.$subscription_status; ?></p>
-                        <b>Validity: </b> <?php echo date('D d M, Y', $subscription->subscription_start).' - '.date('D d M, Y', $subscription->subscription_end); ?>
+                        <p><?php echo '<b>'.$subscription->product_name.'</b> '.$subscription_status; ?></p>
+                        <b>Valid from: </b> <?php echo date('D d M, Y', $subscription->subscription_start).' <b>- to -</b> '.date('D d M, Y', $subscription->subscription_end); ?>
                     </div>
                 </td>
             </tr>
             <?php
+            $sub_no++;
         }
         ?>
         </table>
