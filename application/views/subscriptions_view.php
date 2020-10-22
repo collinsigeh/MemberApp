@@ -39,7 +39,7 @@
                                   <tr>
                                   <th>#</th>
                                   <th>Subscription</th>
-                                  <th></th>
+                                  <th>Status</th>
                                 </tr>
                                 </thead>';
                               $i = $start;
@@ -54,11 +54,11 @@
                                 }
                                 else
                                 {
-                                    $status = '<span class="badge badge-pill badge-info">Inactive</span>';
+                                    $status = '<span class="badge badge-pill badge-info">Invalid</span>';
                                 }
                                 echo '<tr>
                                       <td><b>'.$i.'</b></td>
-                                      <td>'.$subscription->product_name.'</td>
+                                      <td><a href="'.base_url().'dashboard/subscription_item/'.$subscription->id.'" class="table-link">'.$subscription->product_name.'</a></td>
                                       <td>'.$status.'</td>
                                       </tr>';
                                 $i++;

@@ -105,7 +105,7 @@
                   {
                     ?>
                     <div class="col-md-6">
-                      <a href="#" class="btn btn-sm btn-outline-secondary">Manage Subcription</a>
+                      <a href="<?php echo base_url().'dashboard/subscriptions/'; ?>" class="btn btn-sm btn-outline-secondary">Manage Subcription</a>
                     </div>
                     <?php
                   }
