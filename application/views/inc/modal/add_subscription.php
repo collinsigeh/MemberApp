@@ -22,14 +22,22 @@
                   foreach ($subscription_products as $product) {
                     ?>
                     <div class="radio">
-                        <input type="radio" name="subscription_id" id="subscription_id" value="<?php echo $product->id; ?>"> <label for="subscription_id"><?php echo $product->name; ?></label>
+                        <input type="radio" name="subscription_product_id" id="subscription_product_id" value="<?php echo $product->id; ?>"> <label for="subscription_product_id"><?php echo $product->name; ?></label>
                     </div>
                     <?php
                   }
                 ?>
             </div>
             <div class="form-group">
-                <label for="confirm">Confirm Action:</label>
+                <label for="start_date">Start date:</label>
+                <input type="date" class="form-control" name="start_date" id="start_date" required />
+            </div>
+            <div class="form-group">
+                <label for="end_date">End date:</label>
+                <input type="date" class="form-control" name="end_date" id="end_date" required />
+            </div>
+            <div class="form-group">
+                <label for="confirm">Confirm action:</label>
                 <input class="form-control" type="text" name="confirm" id="confirm" placeholder="ADD" required />
                 <small class="text-muted">*** Type <b>ADD</b> in the box above to confirm ***</small>
             </div>

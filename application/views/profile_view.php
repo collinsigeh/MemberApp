@@ -191,11 +191,11 @@
                                                 echo $no_subscriptions.' found.';
                                                 if($no_subscriptions > 0)
                                                 {
-                                                    echo ' <a href="'.base_url().'dashboard/subscriptions/'.$user->id.'" class="btn btn-sm btn-outline-secondary">View details</a>';
+                                                    echo ' <a href="'.base_url().'dashboard/subscriptions/'.$user->id.'" class="btn btn-sm btn-outline-primary">View details</a>';
                                                 }
                                                 else
                                                 {
-                                                    echo '<a href="'.base_url().'dashboard/shop/" class="btn btn-sm btn-outline-secondary">New subscription</a>';
+                                                    echo '<a href="'.base_url().'dashboard/shop/" class="btn btn-sm btn-outline-primary">New subscription</a>';
                                                 }
                                             ?>
                                             </div>
