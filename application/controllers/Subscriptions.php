@@ -68,7 +68,13 @@ class Subscriptions extends CI_Controller {
             redirect(base_url().'users/account/'.$id);
         }
 
-        echo human_to_unix($this->input->post('start_date')); die();
+        $subscription_start = strtotime($this->input->post('start_date'));
+        $subscription_end = strtotime($this->input->post('end_date'));
+        if($subscription_start >= $subscription_end)
+        {
+            $this->session->action_error_message = 'The subscription End date should be further than the subscription Start date.';
+            redirect(base_url().'users/account/'.$id);
+        }
 
         $product_id = $this->input->post('subscription_product_id');
 
