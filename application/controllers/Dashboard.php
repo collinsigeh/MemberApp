@@ -780,6 +780,77 @@ class Dashboard extends CI_Controller {
     }
 
     /*
+    * displays the details of a specific subscription item
+    */
+    public function subscription_item($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
+        
+        $subscription = $this->member_subscription_model->find($id);
+        if(empty($subscription))
+        {
+            $this->session->action_error_message = 'Invalid item selection.';
+            redirect(base_url().'dashboard/subscriptions/');
+		}
+
+        $db_check = array(
+            'id' => $subscription->product_id
+		);
+		$product = $this->product_model->get_where($db_check);
+        if(empty($product))
+        {
+            $this->session->action_error_message = 'Faulty item selection.';
+            redirect(base_url().'dashboard/subscriptions/');
+		}
+
+        $db_check = array(
+            'product_id' => $subscription->product_id
+		);
+		$product_detail = $this->subscription_product_model->get_where($db_check);
+		
+		$setting = $this->setting_model->get();
+		$payment_processor = $this->payment_processor_model->find($setting->payment_processor_id);
+
+		// include the users of the subscription when one is the admin of that subscription.
+		// NOTE that the admin can change the admin email at will and can add/remove members to his subscription
+		// any new admin email must be a user of the subscription.
+		$users = array();
+        
+		$data = array(
+			'page_title'	=> 'Subscription item - '.$subscription->product_name,
+			'subscription'	=> $subscription,
+			'now'			=> time(),
+			'product'		=> $product[0],
+			'payment_processor'	=> $payment_processor
+        );
+        if(isset($product_detail[0]))
+        {
+            $data['item_detail'] = $product_detail[0];
+		}
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('subscription_item_view');
+		$this->load->view('templates/footer');
+    }
+
+    /*
     * Displays products available for purchase to the logged in member
     */
 	public function shop($id=0)

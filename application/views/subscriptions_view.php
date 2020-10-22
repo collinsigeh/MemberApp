@@ -46,7 +46,7 @@
                               foreach ($subscriptions as $subscription) {
                                 if($now < $subscription->subscription_end && $now > $subscription->subscription_start)
                                 {
-                                  $status = '<span class="badge badge-pill badge-success">Active</span>';
+                                    $status = '<span class="badge badge-pill badge-success">Active</span>';
                                 }
                                 elseif($now >= $subscription->subscription_end)
                                 {
