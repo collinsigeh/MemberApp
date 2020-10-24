@@ -32,5 +32,12 @@
         {
             return $this->db->insert('member_subscription', $db_data);
         }
+
+        public function find($id)
+        {
+            $this->db->where('id', $id);
+            $query = $this->db->get('member_subscription');
+            return $query->row();
+        }
     }
 ?>

@@ -75,7 +75,7 @@
                                     Subscription code:
                                 </div>
                                 <div class="col-md-9">
-                                    <?php echo $subscription->code; ?>
+                                    <?php echo $subscription->subscription_code; ?>
                                 </div>
                             </div>
                         </div>
@@ -104,13 +104,13 @@
                                                     <th>#</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
-                                                    <th>Phone</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
                                                     $sn = 1;
-                                                    foreach ($users as $user) {
+                                                    foreach ($subscription_users as $user) {
                                                         ?>
                                                         <tr>
                                                             <td><?php echo $sn; ?></td>
