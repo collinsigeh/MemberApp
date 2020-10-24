@@ -141,7 +141,7 @@
                                                     if($sn < $subscription->user_limit)
                                                     {
                                                         ?>
-                                                        <div style="padding-top: 15px;"><a href="#" class="btn btn-sm btn-primary">Add subscription user</a></div>
+                                                        <div style="padding-top: 15px;"><a href="#" data-toggle="modal" data-target="#addSubscriptionUserModal" class="btn btn-sm btn-primary">Add subscription user</a></div>
                                                         <?php
                                                     }
                                                 ?>
@@ -175,3 +175,7 @@
     </div>
   </div>
 </div>
+
+<?php
+    $this->load->view('inc/modal/add_subscription_user');
+?>
