@@ -756,7 +756,7 @@ class Dashboard extends CI_Controller {
         );
         $offset = $id;
         $limit = 50;
-		$subscriptions = $this->member_subscription_model->paginate($db_check, $limit, $offset);
+		$subscriptions = $this->member_subscription_model->paginate_where($db_check, $limit, $offset);
 		$total = count($this->member_subscription_model->get_where($db_check));
         
         $config['base_url'] = base_url().'dashboard/subscriptions/';
