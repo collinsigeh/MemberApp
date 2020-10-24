@@ -302,3 +302,6 @@ a.btn:hover{
     font-size: 0.8em;
     vertical-align: bottom;
 }
+.cancel-icon{
+    width: 18px;
+}

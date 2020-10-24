@@ -90,44 +90,68 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="shop-item-details">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    Subscription users
-                                </div>
-                                <div class="col-md-9">
-                                    <small>
-                                        <table class="table table-bordered table-small">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                        
+                        <?php
+                            if($subscription->user_limit > 1 && $subscription->manager_email == $this->session->email)
+                            {
+                                ?>
+                                <div class="shop-item-details">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            Subscription users
+                                        </div>
+                                        <div class="col-md-9">
+                                            <small>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-small">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Name</th>
+                                                                <th>Email</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                                $sn = 1;
+                                                                foreach ($subscription_users as $user) {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td><?php echo $sn; ?></td>
+                                                                        <td><?php echo $user->firstname.' '.$user->lastname; ?></td>
+                                                                        <td><?php echo $user->email; ?></td>
+                                                                        <td class="text-right">
+                                                                            <?php
+                                                                                if($user->email != $subscription->manager_email)
+                                                                                {
+                                                                                    echo '<a href="#"><img src="'.base_url().'assets/img/icon_images/cancel_icon.png" alt="delete" class="cancel-icon"></a>';
+                                                                                }
+                                                                            ?>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    $sn++;
+                                                                }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                                 <?php
-                                                    $sn = 1;
-                                                    foreach ($subscription_users as $user) {
+                                                    if($sn < $subscription->user_limit)
+                                                    {
                                                         ?>
-                                                        <tr>
-                                                            <td><?php echo $sn; ?></td>
-                                                            <td><?php echo $user->firstname.' '.$user->lastname; ?></td>
-                                                            <td><?php echo $user->email; ?></td>
-                                                            <td><?php echo $user->phone; ?></td>
-                                                        </tr>
+                                                        <div style="padding-top: 15px;"><a href="#" class="btn btn-sm btn-primary">Add subscription user</a></div>
                                                         <?php
-                                                        $sn++;
                                                     }
                                                 ?>
-                                            </tbody>
-                                        </table>
-                                    </small>
+                                            </small>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                                <?php
+                            }
+                        ?>
                     </div>
 
                   </div>

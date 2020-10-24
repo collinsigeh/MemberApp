@@ -831,8 +831,18 @@ class Dashboard extends CI_Controller {
 		// include the users of the subscription when one is the admin of that subscription.
 		// NOTE that the admin can change the admin email at will and can add/remove members to his subscription
 		// any new admin email must be a user of the subscription.
-
 		$subscription_users = array();
+		$db_check = array(
+			'subscription_code' => $subscription->subscription_code
+		);
+		$user_list = $this->member_subscription_model->get_where($db_check);
+		foreach ($user_list as $user_list_item) {
+			$result = $this->user_model->find($user_list_item->user_id);
+			if(!empty($result))
+			{
+				array_push($subscription_users, $result);
+			}
+		}
         
 		$data = array(
 			'page_title'	=> 'Subscription item - '.$subscription->product_name,
