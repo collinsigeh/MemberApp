@@ -13,6 +13,7 @@
             <div class="form-group">
                 <label for="email">Email of User to add</label>
                 <input type="email" class="form-control" name="email" id="email" required />
+                <small class="text-muted">*** Type the <b>email address</b> of the member to add ***</small>
             </div>
             <div class="form-group">
                 <label for="confirm">Confirm action:</label>

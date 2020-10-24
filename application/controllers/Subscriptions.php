@@ -145,4 +145,100 @@ class Subscriptions extends CI_Controller {
         $this->session->action_success_message = 'Subscription added for '.$user->firstname.' '.$user->lastname;
         redirect(base_url().'users/account/'.$id);
     }
+
+    /*
+    * Add a new subscription user to a subscription by the subcription manager
+    */
+    public function add_subscription_user($id=0)
+    {
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+        }
+		
+        // check for suspended member account
+        $user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+            $this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+        }
+        // end check for suspended member account
+
+        $subscription = $this->member_subscription_model->find($id);
+        if(empty($subscription))
+        {
+            $this->session->action_error_message = 'Invalid item selection';
+            redirect(base_url().'dashboard/subscriptions/');
+        }
+        if($subscription->cancel ==  1)
+        {
+            $this->session->action_error_message = 'The subscription has been canceled';
+            redirect(base_url().'dashboard/subscriptions/'.$id);
+        }
+        
+        $this->form_validation->set_rules('email', 'Email of User to add', 'trim|required|valid_email');
+        $this->form_validation->set_rules('confirm', 'Confirm action', 'trim|required|in_list[ADD]');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'dashboard/subscription_item/'.$id);
+        }
+
+        $db_check = array(
+            'email' => strtolower(trim($this->input->post('email')))
+        );
+        $result = $this->user_model->get_where($db_check);
+        if(empty($result))
+        {
+            $this->session->action_error_message = 'The email you supplied is NOT recognised.';
+            redirect(base_url().'dashboard/subscription_item/'.$id);
+        }
+        $user = $result[0];
+        
+        $db_check = array(
+            'id' => $user['id'],
+            'subscription_code' => $subscription->subscription_code
+        );
+        $duplicate = $this->member_subscription_model->get_where($db_check);
+        if(!empty($duplicate))
+        {
+            $this->session->action_error_message = 'An attempt of duplicate member addition.';
+            redirect(base_url().'dashboard/subscription_item/'.$id);
+        }
+
+        if($user['user_type'] != 'Member')
+        {
+            $this->session->action_error_message = 'The email you supplied is NOT for a member.';
+            redirect(base_url().'dashboard/subscription_item/'.$id);
+        }
+        if($user['status'] != 'Active')
+        {
+            $this->session->action_error_message = 'The member account is NOT active.';
+            redirect(base_url().'dashboard/subscription_item/'.$id);
+        }
+        if($user['membership'] != $this->session->membership)
+        {
+            $this->session->action_error_message = 'The member account is NOT membership category.';
+            redirect(base_url().'dashboard/subscription_item/'.$id);
+        }
+        
+        $db_data = array(
+          'manager_email' => $this->session->email,
+          'user_id' => $user['id'],
+          'product_id' => $subscription->product_id,
+          'product_name' => $subscription->product_name,
+          'subscription_code' => $subscription->subscription_code,
+          'user_limit' => $subscription->user_limit,
+          'subscription_start' => $subscription->subscription_start,
+          'subscription_end' => $subscription->subscription_end,
+          'cancel' => $subscription->cancel
+        );
+        $this->member_subscription_model->save($db_data);
+
+        $this->session->action_success_message = $user['firstname'].' '.$user['lastname'].' has been added';
+        redirect(base_url().'dashboard/subscription_item/'.$id);
+    }
 }
