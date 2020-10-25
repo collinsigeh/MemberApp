@@ -15,6 +15,24 @@
                         <b><?php echo $subscription->product_name; ?></b>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="">User limit:</label>
+                    <div class="alert alert-secondary">
+                        <b><?php echo $item_detail->user_limit; ?></b>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Validity:</label>
+                    <div class="alert alert-secondary">
+                        <b><?php echo $item_detail->duration.' days'; ?></b>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Price:</label>
+                    <div class="alert alert-secondary">
+                        <b><?php echo $product->currency_symbol.' '.$product->amount; ?></b>
+                    </div>
+                </div>
                 <?php echo form_open(base_url().'subscriptions/renew_subscription/'.$subscription->id); ?>
                     <div class="update-button">
                         <input type="submit" value="Submit" class="custom-outline-button">
