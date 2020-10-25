@@ -60,7 +60,14 @@
                                             <?php
                                                 if($now >= $subscription->subscription_end && $subscription->manager_email == $this->session->email)
                                                 {
-                                                    $this->load->view('inc/payment_buttons/paystack');
+                                                    if(!empty($renewal_order))
+                                                    {
+                                                        $this->load->view('inc/payment_buttons/paystack');
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<a href="#" data-toggle="modal" data-target="#renewSubscriptionModal" class="btn btn-sm btn-outline-primary">Renew subscription</a>';
+                                                    }
                                                 }
                                             ?>
                                         </div>
@@ -190,4 +197,5 @@
 <?php
     $this->load->view('inc/modal/add_subscription_user');
     $this->load->view('inc/modal/delete_subscription_user');
+    $this->load->view('inc/modal/renew_subscription');
 ?>

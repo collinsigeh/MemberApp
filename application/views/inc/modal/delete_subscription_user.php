@@ -36,4 +36,4 @@
         <?php
     }
 ?>
-<!-- End addSubscriptionUserModal -->
+<!-- End deleteSubscriptionUserModal -->

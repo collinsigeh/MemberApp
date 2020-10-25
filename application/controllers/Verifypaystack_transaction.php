@@ -139,13 +139,16 @@ class Verifypaystack_transaction extends CI_Controller {
                                                 }
                                             
                                                 //set db_data and updat member subscription
+                                                $db_check = array(
+                                                    'subscription_code' => $ms_to_renew->subscription_code
+                                                );
                                                 $db_data = array(
                                                     'user_limit' => $product_detail[0]->user_limit,
                                                     'subscription_start' => $subscription_start,
                                                     'subscription_end' => $subscription_start + ($product_detail[0]->duration * 24 * 60 * 60),
                                                     'order_id' => $order->id
                                                 );
-                                                $this->member_subscription_model->update($db_data, $ms_to_renew->id);
+                                                $this->member_subscription_model->update_where($db_data, $db_check);
 
                                                 // update order to delivered
                                                 $db_check = array(

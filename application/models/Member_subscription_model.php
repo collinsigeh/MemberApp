@@ -36,6 +36,11 @@
             return $this->db->update('member_subscription', $db_data);
         }
 
+        public function update_where($db_data, $db_check)
+        {
+            return $this->db->update('member_subscription', $db_data, $db_check);
+        }
+
         public function save($db_data)
         {
             return $this->db->insert('member_subscription', $db_data);
