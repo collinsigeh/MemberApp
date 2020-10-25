@@ -155,13 +155,18 @@ class Users extends CI_Controller {
                 'for_corporate' => 1
             );
         }
-        elseif($user->membership == 'student')
+        elseif($user->membership == 'Student')
         {
             $db_check = array(
                 'type' => 'Subscription',
                 'status' => 'Available',
                 'for_student' => 1
             );
+        }
+        else
+        {
+            $this->session->action_error_message = 'Invalid user membership.';
+            redirect(base_url().'dashboard');
         }
         $data['subscription_products'] = $this->product_model->get_where($db_check);
 
