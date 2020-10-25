@@ -83,6 +83,17 @@
                         <div class="shop-item-details">
                             <div class="row">
                                 <div class="col-md-3">
+                                    Validity:
+                                </div>
+                                <div class="col-md-9">
+                                    <?php echo '<small><b>From </b></small>'.date('D d-M-Y', $subscription->subscription_start).'<small><b> - to - </b></small>'.date('D d-M-Y', $subscription->subscription_end); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="shop-item-details">
+                            <div class="row">
+                                <div class="col-md-3">
                                     User limit:
                                 </div>
                                 <div class="col-md-9">
