@@ -177,6 +177,16 @@ class Subscriptions extends CI_Controller {
             $this->session->action_error_message = 'The subscription has been canceled';
             redirect(base_url().'dashboard/subscriptions/'.$id);
         }
+
+        $db_check = array(
+            'subscription_code' => $subscription->subscription_code
+        );
+        $subscription_users = $this->member_subscription_model->get_where($db_check);
+        if(count($subscription_users) >= $subscription->user_limit)
+        {
+            $this->session->action_error_message = 'User limit reached!';
+            redirect(base_url().'dashboard/subscriptions/'.$id);
+        }
         
         $this->form_validation->set_rules('email', 'Email of User to add', 'trim|required|valid_email');
         $this->form_validation->set_rules('confirm', 'Confirm action', 'trim|required|in_list[ADD]');
