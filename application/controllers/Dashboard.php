@@ -845,11 +845,11 @@ class Dashboard extends CI_Controller {
 		}
         
 		$data = array(
-			'page_title'	=> 'Subscription item - '.$subscription->product_name,
-			'subscription'	=> $subscription,
-			'now'			=> time(),
-			'product'		=> $product[0],
-			'payment_processor'	=> $payment_processor,
+			'page_title'		 => 'Subscription item - '.$subscription->product_name,
+			'subscription'		 => $subscription,
+			'now'				 => time(),
+			'product'			 => $product[0],
+			'payment_processor'	 => $payment_processor,
 			'subscription_users' => $subscription_users
         );
         if(isset($product_detail[0]))

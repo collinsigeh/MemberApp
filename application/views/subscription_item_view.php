@@ -136,7 +136,7 @@
                                                                             <?php
                                                                                 if($user->email != $subscription->manager_email)
                                                                                 {
-                                                                                    echo '<a href="#"><img src="'.base_url().'assets/img/icon_images/cancel_icon.png" alt="delete" class="cancel-icon"></a>';
+                                                                                    echo '<a href="#" data-toggle="modal" data-target="#deleteSubscriptionUser'.$user->id.'Modal"><img src="'.base_url().'assets/img/icon_images/cancel_icon.png" alt="delete" class="cancel-icon"></a>';
                                                                                 }
                                                                             ?>
                                                                         </td>
@@ -189,4 +189,5 @@
 
 <?php
     $this->load->view('inc/modal/add_subscription_user');
+    $this->load->view('inc/modal/delete_subscription_user');
 ?>
