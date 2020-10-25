@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <?php echo form_open(base_url().'subscriptions/delete_subscription_user/'.$subscription_user->id); ?>
-                    <input type="hidden" name="subscription_id" value="<?php echo $subscription->id; ?> required">
+                    <input type="hidden" name="subscription_code" value="<?php echo $subscription->subscription_code; ?>" required>
                     <div class="form-group">
                         <label for="confirm">Confirm action:</label>
                         <input class="form-control" type="text" name="confirm" id="confirm" required />

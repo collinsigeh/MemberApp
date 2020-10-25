@@ -221,7 +221,7 @@ class Subscriptions extends CI_Controller {
         }
         if($user['membership'] != $this->session->membership)
         {
-            $this->session->action_error_message = 'The member account is NOT membership category.';
+            $this->session->action_error_message = 'The member account is NOT in your membership category.';
             redirect(base_url().'dashboard/subscription_item/'.$id);
         }
         
@@ -240,5 +240,63 @@ class Subscriptions extends CI_Controller {
 
         $this->session->action_success_message = $user['firstname'].' '.$user['lastname'].' has been added';
         redirect(base_url().'dashboard/subscription_item/'.$id);
+    }
+
+    /*
+    * Add a new subscription user to a subscription by the subcription manager
+    */
+    public function delete_subscription_user($id=0)
+    {
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+        }
+		
+        // check for suspended member account
+        $user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+            $this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+        }
+        // end check for suspended member account
+
+        $user = $this->user_model->find($id);
+        if(empty($user))
+        {
+            $this->session->action_error_message = 'Invalid member selection';
+            redirect(base_url().'dashboard/subscriptions/');
+        }
+        
+        $this->form_validation->set_rules('subscription_code', 'Subscription code', 'trim|required');
+        $this->form_validation->set_rules('confirm', 'Confirm action', 'trim|required|in_list[DELETE]');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'dashboard/subscriptions/');
+        }
+
+        $db_check = array(
+            'manager_email' => $this->session->email,
+            'subscription_code' => trim($this->input->post('subscription_code'))
+        );
+        $result = $this->member_subscription_model->get_where($db_check);
+        if(empty($result))
+        {
+            $this->session->action_error_message = 'You are NOT the subscription manager.';
+            redirect(base_url().'dashboard/subscriptions/');
+        }
+        $master_subscription = $result[0];
+        
+        $db_check = array(
+            'user_id' => $user->id,
+            'subscription_code' => trim($this->input->post('subscription_code'))
+        );
+        $this->member_subscription_model->delete_where($db_check);
+
+        $this->session->action_success_message = $user->firstname.' '.$user->lastname.' has been removed';
+        redirect(base_url().'dashboard/subscription_item/'.$master_subscription->id);
     }
 }

@@ -47,5 +47,10 @@
             $query = $this->db->get('member_subscription');
             return $query->row();
         }
+
+        public function delete_where($db_check)
+        {
+            return $this->db->delete('member_subscription', $db_check);
+        }
     }
 ?>
