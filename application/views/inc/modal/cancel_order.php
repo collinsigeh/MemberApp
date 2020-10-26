@@ -22,7 +22,7 @@
                         <b><?php echo $order->currency_symbol.' '.$order->amount; ?></b>
                     </div>
                 </div>
-                <?php echo form_open(base_url().'order/cancel_order/'.$order->id); ?>
+                <?php echo form_open(base_url().'dashboard/cancel_order/'.$order->id); ?>
                     <div class="form-group">
                         <label for="confirm">Confirm action:</label>
                         <input class="form-control" type="text" name="confirm" id="confirm" required />

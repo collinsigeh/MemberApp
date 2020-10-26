@@ -1242,6 +1242,60 @@ class Dashboard extends CI_Controller {
     }
 
     /*
+    * cancels a specific order item
+    */
+    public function cancel_order($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
+        
+        $order = $this->order_model->find($id);
+        if(empty($order))
+        {
+            $this->session->action_error_message = 'Invalid item selection.';
+            redirect(base_url().'dashboard/orders/');
+		}
+
+		if($order->user_id != $this->session->user_id)
+        {
+            $this->session->action_error_message = 'You do NOT have authority to cancel this order.';
+            redirect(base_url().'dashboard/order_item/'.$id);
+		}
+
+        $this->form_validation->set_rules('confirm', 'Confirm action', 'trim|required|in_list[DELETE]');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'dashboard/order_item/'.$id);
+		}
+		
+		$db_check = array(
+			'id' => $id
+		);
+		$this->order_model->delete_where($db_check);
+
+		$this->session->action_success_message = 'Order canceled.';
+		redirect(base_url().'dashboard/orders/');
+    }
+
+    /*
     * Display free resources available to the logged in member
     */
     public function resources($id=0)

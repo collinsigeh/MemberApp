@@ -46,5 +46,10 @@
         {
             return $this->db->update('orders', $db_data, $db_check);
         }
+
+        public function delete_where($db_check)
+        {
+            return $this->db->delete('orders', $db_check);
+        }
     }
 ?>
