@@ -1,28 +1,41 @@
-<!-- cancelOrderModal -->
-<div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
+<!-- cancelSubscriptionModal -->
+<?php
+    if($now < $subscription->subscription_end && $now > $subscription->subscription_start)
+    {
+        $status = '<span class="badge badge-pill badge-success">Active</span>';
+    }
+        elseif($now >= $subscription->subscription_end)
+    {
+        $status = '<span class="badge badge-pill badge-danger">Expired</span>';
+    }
+    else
+    {
+        $status = '<span class="badge badge-pill badge-info">Invalid</span>';
+    }
+?>
+<div class="modal fade" id="cancelSubscriptionModal" tabindex="-1" role="dialog" aria-labelledby="cancelSubscriptionModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="cancelOrderModalLabel">Cancel order</h5>
+                <h5 class="modal-title" id="cancelSubscriptionModalLabel">Cancel Subscription</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <small><div class="alert alert-info"><b>Note:</b> When you cancel an order, it is also deleted and cannot be restored.</div></small>
                 <div class="form-group">
-                    <label for="">Order item:</label>
+                    <label for="">Subscription:</label>
                     <div class="alert alert-secondary">
-                        <b><?php echo $order->description; ?></b>
+                        <b><?php echo $subscription->product_name; ?></b>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="">Amount:</label>
+                    <label for="">Status:</label>
                     <div class="alert alert-secondary">
-                        <b><?php echo $order->currency_symbol.' '.$order->amount; ?></b>
+                        <b><?php echo $status; ?></b>
                     </div>
                 </div>
-                <?php echo form_open(base_url().'dashboard/cancel_order/'.$order->id); ?>
+                <?php echo form_open(base_url().'subscriptions/cancel_subscription/'.$subscription->id); ?>
                     <div class="form-group">
                         <label for="confirm">Confirm action:</label>
                         <input class="form-control" type="text" name="confirm" id="confirm" required />
@@ -36,4 +49,4 @@
             </div>
           </div>
         </div>
-<!-- End cancelOrderModal -->
+<!-- End cancelSubscriptionModal -->

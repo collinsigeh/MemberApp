@@ -1278,7 +1278,7 @@ class Dashboard extends CI_Controller {
             redirect(base_url().'dashboard/order_item/'.$id);
 		}
 
-        $this->form_validation->set_rules('confirm', 'Confirm action', 'trim|required|in_list[DELETE]');
+        $this->form_validation->set_rules('confirm', 'Confirm action', 'trim|required|in_list[CANCEL]');
 
         if($this->form_validation->run() == FALSE)
         {

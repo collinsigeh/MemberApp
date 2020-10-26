@@ -190,7 +190,7 @@
               <div class="action-body">
                 <div class="row">
                     <div class="col-md-6">
-                      <a href="#" class="btn btn-sm btn-outline-secondary">Cancel subscription</a>
+                      <a href="#" data-toggle="modal" data-target="#cancelSubscriptionModal" class="btn btn-sm btn-outline-secondary">Cancel subscription</a>
                     </div>
                 </div>
               </div>
@@ -219,4 +219,5 @@
     $this->load->view('inc/modal/add_subscription_user');
     $this->load->view('inc/modal/delete_subscription_user');
     $this->load->view('inc/modal/renew_subscription');
+    $this->load->view('inc/modal/cancel_subscription');
 ?>

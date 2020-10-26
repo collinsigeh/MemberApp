@@ -409,4 +409,67 @@ class Subscriptions extends CI_Controller {
 		$this->session->action_success_message = 'Order saved. Make payment!';
 		redirect(base_url().'dashboard/order_item/'.$order->id);
 	}
+
+    /*
+    * cancels a specific subscription item
+    */
+    public function cancel_subscription($id=0)
+    {
+		if($this->session->userlogged_in !== '*#loggedin@Yes')
+		{
+			redirect(base_url().'dashboard/login/');
+        }
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+		}
+		
+		// check for suspended account
+		$user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+			$this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+		}
+		// end check for suspended account
+        
+        $subscription = $this->member_subscription_model->find($id);
+        if(empty($subscription))
+        {
+            $this->session->action_error_message = 'Invalid item selection.';
+            redirect(base_url().'dashboard/subscriptions/');
+		}
+
+		if($subscription->manager_email != $this->session->email)
+        {
+            $this->session->action_error_message = 'You do NOT have authority to cancel this subscription.';
+            redirect(base_url().'dashboard/subscription_item/'.$id);
+		}
+
+        $this->form_validation->set_rules('confirm', 'Confirm action', 'trim|required|in_list[CANCEL]');
+
+        if($this->form_validation->run() == FALSE)
+        {
+            $this->session->action_error_message = validation_errors();
+            redirect(base_url().'dashboard/subscription_item/'.$id);
+		}
+		
+		$db_check = array(
+            'ms_id_to_renew' => $id,
+            'status' => 'Unpaid'
+		);
+        $this->order_model->delete_where($db_check);
+        
+        $db_check = array(
+            'subscription_code' => $subscription->subscription_code
+        );
+        $db_data = array(
+            'cancel' => 1
+        );
+        $this->member_subscription_model->update_where($db_data, $db_check);
+
+		$this->session->action_success_message = 'Subscription canceled.';
+		redirect(base_url().'dashboard/subscriptions/');
+    }
 }
