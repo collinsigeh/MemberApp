@@ -366,20 +366,18 @@ class Subscriptions extends CI_Controller {
             redirect(base_url().'dashboard/subscriptions/'.$id);
 		}
 		$item = $product[0];
-		$order_description = $item->name;
-
+		$order_description = 'Renewal of '.$subscription->product_name.' with sub. code: '.$subscription->subscription_code;
+        // I AM HERE
         $db_check = array(
             'product_id' => $item->id
         );
-
-        if($item->type == 'Subscription')
+        $product_detail = $this->subscription_product_model->get_where($db_check);
+        if(empty($product_detail))
         {
-			$product_detail = $this->subscription_product_model->get_where($db_check);
-        }
-        elseif($item->type == 'Non-subscription')
-        {
-            $product_detail = $this->non_subscription_product_model->get_where($db_check);
+            $this->session->action_error_message = 'Invalid item - faulty product selection.';
+            redirect(base_url().'dashboard/subscriptions/'.$id);
 		}
+        
 		$item_detail = $product_detail[0];
 
 		$db_data = array(

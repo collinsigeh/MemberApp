@@ -1070,6 +1070,11 @@ class Dashboard extends CI_Controller {
         {
             $product_detail = $this->non_subscription_product_model->get_where($db_check);
 		}
+        if(empty($product_detail))
+        {
+            $this->session->action_error_message = 'Invalid item - faulty product selection.';
+            redirect(base_url().'dashboard/shop/');
+		}
 		$item_detail = $product_detail[0];
 
 		$db_data = array(
