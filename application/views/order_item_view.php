@@ -260,7 +260,7 @@
               <div class="action-body">
                 <div class="row">
                     <div class="col-md-6">
-                      <a href="#" class="btn btn-sm btn-outline-secondary">Cancel order</a>
+                      <a href="#" data-toggle="modal" data-target="#cancelOrderModal" class="btn btn-sm btn-outline-secondary">Cancel order</a>
                     </div>
                 </div>
               </div>
@@ -284,3 +284,7 @@
     </div>
   </div>
 </div>
+
+<?php
+    $this->load->view('inc/modal/cancel_order');
+?>
