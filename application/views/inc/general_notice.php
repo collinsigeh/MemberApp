@@ -48,7 +48,7 @@
       {
         ?>
         <div class="alert alert-info">
-          <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have an expired subscription.          
+          <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have an expired subscription. <a href="<?php echo base_url().'dashboard/subscription_item/'.$subscription->id; ?>"> View details</a>
         </div>
         <?php
       }
@@ -56,7 +56,7 @@
       {
         ?>
         <div class="alert alert-info">
-          <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have expired subscriptions.          
+          <img src="<?php echo base_url(); ?>assets/img/icon_images/notice.png" class="notice-icon" ><b>Notice:</b> You have expired subscriptions. <a href="<?php echo base_url().'dashboard/subscriptions/'; ?>"> View subscriptions</a>
         </div>
         <?php
       }

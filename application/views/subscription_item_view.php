@@ -100,22 +100,22 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="shop-item-details">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    User limit:
-                                </div>
-                                <div class="col-md-9">
-                                    <b><?php echo $subscription->user_limit; ?></b>
-                                </div>
-                            </div>
-                        </div>
                         
                         <?php
                             if($subscription->user_limit > 1 && $subscription->manager_email == $this->session->email)
                             {
                                 ?>
+                                <div class="shop-item-details">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            User limit:
+                                        </div>
+                                        <div class="col-md-9">
+                                            <b><?php echo $subscription->user_limit; ?></b>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="shop-item-details">
                                     <div class="row">
                                         <div class="col-md-3">
