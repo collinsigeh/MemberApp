@@ -384,7 +384,7 @@ class Subscriptions extends CI_Controller {
 		}
         
 		$item_detail = $product_detail[0];
-        // I AM HERE
+        
 		$db_data = array(
             'type' => 'Renewal',
             'ms_id_to_renew' => $subscription->id,

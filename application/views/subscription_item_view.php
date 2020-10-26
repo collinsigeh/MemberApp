@@ -60,8 +60,11 @@
                                             <?php
                                                 if($now >= $subscription->subscription_end && $subscription->manager_email == $this->session->email)
                                                 {
-                                                    if(!empty($renewal_order))
+                                                    if(!empty($renewal_request))
                                                     {
+                                                        ?>
+                                                        <small><div class="alert alert-info">Your <a href="<?php echo base_url().'dashboard/order_item/'.$order->id; ?>"><b>renewal request</b></a> is unpaid.</div></small>
+                                                        <?php
                                                         $this->load->view('inc/payment_buttons/paystack');
                                                     }
                                                     else

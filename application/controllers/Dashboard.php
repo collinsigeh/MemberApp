@@ -843,6 +843,13 @@ class Dashboard extends CI_Controller {
 				array_push($subscription_users, $result);
 			}
 		}
+
+		// check for unpaid renewal request
+		$db_check = array(
+			'ms_id_to_renew ' => $subscription->id,
+			'status'		  => 'Unpaid'
+		);
+		$renewal_request = $this->order_model->get_where($db_check);
         
 		$data = array(
 			'page_title'		 => 'Subscription item - '.$subscription->product_name,
@@ -855,6 +862,11 @@ class Dashboard extends CI_Controller {
         if(isset($product_detail[0]))
         {
             $data['item_detail'] = $product_detail[0];
+		}
+		if(isset($renewal_request[0]))
+		{
+			$data['renewal_request'] = $renewal_request;
+			$data['order'] = $renewal_request[0];
 		}
 
 		$this->load->view('templates/header', $data);
