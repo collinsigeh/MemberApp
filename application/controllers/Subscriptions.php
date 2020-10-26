@@ -336,6 +336,11 @@ class Subscriptions extends CI_Controller {
             $this->session->action_error_message = 'Invalid item selection';
             redirect(base_url().'dashboard/subscriptions/');
         }
+        if($subscription->manager_email !=  $this->session->email)
+        {
+            $this->session->action_error_message = 'You are NOT the subscription manager.';
+            redirect(base_url().'dashboard/subscriptions/'.$id);
+        }
         if($subscription->cancel ==  1)
         {
             $this->session->action_error_message = 'The subscription has been canceled';
@@ -367,7 +372,7 @@ class Subscriptions extends CI_Controller {
 		}
 		$item = $product[0];
 		$order_description = 'Renewal of '.$subscription->product_name.' with sub. code: '.$subscription->subscription_code;
-        // I AM HERE
+        
         $db_check = array(
             'product_id' => $item->id
         );
@@ -379,8 +384,10 @@ class Subscriptions extends CI_Controller {
 		}
         
 		$item_detail = $product_detail[0];
-
+        // I AM HERE
 		$db_data = array(
+            'type' => 'Renewal',
+            'ms_id_to_renew' => $subscription->id,
 			'product_id' => $item->id,
 			'description' => $order_description,
 			'currency_symbol' => $item->currency_symbol,
@@ -395,7 +402,7 @@ class Subscriptions extends CI_Controller {
 		if(empty($result))
 		{
 			$this->session->action_error_message = '<p>An unexpected error has occured!</p>Please try again.';
-			redirect(base_url().'dashboard/shop/');
+            redirect(base_url().'dashboard/subscriptions/'.$id);
 		}
 		$order = $result[0];
 
