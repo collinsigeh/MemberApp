@@ -143,6 +143,7 @@ class Verifypaystack_transaction extends CI_Controller {
                                                     'subscription_code' => $ms_to_renew->subscription_code
                                                 );
                                                 $db_data = array(
+                                                    'product_name' => $product->name,
                                                     'user_limit' => $product_detail[0]->user_limit,
                                                     'subscription_start' => $subscription_start,
                                                     'subscription_end' => $subscription_start + ($product_detail[0]->duration * 24 * 60 * 60),

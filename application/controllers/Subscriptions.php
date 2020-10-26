@@ -309,4 +309,99 @@ class Subscriptions extends CI_Controller {
         $this->session->action_success_message = $user->firstname.' '.$user->lastname.' has been removed';
         redirect(base_url().'dashboard/subscription_item/'.$master_subscription->id);
     }
+
+    /*
+    * confirms availability and suitability of items before sumbiting the order
+    */
+    public function renew_subscription($id=0)
+    {
+		        
+        if($this->session->user_type !== 'Member')
+        {
+            redirect(base_url().'dashboard/');
+        }
+		
+        // check for suspended member account
+        $user_current_details = $this->user_model->find($this->session->user_id);
+        if($user_current_details->status == 'Suspended')
+        {
+            $this->session->status = 'Suspended';
+            redirect(base_url().'dashboard/');
+        }
+        // end check for suspended member account
+
+        $subscription = $this->member_subscription_model->find($id);
+        if(empty($subscription))
+        {
+            $this->session->action_error_message = 'Invalid item selection';
+            redirect(base_url().'dashboard/subscriptions/');
+        }
+        if($subscription->cancel ==  1)
+        {
+            $this->session->action_error_message = 'The subscription has been canceled';
+            redirect(base_url().'dashboard/subscriptions/'.$id);
+        }
+		
+		$db_check = array(
+			'id'	 => $subscription->product_id,
+			'status' => 'Available'
+		);
+		if($this->session->membership == 'Individual')
+		{
+			$db_check['for_individual'] = 1;
+		}
+		elseif($this->session->membership == 'Corporate')
+		{
+			$db_check['for_corporate'] = 1;
+		}
+		elseif($this->session->membership == 'Student')
+		{
+			$db_check['for_student'] = 1;
+		}
+        
+        $product = $this->product_model->get_where($db_check);
+        if(empty($product))
+        {
+            $this->session->action_error_message = 'Invalid item - product modified.';
+            redirect(base_url().'dashboard/subscriptions/'.$id);
+		}
+		$item = $product[0];
+		$order_description = $item->name;
+
+        $db_check = array(
+            'product_id' => $item->id
+        );
+
+        if($item->type == 'Subscription')
+        {
+			$product_detail = $this->subscription_product_model->get_where($db_check);
+        }
+        elseif($item->type == 'Non-subscription')
+        {
+            $product_detail = $this->non_subscription_product_model->get_where($db_check);
+		}
+		$item_detail = $product_detail[0];
+
+		$db_data = array(
+			'product_id' => $item->id,
+			'description' => $order_description,
+			'currency_symbol' => $item->currency_symbol,
+			'amount' => $item->amount,
+			'status' => 'Unpaid',
+			'user_id' => $this->session->user_id,
+			'created_at' => time()
+		);
+		$this->order_model->save($db_data);
+
+		$result = $this->order_model->get_where($db_data);
+		if(empty($result))
+		{
+			$this->session->action_error_message = '<p>An unexpected error has occured!</p>Please try again.';
+			redirect(base_url().'dashboard/shop/');
+		}
+		$order = $result[0];
+
+		$this->session->action_success_message = 'Order saved. Make payment!';
+		redirect(base_url().'dashboard/order_item/'.$order->id);
+	}
 }
