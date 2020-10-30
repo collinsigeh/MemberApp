@@ -314,6 +314,9 @@ a.btn:hover{
 .userguide .section-item{
     padding: 10px;
 }
+.userguide .section-item .sub-heading{
+    padding: 30px 0;
+}
 .userguide .section-item .answer{
     background-color: #f7f7f7;
     border: 1px solid #f7f7f7;
@@ -322,4 +325,9 @@ a.btn:hover{
 }
 .userguide .section-item .answer i{
     color: #888888;
+}
+.userguide .section-item .answer img{
+    max-width: 100%;
+    margin-bottom: 30px;
+    border: 1px solid #666666;
 }

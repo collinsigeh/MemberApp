@@ -23,11 +23,16 @@
             </div>
 
             <div class="section-item">
-                <h4>How to verify / confirm new member account</h4>
+                <h4 class="sub-heading">How to verify / confirm new member account</h4>
                 <div class="answer">
                     <p>Ensure you are logged in (<i>of cause you have to be an admin</i>).</p>
                     <p>Click on the <b>User Accounts</b> link.</p>
-                    <img src="" alt="">
+                    <img src="<?php echo base_url().'assets/img/user_guide/image_1.png'; ?>" alt="photo_ref">
+                    <p>Look for and click on the user to verify/confirm.</p>
+                    <img src="<?php echo base_url().'assets/img/user_guide/image_2.png'; ?>" alt="photo_ref">
+                    <p>Scroll to the <b>Account setting</b> section, select the <b>Account status</b> of choice.</p>
+                    <img src="<?php echo base_url().'assets/img/user_guide/image_3.png'; ?>" alt="photo_ref">
+                    <p>Scroll down and click on the <b>Save</b> button.</p>
                 </div>
             </div>
           </div>
