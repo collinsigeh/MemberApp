@@ -17,13 +17,13 @@
           <div class="userguide">
             <div class="section-links">
                 <ul>
-                    <li><a href="#">How to verify / confirm new member account</a></li>
+                    <li><a href="#how-to-verify-approve-new-member-account">How to verify / approve new member account</a></li>
                     <li><a href="#">How to grant subscription to a member</a></li>
                 </ul>
             </div>
 
             <div class="section-item">
-                <h4 class="sub-heading">How to verify / confirm new member account</h4>
+                <h4 class="sub-heading" id="how-to-verify-approve-new-member-account">How to verify / approve new member account</h4>
                 <div class="answer">
                     <p>Ensure you are logged in (<i>of cause you have to be an admin</i>).</p>
                     <p>Click on the <b>User Accounts</b> link.</p>
