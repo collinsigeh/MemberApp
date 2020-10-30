@@ -44,17 +44,24 @@
                                 </thead>';
                               $i = $start;
                               foreach ($subscriptions as $subscription) {
-                                if($now < $subscription->subscription_end && $now > $subscription->subscription_start)
+                                if($subscription->cancel == 1)
                                 {
-                                    $status = '<span class="badge badge-pill badge-success">Active</span>';
-                                }
-                                elseif($now >= $subscription->subscription_end)
-                                {
-                                    $status = '<span class="badge badge-pill badge-danger">Expired</span>';
+                                  $status = '<span class="badge badge-pill badge-light">Cancelled</span>';
                                 }
                                 else
                                 {
-                                    $status = '<span class="badge badge-pill badge-info">Invalid</span>';
+                                  if($now < $subscription->subscription_end && $now > $subscription->subscription_start)
+                                  {
+                                      $status = '<span class="badge badge-pill badge-success">Active</span>';
+                                  }
+                                  elseif($now >= $subscription->subscription_end)
+                                  {
+                                      $status = '<span class="badge badge-pill badge-danger">Expired</span>';
+                                  }
+                                  else
+                                  {
+                                      $status = '<span class="badge badge-pill badge-info">Invalid</span>';
+                                  }
                                 }
                                 echo '<tr>
                                       <td><b>'.$i.'</b></td>

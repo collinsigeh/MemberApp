@@ -39,6 +39,12 @@
                                 </div>
                                 <div class="col-md-9">
                                     <?php
+                                        if($subscription->cancel == 1)
+                                        {
+                                        $status = '<span class="badge badge-pill badge-light">Cancelled</span>';
+                                        }
+                                        else
+                                        {
                                         if($now < $subscription->subscription_end && $now > $subscription->subscription_start)
                                         {
                                             $status = '<span class="badge badge-pill badge-success">Active</span>';
@@ -51,29 +57,37 @@
                                         {
                                             $status = '<span class="badge badge-pill badge-info">Invalid</span>';
                                         }
+                                        }
                                     ?>
                                     <div class="row">
                                         <div class="col-3">
                                             <?php echo $status; ?>
                                         </div>
-                                        <div class="col-9">
-                                            <?php
-                                                if($now >= $subscription->subscription_end && $subscription->manager_email == $this->session->email)
-                                                {
-                                                    if(!empty($renewal_request))
-                                                    {
-                                                        ?>
-                                                        <small><div class="alert alert-info">Your <a href="<?php echo base_url().'dashboard/order_item/'.$order->id; ?>"><b>renewal request</b></a> is unpaid.</div></small>
-                                                        <?php
-                                                        $this->load->view('inc/payment_buttons/paystack');
-                                                    }
-                                                    else
-                                                    {
-                                                        echo '<a href="#" data-toggle="modal" data-target="#renewSubscriptionModal" class="btn btn-sm btn-outline-primary">Renew subscription</a>';
-                                                    }
-                                                }
-                                            ?>
-                                        </div>
+                                        <?php
+                                            if($subscription->cancel != 1)
+                                            {
+                                                ?>
+                                                <div class="col-9">
+                                                    <?php
+                                                        if($now >= $subscription->subscription_end && $subscription->manager_email == $this->session->email)
+                                                        {
+                                                            if(!empty($renewal_request))
+                                                            {
+                                                                ?>
+                                                                <small><div class="alert alert-info">Your <a href="<?php echo base_url().'dashboard/order_item/'.$order->id; ?>"><b>renewal request</b></a> is unpaid.</div></small>
+                                                                <?php
+                                                                $this->load->view('inc/payment_buttons/paystack');
+                                                            }
+                                                            else
+                                                            {
+                                                                echo '<a href="#" data-toggle="modal" data-target="#renewSubscriptionModal" class="btn btn-sm btn-outline-primary">Renew subscription</a>';
+                                                            }
+                                                        }
+                                                    ?>
+                                                </div>
+                                                <?php
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +158,7 @@
                                                                         <td><?php echo $user->email; ?></td>
                                                                         <td class="text-right">
                                                                             <?php
-                                                                                if($user->email != $subscription->manager_email)
+                                                                                if($user->email != $subscription->manager_email && $subscription->cancel != 1)
                                                                                 {
                                                                                     echo '<a href="#" data-toggle="modal" data-target="#deleteSubscriptionUser'.$user->id.'Modal"><img src="'.base_url().'assets/img/icon_images/cancel_icon.png" alt="delete" class="cancel-icon"></a>';
                                                                                 }
@@ -159,7 +173,7 @@
                                                     </table>
                                                 </div>
                                                 <?php
-                                                    if($sn < $subscription->user_limit)
+                                                    if($sn < $subscription->user_limit && $subscription->cancel != 1)
                                                     {
                                                         ?>
                                                         <div style="padding-top: 15px;"><a href="#" data-toggle="modal" data-target="#addSubscriptionUserModal" class="btn btn-sm btn-primary">Add subscription user</a></div>
@@ -182,7 +196,7 @@
           </div>
           
           <?php
-          if($subscription->manager_email == $this->session->email)
+          if($subscription->manager_email == $this->session->email && $subscription->cancel != 1)
           {
             ?>
             <div class="related-action">
