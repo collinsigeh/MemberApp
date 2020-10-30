@@ -305,3 +305,21 @@ a.btn:hover{
 .cancel-icon{
     width: 18px;
 }
+.userguide{
+    padding: 20px 0;
+}
+.userguide .section-links li{
+    padding: 10px 0;
+}
+.userguide .section-item{
+    padding: 10px;
+}
+.userguide .section-item .answer{
+    background-color: #f7f7f7;
+    border: 1px solid #f7f7f7;
+    border-radius: 5px;
+    padding: 10px;
+}
+.userguide .section-item .answer i{
+    color: #888888;
+}

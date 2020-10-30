@@ -13,17 +13,22 @@
             </ol>
           </nav>
           </div>
-          
-          <div class="dashboard-section">
-            <div class="section-heading">
-              List of members
+
+          <div class="userguide">
+            <div class="section-links">
+                <ul>
+                    <li><a href="#">How to verify / confirm new member account</a></li>
+                    <li><a href="#">How to grant subscription to a member</a></li>
+                </ul>
             </div>
-            <div class="section-body">
-              <div class="section-item">
-                <div class="row">
-                tips here
+
+            <div class="section-item">
+                <h4>How to verify / confirm new member account</h4>
+                <div class="answer">
+                    <p>Ensure you are logged in (<i>of cause you have to be an admin</i>).</p>
+                    <p>Click on the <b>User Accounts</b> link.</p>
+                    <img src="" alt="">
                 </div>
-              </div>
             </div>
           </div>
           
