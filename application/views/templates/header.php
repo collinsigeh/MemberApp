@@ -21,6 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <body <?php if($this->session->userlogged_in !== '*#loggedin@Yes'){ echo 'class="bg-light"'; } ?>>
 
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
   <!-- Navigation -->
   <?php
     if($this->session->userlogged_in == '*#loggedin@Yes')
