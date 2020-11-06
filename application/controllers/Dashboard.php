@@ -743,12 +743,10 @@ class Dashboard extends CI_Controller {
         {
             $this->session->action_error_message = 'Invalid resource selection.';
             redirect(base_url().'dashboard');
-        }
-
-		$this->form_validation->set_rules('user_type', 'User type', 'trim|required');
+		}
+		
 		$this->form_validation->set_rules('membership', 'Membership', 'trim|required');
 		$this->form_validation->set_rules('use_status', 'Member status', 'trim|required');
-		$this->form_validation->set_rules('status', 'Account status', 'trim|required');
 		$this->form_validation->set_rules('title', 'Title', 'trim|required');
 		$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
 		$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
@@ -759,7 +757,7 @@ class Dashboard extends CI_Controller {
         if($this->form_validation->run() == FALSE)
         {
             $this->session->action_error_message = validation_errors();
-            redirect(base_url().'users/account/'.$id);
+            redirect(base_url().'dashboard/profile/');
         }
 
         $email = strtolower($this->input->post('email'));
@@ -767,27 +765,19 @@ class Dashboard extends CI_Controller {
         //check if email is taken by others
         $db_check = array(
             'email' => $email,
-            'id !=' => $id
+            'id !=' => $this->session->user_id
         );
         if(count($this->user_model->get_where($db_check)) > 0)
         {
             $this->session->action_error_message = 'The email - <i>'.$email.'</i> - is in use.';
-            redirect(base_url().'users/account/'.$id);
-        }
-        
-        if($this->session->user_id == $id && $this->input->post('status') == 'Suspended')
-        {
-            $this->session->action_error_message = 'Attempt to suspend own account.';
-            redirect(base_url().'users/account/'.$id);
+            redirect(base_url().'dashboard/profile/');
         }
 
         $now = time();
 
         $db_data = array(
-            'user_type'     => $this->input->post('user_type'),
             'membership'    => $this->input->post('membership'),
             'email'         => $email,
-            'status'        => $this->input->post('status'),
             'title'         => $this->input->post('title'),
             'firstname'     => $this->input->post('firstname'),
             'lastname'      => $this->input->post('lastname'),
@@ -796,7 +786,7 @@ class Dashboard extends CI_Controller {
             'use_status'    => $this->input->post('use_status'),
             'updated_at'    => $now
         );
-        $this->user_model->update($db_data, $id);
+        $this->user_model->update($db_data, $this->session->user_id);
 
         // logic for student info
         $student_info_to_modify = 0;
@@ -866,7 +856,7 @@ class Dashboard extends CI_Controller {
         if($professional_info_to_modify > 0)
         {
             $db_check = array(
-                'user_id' => $id
+                'user_id' => $this->session->user_id
             );
             if(count($this->professional_info_model->get_where($db_check)) > 0)
             {
@@ -874,7 +864,7 @@ class Dashboard extends CI_Controller {
             }
             else
             {
-                $professional_data['user_id'] = $id;
+                $professional_data['user_id'] = $this->session->user_id;
                 $this->professional_info_model->save($professional_data);
             }
         }
@@ -920,14 +910,25 @@ class Dashboard extends CI_Controller {
                 $authorization_data['user_id'] = $id;
                 $this->authorization_detail_model->save($authorization_data);
             }
-        }
+		}
+        
+		$user = $this->user_model->find($this->session->user_id);
+
+		$this->session->user_id = $user->id;
+		$this->session->user_type = $user->user_type;
+		$this->session->membership = $user->membership;
+		$this->session->email = $user->email;
+		$this->session->status = $user->status;
+		$this->session->title = $user->title;
+		$this->session->firstname = $user->firstname;
+		$this->session->lastname = $user->lastname;
+		$this->session->phone = $user->phone;
+		$this->session->gender = $user->gender;
+		$this->session->use_status = $user->use_status;
+		$this->session->photo = $user->photo;
 
         $this->session->action_success_message = 'Update saved!';
-        if($id == $this->session->user_id)
-        {
-            redirect(base_url().'dashboard/logout/');
-        }
-        redirect(base_url().'users/account/'.$id);
+        redirect(base_url().'dashboard/profile/');
     }
 
     /*
