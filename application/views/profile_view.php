@@ -18,7 +18,7 @@
                         $this->load->view('inc/action_message');
                     ?>
 
-                    <?php echo form_open('#'); ?>
+                    <?php echo form_open(base_url().'users/update_profile/'.$user->id); ?>
 
                         <div class="dashboard-section">
                             <div class="section-heading">
@@ -496,13 +496,10 @@
                         <?php
                         }
                         ?>
-                        <!-- TEMPORARILY REMOVED
 
                         <div class="update-button">
                             <input class="custom-outline-button" type="submit" name="submit" value="Save" />
                         </div>
-
-                        END TEMPORARILY REMOVED -->
 
                     <?php echo form_close(); ?>               
                 
