@@ -673,7 +673,8 @@ class Dashboard extends CI_Controller {
 
         $now = time();
         $db_check = array(
-            'user_id'=> $this->session->user_id
+			'user_id'=> $this->session->user_id,
+			'cancel != ' => '1'
         );
         $subscriptions = $this->member_subscription_model->get_where($db_check);
         $no_subscriptions = count($subscriptions);
