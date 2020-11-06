@@ -35,7 +35,7 @@
 
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <select class="form-control" name="title" id="title" required>
+                                <select class="form-control" name="title" id="title" disabled>
                                     <option value="Mr." <?php if($user->title == 'Mr.'){ echo 'selected'; } ?>>Mr.</option>
                                     <option value="Mrs." <?php if($user->title == 'Mrs.'){ echo 'selected'; } ?>>Mrs.</option>
                                     <option value="Miss" <?php if($user->title == 'Miss'){ echo 'selected'; } ?>>Miss</option>
@@ -49,13 +49,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="firstname">First Name</label>
-                                        <input class="form-control" type="text" name="firstname" id="firstname" value="<?php echo $user->firstname; ?>" required />
+                                        <input class="form-control" type="text" name="firstname" id="firstname" value="<?php echo $user->firstname; ?>" disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="lastname">Last Name</label>
-                                        <input class="form-control" type="text" name="lastname" id="lastname" value="<?php echo $user->lastname; ?>" required />
+                                        <input class="form-control" type="text" name="lastname" id="lastname" value="<?php echo $user->lastname; ?>" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -64,20 +64,20 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input class="form-control" type="email" name="email" id="email" value="<?php echo $user->email; ?>" required />
+                                        <input class="form-control" type="email" name="email" id="email" value="<?php echo $user->email; ?>" disabled />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="phone">Phone</label>
-                                        <input class="form-control" type="tel" name="phone" id="phone" value="<?php echo $user->phone; ?>" required />
+                                        <input class="form-control" type="tel" name="phone" id="phone" value="<?php echo $user->phone; ?>" disabled />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="gender">Select your gender</label>
-                                <select class="form-control" name="gender" id="gender" required>
+                                <select class="form-control" name="gender" id="gender" disabled>
                                     <option value="Male" <?php if($user->gender == 'Male'){ echo 'selected'; } ?>>Male</option>
                                     <option value="Female" <?php if($user->gender == 'Female'){ echo 'selected'; } ?>>Female</option>
                                 </select>
@@ -91,14 +91,13 @@
                                         {
                                             ?>
                                             <small><div class="alert alert-info">NOT uploaded!</div></small>
-                                            <a href="#" data-toggle="modal" data-target="#updateIDModal" class="btn btn-sm btn-primary">Upload ID</a>
                                             <?php
                                         }
                                         else
                                         {
                                             ?>
                                             <a href="<?php echo base_url().'assets/img/profile_images/'.$user->valid_id; ?>" target="_blank"><img src="<?php echo base_url().'assets/img/valid_ids/'.$user->valid_id; ?>" alt="valid ID"></a>
-                                            <a href="#" data-toggle="modal" data-target="#updateIDModal" class="btn btn-sm btn-primary">Update ID</a>
+                                            
                                             <?php
                                         }
                                     ?>
@@ -165,7 +164,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <select class="form-control" name="membership" id="membership" required>
+                                        <select class="form-control" name="membership" id="membership" disabled>
                                             <option value="Individual" <?php if($user->membership == 'Individual'){ echo 'selected'; } ?>>Individual</option>
                                             <option value="Corporate" <?php if($user->membership == 'Corporate'){ echo 'selected'; } ?>>Corporate</option>
                                             <option value="Student" <?php if($user->membership == 'Student'){ echo 'selected'; } ?>>Student</option>
@@ -180,7 +179,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <select class="form-control" name="use_status" id="use_status" required>
+                                        <select class="form-control" name="use_status" id="use_status" disabled>
                                             <option value="">-- Select an option --</option>
                                             <option value="Regulator" <?php if($user->use_status == 'Regulator'){ echo 'selected'; } ?>>Regulator</option>
                                             <option value="Operator" <?php if($user->use_status == 'Operator'){ echo 'selected'; } ?>>Operator</option>
@@ -233,7 +232,7 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="institution" id="institution" value="<?php if(isset($student_info->institution)){ echo $student_info->institution; } ?>" />
+                                            <input class="form-control" type="text" name="institution" id="institution" value="<?php if(isset($student_info->institution)){ echo $student_info->institution; } ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +243,7 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="course_of_study" id="course_of_study" value="<?php if(isset($student_info->course_of_study)){ echo $student_info->course_of_study; } ?>" />
+                                            <input class="form-control" type="text" name="course_of_study" id="course_of_study" value="<?php if(isset($student_info->course_of_study)){ echo $student_info->course_of_study; } ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +254,7 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <select class="form-control" name="degree" id="degree">
+                                            <select class="form-control" name="degree" id="degree" disabled>
                                                 <option value="">-- Select appropriate degree --</option>
                                                 <option value="B.Sc" <?php if(isset($student_info->degree) && $student_info->degree == 'B.Sc'){ echo 'selected'; } ?>>B.Sc</option>
                                                 <option value="Diploma" <?php if(isset($student_info->degree) && $student_info->degree == 'Diploma'){ echo 'selected'; } ?>>Diploma</option>
@@ -275,7 +274,7 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="graduation_year" id="graduation_year" value="<?php if(isset($student_info->graduation_year)){ echo $student_info->graduation_year; } ?>" />
+                                            <input class="form-control" type="text" name="graduation_year" id="graduation_year" value="<?php if(isset($student_info->graduation_year)){ echo $student_info->graduation_year; } ?>" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -305,7 +304,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                            <input class="form-control" type="text" name="organisation" id="organisation" value="<?php if(isset($professional_info->organisation)){ echo $professional_info->organisation; } ?>" />
+                                            <input class="form-control" type="text" name="organisation" id="organisation" value="<?php if(isset($professional_info->organisation)){ echo $professional_info->organisation; } ?>" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -316,7 +315,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                            <select class="form-control" name="industry" id="industry">
+                                            <select class="form-control" name="industry" id="industry" disabled>
                                                 <option value="">-- Select an industry --</option>
                                                 <option value="Agriculture" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Agriculture'){ echo 'selected'; } ?>>Agriculture</option>
                                                 <option value="Construction & Real Estate" <?php if(isset($professional_info->industry) && $professional_info->industry == 'Construction & Real Estate'){ echo 'selected'; } ?>>Construction & Real Estate</option>
@@ -341,7 +340,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                            <textarea class="form-control" name="organisation_description" id="organisation_description"><?php if(isset($professional_info->organisation_description)){ echo $professional_info->organisation_description; } ?></textarea>
+                                            <textarea class="form-control" name="organisation_description" id="organisation_description" disabled><?php if(isset($professional_info->organisation_description)){ echo $professional_info->organisation_description; } ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -352,7 +351,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                            <input class="form-control" type="text" name="office_address" id="office_address" value="<?php if(isset($professional_info->office_address)){ echo $professional_info->office_address; } ?>" />
+                                            <input class="form-control" type="text" name="office_address" id="office_address" value="<?php if(isset($professional_info->office_address)){ echo $professional_info->office_address; } ?>" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -363,7 +362,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                            <input class="form-control" type="text" name="designation" id="designation" value="<?php if(isset($professional_info->designation)){ echo $professional_info->designation; } ?>" />
+                                            <input class="form-control" type="text" name="designation" id="designation" value="<?php if(isset($professional_info->designation)){ echo $professional_info->designation; } ?>" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +392,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                            <input class="form-control" type="text" name="ncaa_roc_number" id="ncaa_roc_number" value="<?php if(isset($authorization_detail->ncaa_roc_number)){ echo $authorization_detail->ncaa_roc_number; } ?>" />
+                                            <input class="form-control" type="text" name="ncaa_roc_number" id="ncaa_roc_number" value="<?php if(isset($authorization_detail->ncaa_roc_number)){ echo $authorization_detail->ncaa_roc_number; } ?>" disabled />
                                             <span class="small text-muted">*** If not available, state your status ***</span>
                                     </div>
                                 </div>
@@ -406,10 +405,10 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                             <div class="checkbox">
-                                                <input type="checkbox" name="vlos" id="vlos" value="1" <?php if(isset($authorization_detail->vlos_class_of_operation) && $authorization_detail->vlos_class_of_operation == 1){ echo 'checked'; } ?>> <label for="vlos">VLOS (Visual Line of Sight)</label>
+                                                <input type="checkbox" name="vlos" id="vlos" value="1" <?php if(isset($authorization_detail->vlos_class_of_operation) && $authorization_detail->vlos_class_of_operation == 1){ echo 'checked'; } ?> disabled> <label for="vlos">VLOS (Visual Line of Sight)</label>
                                             </div>
                                             <div class="checkbox">
-                                                <input type="checkbox" name="bvlos" id="bvlos" value="1" <?php if(isset($authorization_detail->bvlos_class_of_operation) && $authorization_detail->bvlos_class_of_operation == 1){ echo 'checked'; } ?>> <label for="bvlos">BVLOS (Beyond Visual Line of Sight)</label>
+                                                <input type="checkbox" name="bvlos" id="bvlos" value="1" <?php if(isset($authorization_detail->bvlos_class_of_operation) && $authorization_detail->bvlos_class_of_operation == 1){ echo 'checked'; } ?> disabled> <label for="bvlos">BVLOS (Beyond Visual Line of Sight)</label>
                                             </div>
                                     </div>
                                 </div>
@@ -422,13 +421,13 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                             <div class="radio">
-                                                <input type="radio" name="approved_operation" id="commercial" value="Commercial" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Commercial'){ echo 'checked'; } ?> required /> <label for="commercial">Commercial</label>
+                                                <input type="radio" name="approved_operation" id="commercial" value="Commercial" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Commercial'){ echo 'checked'; } ?>  disabled /> <label for="commercial">Commercial</label>
                                             </div>
                                             <div class="radio">
-                                                <input type="radio" name="approved_operation" id="government" value="Government" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Government'){ echo 'checked'; } ?> required /> <label for="government">Government</label>
+                                                <input type="radio" name="approved_operation" id="government" value="Government" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Government'){ echo 'checked'; } ?> disabled /> <label for="government">Government</label>
                                             </div>
                                             <div class="radio">
-                                                <input type="radio" name="approved_operation" id="corporate" value="Corporate" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Corporate'){ echo 'checked'; } ?> required /> <label for="corporate">Corporate</label>
+                                                <input type="radio" name="approved_operation" id="corporate" value="Corporate" <?php if(isset($authorization_detail->approved_operation) && $authorization_detail->approved_operation == 'Corporate'){ echo 'checked'; } ?> disabled /> <label for="corporate">Corporate</label>
                                             </div>
                                     </div>
                                 </div>
@@ -459,7 +458,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                            <input class="form-control" type="text" name="home_address" id="home_address" value="<?php if(isset($authorization_detail->home_address)){ echo $authorization_detail->home_address; } ?>" />
+                                            <input class="form-control" type="text" name="home_address" id="home_address" value="<?php if(isset($authorization_detail->home_address)){ echo $authorization_detail->home_address; } ?>" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -472,7 +471,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                            <input class="form-control" type="text" name="ncaa_roc_number" id="ncaa_roc_number" value="<?php // if(isset($authorization_detail->ncaa_roc_number)){ echo $authorization_detail->ncaa_roc_number; } ?>" />
+                                            <input class="form-control" type="text" name="ncaa_roc_number" id="ncaa_roc_number" value="<?php // if(isset($authorization_detail->ncaa_roc_number)){ echo $authorization_detail->ncaa_roc_number; } ?>" disabled />
                                             <span class="small text-muted">*** If not available, state your status ***</span>
                                     </div>
                                 </div>
